@@ -12,10 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('pages.back.home');
+    return redirect('back/');
 });
 
+Route::get('back/', 'HomeController@index')->name('home');
 
-Route::resource('/product','ProductsController');
-Route::resource('/contact','ContactsController');
-Route::resource('/language','LanguagesController');
+Route::resource('back/product','ProductsController');
+Route::resource('back/contact','ContactsController');
+Route::resource('back/language','LanguagesController');
+
+Auth::routes('back');

@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RentingPeriod extends Model
+class DivisionLicense extends Model
 {
-    
     public function products(){
-        return $this->belongsToMany('App\Product', 'products');
+        return $this->belongsToMany('App\Model\Product', 'products');
     }
 }

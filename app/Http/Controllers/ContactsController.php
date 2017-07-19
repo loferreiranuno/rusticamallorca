@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use App\Contact;
 
 class ContactsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +46,9 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contact = new Contact(); 
+        $contact->save();
+        return View::make('pages.back.contactEdit')->with('contact', $contact);
     }
 
     /**

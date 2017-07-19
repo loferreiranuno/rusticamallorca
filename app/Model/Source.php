@@ -9,6 +9,6 @@ class Source extends Model
     protected $table = 'contact_sources';
 
     public function contacts(){
-        $this->belongsToMany('App\Contact');
+        $this->belongsToMany('App\Model\Contact');
     }
 }

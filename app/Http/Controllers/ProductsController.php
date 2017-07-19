@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\View;
 
 class ProductsController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,8 +46,10 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::create($request->all());
+        $product = Product::create();
         $product->save(); 
+
+        return view('pages.back.productList');
     }
 
     /**
