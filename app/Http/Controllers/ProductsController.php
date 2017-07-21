@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
 use Illuminate\Support\Facades\View;
+
+use App\Http\Requests\ProductRequest;
+use App\Product;
 
 class ProductsController extends Controller
 {
@@ -44,9 +46,9 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $product = Product::create();
+        $product = Product::create($request->all());
         $product->save(); 
 
         return view('pages.back.productList');

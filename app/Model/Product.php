@@ -9,7 +9,8 @@ class Product extends Model
     protected $table = 'products';
  
     protected $fillable = [
-           
+        'year',
+        'building_expenses',         
     ];
 
     public function status(){
