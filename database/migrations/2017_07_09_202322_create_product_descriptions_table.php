@@ -15,16 +15,15 @@ class CreateProductDescriptionsTable extends Migration
     { 
         Schema::create('product_descriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned()->index();
-             
-            $table->string('locale')->index();
-            $table->text('description');
-            
-            $table->unique(['product_id', 'locale']);
+            $table->unsignedInteger('product_id')->index();             
+            $table->unsignedInteger('language_id')->index();
+            $table->text('description');            
+            $table->unique(['product_id', 'language_id']);
         });
 
         Schema::table('product_descriptions', function (Blueprint $table) {
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
         });
     }
 

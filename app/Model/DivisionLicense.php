@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class DivisionLicense extends Model
 {
     public function products(){
-        return $this->belongsToMany('App\Model\Product', 'products');
+        return $this->belongsToMany('App\Product', 'products');
     }
 }

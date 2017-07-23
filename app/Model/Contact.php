@@ -11,6 +11,6 @@ class Contact extends Model
     ];
  
     public function kind(){
-        return $this->belongsTo('App\Model\ContactKind');
+        return $this->belongsTo('App\ContactKind', 'id', 'kind_id');
     }
 }

@@ -17,10 +17,10 @@ return array(
     | Google API Key
     |--------------------------------------------------------------------------
     |
-    | A Google API key to link Googlmapper to Google's API.
-    |
+    | A Google API key to link Googlmapper to Google's API. mail: rusticamallorca.com@gmail.com
+    |   
     */
-    'key' => env('GOOGLE_API_KEY', 'AIzaSyAtqWsq5Ai3GYv6dSa6311tZiYKlbYT4mw'),
+    'key' => env('GOOGLE_API_KEY', 'AIzaSyByQXjRsfRYWr9dD5zwDfWvrQl_wrOFGiE'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ return array(
     | The region Google API should use required in ISO 3166-1 code format.
     |
     */
-    'region' => 'GB',
+    'region' => 'ES',
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ return array(
     | The Language Google API should use required in ISO 639-1 code format.
     |
     */
-    'language' => 'en-gb',
+    'language' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ return array(
     | Perform the loading and rendering of Googlmapper map asynchronously.
     |
     */
-    'async' => false,
+    'async' => true,
 
     /*
     |--------------------------------------------------------------------------

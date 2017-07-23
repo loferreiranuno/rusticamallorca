@@ -19,12 +19,8 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedInteger('recruiter_id')->nullable();
             $table->unsignedInteger('manager_id')->nullable();
-
             $table->unsignedInteger('owner_id')->nullable();                        
-            $table->unsignedInteger('partner_id')->nullable();
-
-            
-
+            $table->unsignedInteger('partner_id')->nullable();          
 
             $table->unsignedInteger('product_status_id')->nullable();
             $table->unsignedInteger('product_kind_id')->nullable(); 

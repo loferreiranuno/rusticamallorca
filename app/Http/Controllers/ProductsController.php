@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\View;
 
 use App\Http\Requests\ProductRequest;
 use App\Product;
-
+use App\ProductKindType;
+use App\Language;
+use App\ProductDescription;
+ 
 class ProductsController extends Controller
 {
      /**
@@ -17,7 +20,7 @@ class ProductsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth');   
     }
 
     /**
@@ -27,7 +30,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('pages.back.productList');
+        $products = Product::all();
+        return view('pages.back.productList', compact('products'));
     }
  
     /**
@@ -36,7 +40,7 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    { 
+    {     
         return View::make('pages.back.productEdit'); 
     }
  
@@ -73,7 +77,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     { 
-        $product = Contact::find($id); 
+        $product = Product::find($id); 
         return View::make('pages.back.productEdit')->with('product', $product); 
     }
 
@@ -84,9 +88,33 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //
+        
+        $product = Product::find($id); 
+        
+        $product->update($request->all()); 
+        
+        foreach(Language::all() as $lang){            
+            $iDescription = $request->get('descriptions'.$lang->id);
+            
+            $translation = $product->descriptions->where('language_id', $lang->id)->first();
+
+            if($translation != null){
+                $translation->description = $iDescription;
+                $translation->save();
+            }else{
+                
+                $pDescription = new ProductDescription([
+                    'language_id'=> $lang->id,
+                    'description'=> $iDescription
+                ]);
+
+                $product->descriptions()->save( $pDescription);
+            }
+        } 
+
+        return redirect()->route('product.edit', ['id'=> $product->id]);
     }
 
     /**
@@ -97,6 +125,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->destroy();
     }
 }

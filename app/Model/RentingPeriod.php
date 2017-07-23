@@ -8,6 +8,6 @@ class RentingPeriod extends Model
 {
     
     public function products(){
-        return $this->belongsToMany('App\Model\Product', 'products');
+        return $this->belongsToMany('App\Product', 'products');
     }
 }

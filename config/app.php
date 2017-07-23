@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -12,8 +12,10 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
-
+    'name' => env('APP_NAME', 'Rustica Mallorca'),
+    
+    'mapsKey' => env('GOOGLE_API_KEY', 'AIzaSyByQXjRsfRYWr9dD5zwDfWvrQl_wrOFGiE'),
+    'mapsZoom' => env('GOOGLE_MAPS_ZOOM', 16),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -179,6 +181,7 @@ return [
 
         Collective\Html\HtmlServiceProvider::class ,
         Cornford\Googlmapper\MapperServiceProvider::class,
+        Geocoder\Laravel\Providers\GeocoderService::class,
     ],
 
     /*
@@ -229,8 +232,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class ,
-
-        'Mapper'         => Cornford\Googlmapper\Facades\MapperFacade::class,
+        'Input'     => Illuminate\Support\Facades\Input::class,
+        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class
 
         
 
