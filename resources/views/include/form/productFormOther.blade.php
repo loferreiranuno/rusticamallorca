@@ -22,7 +22,7 @@
             <div class="col-sm-6">
                     <div class="form-group{{ $errors->has('area_in_registry') ? ' has-error' : '' }}"><label>Area in registry</label> 
                         <div class="input-group">
-                            {!!Form::number('area_in_registry	', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('area_in_registry', null, ['class'=>'form-control' ])!!}
                         <span class="input-group-addon">m&sup2;</span>
                         </div>
                     </div>

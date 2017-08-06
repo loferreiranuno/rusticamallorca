@@ -35,7 +35,7 @@ class ProductRequest extends FormRequest
 
             'product_kind_id' => 'required',
             'area' => 'required',
-
+            'area_util' => 'required',
             'identifier' => 'required'
         ];
     }

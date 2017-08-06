@@ -27,8 +27,8 @@
     </div>
 
     <div class="form-group col-sm-12 text-center">
-        <span class="btn btn-small btn-danger" id="fill-location" onclick="fillAddress();">Get</span>
-        <span class="btn btn-small btn-info" id="search-location" onclick="searchAddress();">Update</span>
+        <span class="btn btn-small btn-danger" id="fill-location" onclick="fillAddress();">Fill address from Map</span>
+        <span class="btn btn-small btn-info" id="search-location" onclick="searchAddress();">Update Map</span>
     </div> 
 </div>
 <div class="col-md-6">

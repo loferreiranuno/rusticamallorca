@@ -2,24 +2,24 @@
  
 
 @section('breadcrumb')
-            <div class="row wrapper border-bottom white-bg page-heading">       
-            <div class="col-sm-4">
-                <h2>This is main title</h2>
-                <ol class="breadcrumb">
-                    <li>
-                        <a href="route('product.index')">This is</a>
-                    </li>
-                    <li class="active">
-                        <strong>Property List</strong>
-                    </li>
-                </ol>
-            </div>
-            <div class="col-sm-8">
-                <div class="title-action">
-                    <a href="{{route('product.create')}}" class="btn btn-primary">New property</a>
-                </div>
-            </div>
+    <div class="row wrapper border-bottom white-bg page-heading">       
+    <div class="col-sm-4">
+        <h2>Search properties</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="route('product.index')">Properties</a>
+            </li>
+            <li class="active">
+                <strong>List</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href="{{route('product.create')}}" class="btn btn-primary">New property</a>
         </div>
+    </div>
+</div>
 @stop 
 
 @section('content')
@@ -90,6 +90,10 @@
                                         <span class="footable-sort-indicator"></span>
                                     </th> 
 
+                                    <th data-toggle="true" class="footable-visible"> Bath.
+                                        <span class="footable-sort-indicator"></span>
+                                    </th> 
+
                                     <th data-toggle="true" class="footable-visible"> Area.
                                         <span class="footable-sort-indicator"></span>
                                     </th> 
@@ -114,9 +118,7 @@
                                         <span class="footable-sort-indicator"></span>
                                     </th> 
 
-                                    <th>
-                                        
-                                    </th>
+                                    <th> </th>
 
                                 </tr>
                                 </thead>
@@ -124,10 +126,10 @@
                                                                 
                                 @foreach($products as $product)
 
-                                    <tr style="" class="footable-even">
+                                    <tr style="" class="{!! $product->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
                                         
-                                        <td class="footable-visible"> </td>
-                                        <td class="footable-visible"> </td>
+                                        <td class="footable-visible"><!-- checkbox --></td>
+                                        <td class="footable-visible"><!-- image --></td>
                                         <td class="footable-visible">{!!$product->identifier!!} </td>
                                         <td class="footable-visible">{!!$product->kind->name!!}</td>
                                         <td class="footable-visible">{!!$product->floors!!} </td>
@@ -141,9 +143,9 @@
 
                                         <td class="text-right footable-visible footable-last-column">
                                             <div class="btn-group">
-                                                <a href="{!!route('product.show',['id'=> $product->id])!!}" class="btn-white btn btn-xs">View</a>
-                                                <a href="{!!route('product.edit',['id'=> $product->id])!!}" class="btn-white btn btn-xs">Edit</a>
-                                                <a href="{!!route('product.destroy',['id'=> $product->id])!!}" class="btn-danger btn btn-xs">X</a>
+                                                <a href="{!!route('product.edit',['id'=> $product->id])!!}" class="btn btn-primary" title="Edit">
+                                                <i class="fa fa-edit"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>  
@@ -153,11 +155,9 @@
 
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <td colspan="6" class="footable-visible">
-                                        {{-- {{ $products->links() }} --}}
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="14" class="footable-visible"></td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         @endif

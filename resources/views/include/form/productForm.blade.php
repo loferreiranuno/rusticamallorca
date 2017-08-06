@@ -56,8 +56,31 @@
 
 @section('scripts')       
     <script src="{!! asset("js/plugins/iCheck/icheck.min.js") !!}"></script>
+    <script src="{!! asset("js/plugins/typehead/bootstrap3-typeahead.min.js") !!}"></script>
     <script>
+    function preventEnterSubmit(e) {
+        if (e.which == 13) {
+            var $targ = $(e.target);
+
+            if (!$targ.is("textarea") && !$targ.is(":button,:submit")) {
+                var focusNext = false;
+                $(this).find(":input:visible:not([disabled],[readonly]), a").each(function(){
+                    if (this === e.target) {
+                        focusNext = true;
+                    }
+                    else if (focusNext){
+                        $(this).focus();
+                        return false;
+                    }
+                });
+
+                return false;
+            }
+        }
+    };
     $(document).ready(function () {
+         $('body').on('keypress', preventEnterSubmit);
+         
          $('.i-checks').iCheck({
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green',

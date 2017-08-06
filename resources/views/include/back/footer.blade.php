@@ -37,6 +37,7 @@
 
     <!-- Toastr -->
     <script src="{!! asset("js/plugins/toastr/toastr.min.js") !!}"></script>
-   
+    
+    <script src={!! asset("js/plugins/tokenfield-typeahead/bootstrap-tokenfield.min.js") !!} ></script>
    
     @yield("scripts")

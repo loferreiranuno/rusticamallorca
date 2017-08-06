@@ -14,11 +14,11 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="form-group col-sm-8">
-                            {{Form::label('name','Name')}}
+                        <div class="form-group col-sm-8 {{ $errors->has('name') ? ' has-error' : '' }}">
+                            {{Form::label('name','Name*')}}
                             {{Form::text('name',  null, ['class'=> 'form-control'])}}
                         </div> 
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 {{ $errors->has('kind_id') ? ' has-error' : '' }}">
                             {{Form::label('kind_id','Kind*')}}
                             {{Form::select('kind_id', App\ContactKind::pluck('name', 'id'), null, ['class'=> 'form-control'])}}
                         </div>  
@@ -50,41 +50,41 @@
                 <div class="ibox-content">
                     <div class="row">
 
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 {{ $errors->has('alias') ? ' has-error' : '' }}">
                             {{Form::label('alias','Alias')}}
                             {{Form::text('alias',  null, ['class'=> 'form-control'])}}
                         </div> 
-                        <div class="form-group col-sm-4">
-                            {{Form::label('email','Email')}}
+                        <div class="form-group col-sm-4 {{ $errors->has('email') ? ' has-error' : '' }}">
+                            {{Form::label('email','Email*')}}
                             {{Form::text('email',  null, ['class'=> 'form-control'])}}
                         </div> 
 
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 {{ $errors->has('lang_id') ? ' has-error' : '' }}">
                             {{Form::label('lang_id','Language')}}
-                            {{Form::select('lang_id', App\PublicAccess::pluck('name', 'id'), null, ['class'=> 'form-control'])}}
+                            {{Form::select('lang_id', App\Language::pluck('name', 'id'), null, ['class'=> 'form-control'])}}
                         </div> 
 
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 {{ $errors->has('phone') ? ' has-error' : '' }}">
                             {{Form::label('phone','Phone')}}
                             {{Form::text('phone',  null, ['class'=> 'form-control'])}}
                         </div> 
                         
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 {{ $errors->has('phone_alt') ? ' has-error' : '' }}">
                             {{Form::label('phone_alt','Alt.Phone')}}
                             {{Form::text('phone_alt',  null, ['class'=> 'form-control'])}}
                         </div> 
                         
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 {{ $errors->has('nif') ? ' has-error' : '' }}">
                             {{Form::label('nif','NIF')}}
                             {{Form::text('nif',  null, ['class'=> 'form-control'])}}
                         </div> 
                         
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 {{ $errors->has('address') ? ' has-error' : '' }}">
                             {{Form::label('address','Address')}}
                             {{Form::text('address',  null, ['class'=> 'form-control'])}}
                         </div> 
                         
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-4 {{ $errors->has('city') ? ' has-error' : '' }}">
                             {{Form::label('city','City')}}
                             {{Form::text('city',  null, ['class'=> 'form-control'])}}
                         </div>                     
@@ -115,27 +115,27 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="form-group col-sm-12">
-                            {{Form::label('notes','Noptes Address*')}}
-                            {{Form::textarea('notes',  null, ['class'=> 'form-control'])}}
+                        <div class="form-group col-sm-12 {{ $errors->has('note') ? ' has-error' : '' }}">
+                            {{Form::label('note','Notes Address*')}}
+                            {{Form::textarea('note',  null, ['class'=> 'form-control'])}}
                         </div> 
 
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-6 {{ $errors->has('step_id') ? ' has-error' : '' }}">
                             {{Form::label('step_id','Funnel step')}}
                             {{Form::select('step_id', App\ContactStep::pluck('name', 'id'), null, ['class'=> 'form-control'])}}
                         </div> 
 
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-6 {{ $errors->has('source_id') ? ' has-error' : '' }}">
                             {{Form::label('source_id','Source')}}
                             {{Form::select('source_id', App\Source::pluck('name', 'id'), null, ['class'=> 'form-control'])}}
                         </div> 
 
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-6 {{ $errors->has('responsable_id') ? ' has-error' : '' }}">
                             {{Form::label('responsable_id','Responsible')}}
                             {{Form::select('responsable_id', App\User::pluck('name', 'id'), null, ['class'=> 'form-control'])}}
                         </div> 
 
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-6 {{ $errors->has('partner_id') ? ' has-error' : '' }}">
                             {{Form::label('partner_id','Partner')}}
                             {{Form::select('partner_id', App\ContactKind::where('name', 'partner')->first()->contacts()->pluck('name', 'id')->prepend('',''), null, ['class'=> 'form-control'])}}
                         </div> 

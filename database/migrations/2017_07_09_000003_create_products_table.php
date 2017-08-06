@@ -58,7 +58,7 @@ class CreateProductsTable extends Migration
             $table->integer('window_area')->nullable();
             $table->integer('ceiling_height')->nullable();
             $table->integer('year')->nullable();
-            $table->decimal('building_expenses', 5, 2)->nullable();
+            $table->decimal('building_expenses', 12, 2)->nullable();
 
             $table->integer('building_floors')->nullable();
             $table->integer('building_floors_expand')->nullable();
@@ -67,17 +67,17 @@ class CreateProductsTable extends Migration
             $table->integer('plot_area')->nullable();
 
             $table->boolean('renting_enabled')->default(false);
-            $table->decimal('renting_cost', 5, 2)->nullable();
-            $table->decimal('renting_agency_fee', 5, 2)->nullable();
-            $table->decimal('renting_bond', 5, 2)->nullable();
-            $table->decimal('renting_deposit', 5, 2)->nullable();
+            $table->decimal('renting_cost', 12, 2)->nullable();
+            $table->decimal('renting_agency_fee', 12, 2)->nullable();
+            $table->decimal('renting_bond', 12, 2)->nullable();
+            $table->decimal('renting_deposit', 12, 2)->nullable();
 
             $table->boolean('vacation_enabled')->default(false);
             $table->string('vacation_register_number')->nullable();
 
             $table->boolean('selling_enabled')->default(false);
             $table->boolean('selling_cost_visible')->default(false);
-            $table->decimal('selling_cost', 5, 2)->nullable();
+            $table->decimal('selling_cost', 12, 2)->nullable();
  
             $table->string('video_url')->nullable();
             $table->string('virtual_visit_url')->nullable();
@@ -92,13 +92,13 @@ class CreateProductsTable extends Migration
             $table->date('simple_note_date')->nullable();
 
             $table->boolean('mortage_enabled')->default(false);
-            $table->decimal('mortage_cost', 5, 2)->nullable();
-            $table->decimal('land_value_tax', 5, 2)->nullable();
+            $table->decimal('mortage_cost', 12, 2)->nullable();
+            $table->decimal('land_value_tax', 12, 2)->nullable();
  
             //Agreement terms                      
             $table->date('agreement_valid_until')->nullable();
-            $table->decimal('agreement_commission_percentage', 5, 2)->nullable();
-            $table->decimal('agreement_commission_amount', 5, 2)->nullable();
+            $table->decimal('agreement_commission_percentage', 12, 2)->nullable();
+            $table->decimal('agreement_commission_amount', 12, 2)->nullable();
 
             //Other
             $table->string('title')->nullable();

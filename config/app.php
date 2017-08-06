@@ -13,6 +13,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Rustica Mallorca'),
+    'backOpen' => env('APP_BACK_OPEN', true), // set false to block registration;
     
     'mapsKey' => env('GOOGLE_API_KEY', 'AIzaSyByQXjRsfRYWr9dD5zwDfWvrQl_wrOFGiE'),
     'mapsZoom' => env('GOOGLE_MAPS_ZOOM', 16),

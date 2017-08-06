@@ -4,23 +4,33 @@
 @section('breadcrumb')
                 <div class="row wrapper border-bottom white-bg page-heading">       
                     <div class="col-sm-4">
-                        <h2>This is main title</h2>
+                    @if(isset($contact))
+                         <h2>{!! $contact->name !!}</h2>
+                    @else
+                         <h2>New Contact</h2>
+                    @endif
+                       
                         <ol class="breadcrumb">
                             <li>
-                                <a href="index.html">This is</a>
+                                <a href="{{route('contact.index')}}">Contacts</a>
                             </li>
                             <li class="active">
-                                <strong>Breadcrumb</strong>
+                            @if(isset($contact))
+                                <strong>Edit Contact</strong>
+                            @else
+                                <strong>Create</strong>
+                            @endif
                             </li>
                         </ol>
                     </div>
                     <div class="col-sm-8">
                         <div class="title-action">
-                            <a href="" class="btn btn-primary">This is action area</a>
+                            <a href="{{route('contact.create')}}" class="btn btn-primary">Create New</a>
                         </div>
                     </div>
                 </div>
 @stop 
+
 
 @section('content')
 
@@ -28,6 +38,9 @@
     {{ Form::model($contact, ['route' => ['contact.update', $contact->id], 'method' => 'patch']) }}
 @else
     {{ Form::open(['route' => 'contact.store']) }}
+    
+    {!! Form::hidden('creator_id', Auth::user()->id, []) !!}
+    
 @endif
 
  @include('include.form.contactForm')

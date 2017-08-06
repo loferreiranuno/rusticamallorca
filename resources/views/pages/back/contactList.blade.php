@@ -2,26 +2,129 @@
  
 
  @section('breadcrumb')
-                <div class="row wrapper border-bottom white-bg page-heading">       
+ <div class="row wrapper border-bottom white-bg page-heading">       
+    <div class="col-sm-4">
+        <h2>Search contacts</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="route('contact.index')">Contacts</a>
+            </li>
+            <li class="active">
+                <strong>List</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href="{{route('contact.create')}}" class="btn btn-primary">New contact</a>
+        </div>
+    </div>
+</div>
+@stop 
+
+
+@section('content')
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+            <div class="ibox-content m-b-sm border-bottom">
+            
+            {!! Form::open() !!}
+            
+                <div class="row">
                     <div class="col-sm-4">
-                        <h2>This is main title</h2>
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="index.html">This is</a>
-                            </li>
-                            <li class="active">
-                                <strong>Breadcrumb</strong>
-                            </li>
-                        </ol>
+                        <div class="form-group">
+                            {!! Form::label('search', "") !!}      
+                            {!! Form::text('search', null, ['placeholder'=> 'Name/Email/Phone Text', 'class'=>'form-control']) !!}                            
+                        </div>
                     </div>
-                    <div class="col-sm-8">
-                        <div class="title-action">
-                            <a href="" class="btn btn-primary">This is action area</a>
+                    <div class="col-sm-4">
+                        <div class="form-group">          
+                            {!! Form::label('step', "Funnel step") !!}                  
+                            {!! Form::select('step', App\ContactStep::pluck('name', 'id'), null, ['class'=>'form-control']) !!}                            
+                        </div>
+                    </div>                   
+                    <div class="col-sm-2">
+                        <div class="form-group">   
+                        {!! Form::label('responsable', "Responsible") !!}
+                        {!! Form::select('responsable', $responsibles, null, ['class'=>'form-control']) !!}                            
+                        </div>
+                    </div>                   
+                    <div class="col-sm-2">
+                        <div class="form-group">   
+                                                 
+                        </div>
+                    </div>                   
+                </div>
+
+            {!! Form::close() !!}    
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                        @if(isset($contacts))
+                            <table class=" table table-stripped toggle-arrow-tiny default breakpoint footable-loaded"  >
+                                <thead>
+                                <tr>
+                                    <th data-toggle="true" class="footable-visible"></th> 
+                                    <th data-toggle="true" class="footable-visible"></th> 
+                                    <th data-toggle="true" class="footable-visible">Name</th> 
+                                    <th data-toggle="true" class="footable-visible">Email</th> 
+                                    <th data-toggle="true" class="footable-visible">Phone</th> 
+                                    <th data-toggle="true" class="footable-visible">Source</th> 
+                                    <th data-toggle="true" class="footable-visible">Creator</th>
+                                    <th data-toggle="true" class="footable-visible">Responsible</th> 
+                                    <th data-toggle="true" class="footable-visible">Created</th> 
+                                    <th data-toggle="true" class="footable-visible">Last action</th> 
+                                    <th data-toggle="true" class="footable-visible">Funnel step</th>                                    
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                
+                                @foreach($contacts as $contact)
+
+                                    <tr style="" class="{!! $contact->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
+                                        
+                                        <td class="footable-visible"><!-- checkbox --></td>
+                                        <td class="footable-visible"><!-- image --></td>
+                                        <td class="footable-visible">{!! $contact->name !!}</td> 
+                                        <td class="footable-visible">{!! $contact->email !!}</td> 
+                                        <td class="footable-visible">{!! $contact->phone !!}</td> 
+                                        <td class="footable-visible">{!! $contact->source->name !!}</td> 
+                                        <td class="footable-visible">{!! $contact->creator->name !!}</td>
+                                        <td class="footable-visible">{!! $contact->responsable->name !!}</td> 
+                                        <td class="footable-visible">{!! $contact->created_at !!}</td> 
+                                        <td class="footable-visible">{!! $contact->updated_at !!}</td> 
+                                        <td class="footable-visible">{!! isset($contact->step)?$contact->step->name : '-' !!}</td>    
+
+                                        <td class="text-right footable-visible footable-last-column">
+                                            <div class="btn-group">
+                                                <a href="{!!route('contact.edit',['id'=> $contact->id])!!}" class="btn btn-primary" title="Edit">
+                                                <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>  
+
+                                @endforeach
+
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="14" class="footable-visible"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        @endif
                         </div>
                     </div>
                 </div>
-@stop 
+            </div>
 
-@section('content')
+
+        </div>
 
 @stop

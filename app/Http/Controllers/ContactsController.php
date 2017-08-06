@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Contact;
+use App\User;
+use Auth;
 
 class ContactsController extends Controller
 {
@@ -25,7 +27,9 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        return view('pages.back.contactList');
+        $contacts = Contact::all();
+        $responsibles = User::pluck('name', 'id');
+        return view('pages.back.contactList', compact('contacts', 'responsibles'));
     }
 
     /**
@@ -44,11 +48,11 @@ class ContactsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $contact = new Contact(); 
+    public function store(ContactRequest $request)
+    { 
+        $contact = Contact::create($request->all()); 
         $contact->save();
-        return View::make('pages.back.contactEdit')->with('contact', $contact);
+        return redirect()->route('contact.edit', ['id'=> $contact->id]); 
     }
 
     /**
@@ -81,7 +85,7 @@ class ContactsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContactRequest $request, $id)
     {
         //
     }

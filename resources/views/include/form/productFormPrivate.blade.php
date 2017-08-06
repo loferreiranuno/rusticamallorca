@@ -25,20 +25,21 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('simple_note_enabled') ? ' has-error' : '' }}">
-                        {!!Form::checkbox('keys', '1', false, ['class'=> ''])!!}
+                        {!!Form::checkbox('simple_note_enabled', '1', isset($product)?$product->simple_note_enabled == 1 : false, ['open-close'=> '#container-simple_note'])!!}
+                        
                         <label for="simple_note_enabled">Simple land note</label>
                     </div>
                     
-                    <div class="form-group{{ $errors->has('simple_note_date') ? ' has-error' : '' }}"><label>Simple land note date</label> 
+                    <div id="container-simple_note" class="form-group{{ $errors->has('simple_note_date') ? ' has-error' : '' }}"><label>Simple land note date</label> 
                     {!!Form::date('simple_note_date', null, ['class'=> 'form-control'])!!} 
                     </div>
 
                     <div class="form-group{{ $errors->has('mortage_enabled') ? ' has-error' : '' }}">
-                        {!!Form::checkbox('mortage_enabled', '1', false, ['class'=> ''])!!}
+                        {!!Form::checkbox('mortage_enabled', '1', isset($product) ? $product->mortage_enabled == 1 : false,  ['open-close'=> '#container-mortage'])!!}
                         <label for="mortage_enabled">Mortgage</label>
                     </div>
 
-                <div id="mortage_container">
+                <div id="container-mortage">
                 
                     <div class="form-group{{ $errors->has('mortage_cost') ? ' has-error' : '' }}"><label>Mortgage cost</label>  
                         <div class="input-group">
@@ -65,7 +66,7 @@
                     {!!Form::select('recruiter_id', App\User::pluck('name', 'id')->prepend('',''), null, ['class'=> 'form-control'])!!} 
                     </div>
                     <div class="form-group{{ $errors->has('keys') ? ' has-error' : '' }}">
-                        {!!Form::checkbox('keys', '1', false, ['class'=> ''])!!}
+                        {!!Form::checkbox('keys', '1', isset($product) ? $product->keys == 1 : false)!!}
                         <label for="keys">Keys</label>
                     </div>
                     <div class="form-group{{ $errors->has('internal_notes') ? ' has-error' : '' }}"><label>Internal notes</label>

@@ -11,48 +11,51 @@
         <div class="ibox-content">
         <div class="row">
                 <div class="col-sm-6 b-r"> 
-                                                
-                <div class="form-group col-sm-12{{ $errors->has('product_status_id') ? ' has-error' : '' }}">
+                          
+
+                <div class="form-group col-sm-6{{ $errors->has('identifier') ? ' has-error' : '' }}">
+                    {{Form::label('identifier','Identifier*')}}
+                    {{Form::text('identifier', null, ['class'=> 'form-control', 'placeholder'=>'MGF-'])}}
+                </div>
+                      
+                <div class="form-group col-sm-6{{ $errors->has('product_status_id') ? ' has-error' : '' }}">
                     {{Form::label('product_status_id','Status*')}}
                     {!!Form::select('product_status_id', App\ProductStatus::pluck('name', 'id'), null, ['class'=> 'form-control'])!!} 
                 </div> 
-
-                <div class="form-group col-sm-6{{ $errors->has('identifier') ? ' has-error' : '' }}">
-                    {{Form::label('identifier','Identifier')}}
-                    {{Form::text('identifier', null, ['class'=> 'form-control'])}}
-                </div>
 
                 <div class="form-group col-sm-4{{ $errors->has('product_kind_id') ? ' has-error' : '' }}">
                     {{Form::label('product_kind_id','Kind*')}}
                     {!!Form::select('product_kind_id', App\ProductKindType::pluck('name', 'id') , null, ['class'=> 'form-control'])!!} 
                 </div>
                 
-                <div class="form-group col-sm-4{{ $errors->has('floors') ? ' has-error' : '' }}">
-                    {{Form::label('floors','Floor')}}
-                    {{Form::select('floors', [0,1,2,3,4,5,6,7,8,9,10], null, ['class'=> 'form-control'])}}
-                </div>
-
-                <div class="form-group col-sm-4{{ $errors->has('building_floors') ? ' has-error' : '' }}">
-                    {{Form::label('building_floors','Building floors')}}
-                    {{Form::select('building_floors', [0,1,2,3,4,5,6,7,8,9,10], null, ['class'=> 'form-control'])}}
-                </div>
-
-                <div class="form-group col-sm-4{{ $errors->has('building_floors_expand') ? ' has-error' : '' }}">
-                    {{Form::label('building_floors_expand','Floors to expand')}}
-                    {{Form::select('building_floors_expand', [0,1,2,3,4,5,6,7,8,9,10], null, ['class'=> 'form-control'])}}
-                </div>
-                
                 <div class="form-group col-sm-4{{ $errors->has('rooms') ? ' has-error' : '' }}">
                     {{Form::label('rooms','Bedrooms')}}
-                    {{Form::select('rooms', [0,1,2,3,4,5,6,7,8,9,10], null, ['class'=> 'form-control'])}}
+                    {!! Form::selectRange('rooms', 0, 10, old('rooms'), ['class'=>'form-control'])  !!}
                 </div>
                 
                 <div class="form-group col-sm-4{{ $errors->has('bathrooms') ? ' has-error' : '' }}">
                     {{Form::label('bathrooms','Bathrooms')}}
-                    {{Form::select('bathrooms', [0,1,2,3,4,5,6,7,8,9,10], null, ['class'=> 'form-control'])}}
+                    
+                    {!! Form::selectRange('bathrooms', 0, 10, old('bathrooms'), ['class'=>'form-control'])  !!}
+                    
                 </div>
                 
-                <div class="col-md-4 form-block{{ $errors->has('area') ? ' has-error' : '' }}">
+                <div class="form-group col-sm-4{{ $errors->has('floors') ? ' has-error' : '' }}">
+                    {{Form::label('floors','Floor')}} 
+                    {!! Form::selectRange('floors', -3, 10, old('building_floors'), ['class'=>'form-control'])  !!}
+                </div>
+
+                <div class="form-group col-sm-4{{ $errors->has('building_floors') ? ' has-error' : '' }}">
+                    {{Form::label('building_floors','Building floors')}}
+                    {!! Form::selectRange('building_floors', 0, 14, old('building_floors'), ['class'=>'form-control'])  !!}
+                </div>
+
+                <div class="form-group col-sm-4{{ $errors->has('building_floors_expand') ? ' has-error' : '' }}">
+                    {{Form::label('building_floors_expand','Floors to expand')}}
+                    {!! Form::selectRange('building_floors_expand', 0, 10, old('building_floors_expand'), ['class'=>'form-control'])  !!}
+                </div>
+                
+                <div class=" form-block col-md-4{{ $errors->has('area') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('area', 'Area*')}}
                         <div class="input-group">
@@ -163,11 +166,16 @@
                 </div>
                 
                 <div class="form-group col-md-12{{ $errors->has('renting_enabled') ? ' has-error' : '' }}">
-                    {!!Form::checkbox('renting_enabled', '1', false, ['class'=> ''])!!}
+                    {!!Form::checkbox('renting_enabled', '1', isset($product)?$product->renting_enabled:false, ['open-close'=>'#container-renting'])!!}
                     {{Form::label('renting_enabled', 'Renting')}}
                 </div>
+                <div class="panel" id="container-renting">
+                    <div class="form-group col-md-3{{ $errors->has('renting_period_id') ? ' has-error' : '' }}">
+                        {{Form::label('renting_period_id','Charge periodicity')}}
+                        {!!Form::select('renting_period_id',App\RentingPeriod::pluck('name', 'id'), null, ['class'=> 'form-control'])!!} 
+                    </div>
 
-                    <div class="col-md-6 form-block{{ $errors->has('renting_cost') ? ' has-error' : '' }}">
+                    <div class="col-md-3 form-block{{ $errors->has('renting_cost') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_cost', 'Renting cost')}}
                             <div class="input-group">
@@ -177,12 +185,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md-6{{ $errors->has('renting_period_id') ? ' has-error' : '' }}">
-                        {{Form::label('renting_period_id','Charge periodicity')}}
-                        {!!Form::select('renting_period_id',App\RentingPeriod::pluck('name', 'id'), null, ['class'=> 'form-control'])!!} 
-                    </div>
-                
-                    <div class="col-md-6 form-block{{ $errors->has('renting_agency_fee') ? ' has-error' : '' }}">
+                    <div class="col-md-3 form-block{{ $errors->has('renting_agency_fee') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_agency_fee', 'Agency fee')}}
                             <div class="input-group">
@@ -192,7 +195,7 @@
                         </div>
                     </div>
                 
-                    <div class="col-md-6 form-block{{ $errors->has('renting_bond') ? ' has-error' : '' }}">
+                    <div class="col-md-3 form-block{{ $errors->has('renting_bond') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_bond', 'Bond')}}
                             <div class="input-group">
@@ -202,7 +205,7 @@
                         </div>
                     </div>
                 
-                    <div class="col-md-4 form-block{{ $errors->has('renting_deposit') ? ' has-error' : '' }}">
+                    <div class="col-md-3 form-block{{ $errors->has('renting_deposit') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_deposit', 'Deposit')}}
                             <div class="input-group">
@@ -211,23 +214,26 @@
                             </div> 
                         </div>
                     </div>
-                        
-                <div class="form-group col-md-12{{ $errors->has('vacation_enabled') ? ' has-error' : '' }}">
-                    {!!Form::checkbox('vacation_enabled', '1', false, ['class'=> ''])!!}
-                    {{Form::label('vacation_enabled', 'Vacation rent')}}
-                </div>
 
-                <div class="form-group col-md-6{{ $errors->has('vacation_register_number') ? ' has-error' : '' }}">
-                    {{Form::label('vacation_register_number', 'Vacation register number')}}
-                    {!!Form::text('vacation_register_number', null, ['class'=> 'form-control'])!!}                                   
+
+                    <div class="form-group col-md-12{{ $errors->has('vacation_enabled') ? ' has-error' : '' }}">
+                        {!!Form::checkbox('vacation_enabled', '1',  isset($product)?$product->vacation_enabled:false, ['open-close'=>'#container-vacation-rent'])!!}
+                        {{Form::label('vacation_enabled', 'Vacation rent')}}
+                    </div>
+
+                    <div id="container-vacation-rent" class="form-group col-md-6{{ $errors->has('vacation_register_number') ? ' has-error' : '' }}">
+                        {{Form::label('vacation_register_number', 'Vacation register number')}}
+                        {!!Form::text('vacation_register_number', null, ['class'=> 'form-control'])!!}                               
+                    </div>
+                    
                 </div>
 
                 <div class="form-group col-md-12{{ $errors->has('selling_enabled') ? ' has-error' : '' }}">
-                    {!!Form::checkbox('selling_enabled', '1', false, ['class'=> ''])!!}
+                    {!!Form::checkbox('selling_enabled', '1', isset($product)?$product->selling_enabled:true, ['open-close'=>'#container-selling'])!!}
                     {{Form::label('selling_enabled', 'Selling')}}
                 </div>
                 
-                <div class="col-md-4 form-block{{ $errors->has('selling_cost') ? ' has-error' : '' }}">
+                <div id="container-selling" class="col-md-4 form-block{{ $errors->has('selling_cost') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('selling_cost', 'Selling cost')}}
                         <div class="input-group">
@@ -239,24 +245,80 @@
 
                 <div class="form-group col-md-12{{ $errors->has('selling_cost_visible') ? ' has-error' : '' }}">
                     {!!Form::checkbox('selling_cost_visible', '1', false, ['class'=> ''])!!}
-                    {{Form::label('selling_cost_visible', 'Show cost')}}
+                    {{Form::label('selling_cost_visible', 'Show cost')}}    
+                    <small>Choose whether to show or hide the cost on your web</small>
                 </div>
 
                 </div>
 
                 <div class="col-sm-6 b-r"> 
 
-                <div class="form-group col-sm-12{{ $errors->has('features') ? ' has-error' : '' }}">
-                    {{Form::label('features','Tags')}}
-                    {{Form::text('features', null, ['class'=> 'form-control'])}}
-                </div> 
+                <div class="col-sm-12{{ $errors->has('features') ? ' has-error' : '' }}">                     
+                    <div class="form-group">                        
+                            {{Form::label('fatures','Tags')}}
+                            <input type="text" name="features" id="features" clas="form-control col-sm-12" />                         
+                    </div> 
 
-                {{-- <div class="form-group col-sm-12{{ $errors->has('descriptions') ? ' has-error' : '' }}">
-                    {{Form::label('descriptions','Description')}}
-                    {{Form::textarea('descriptions', null, ['class'=> 'form-control'])}}
                 </div> 
+                @section('scripts')  
+                    @parent
+                    <script type="text/javascript" src="{!! asset('js/plugins/tokenfield-typeahead/scrollspy.js') !!}" charset="UTF-8"></script>
+                    <script type="text/javascript" src="{!! asset('js/plugins/tokenfield-typeahead/affix.js') !!}" charset="UTF-8"></script>
+                    <script type="text/javascript" src="{!! asset('js/plugins/tokenfield-typeahead/typeahead.bundle.min.js') !!}" charset="UTF-8"></script>
+                    <script type="text/javascript" src="{!! asset('js/plugins/tokenfield-typeahead/docs.min.js') !!}" charset="UTF-8"></script>
+                    <script>
+                    var allFeatures = {!! App\Feature::all() !!};
+                    var productFeatures = {!! isset($product->features)?$product->features:'[]' !!};
+                    $(function() {
 
- --}}
+                        var engine = new Bloodhound({
+                            local: allFeatures.map(function(o){ return {'label': o.name , 'value': o.id}; }),
+                            datumTokenizer: function(d) {
+                                return Bloodhound.tokenizers.whitespace(d.label);
+                            },
+                            queryTokenizer: Bloodhound.tokenizers.whitespace,
+                            dupDetector: function(remoteMatch, localMatch) {
+                                return remoteMatch.id === localMatch.id;
+                            }
+                        });
+
+                        engine.initialize();
+                            
+                        $('#features').tokenfield({
+                            typeahead: [null, { source: engine.ttAdapter(), display: 'label', minLength: 0 }]
+                        })
+                        .on('tokenfield:initialize', function(e){
+                            
+                        }).on('tokenfield:createtoken', function (event) {
+                            var existingTokens = $(this).tokenfield('getTokens');
+                            $.each(existingTokens, function(index, token) {
+                                if (token.value === event.attrs.value){
+                                    event.preventDefault();   
+                                }                                    
+                            });                             
+                        }) 
+                        
+                        $('#features').tokenfield('setTokens', productFeatures.map(function(o){ return {'label': o.name , 'value': o.id}; }));
+                        var toogle_open_close = function(obj){
+                            var containerId = $(obj).attr('open-close');
+                            if($(obj).prop("checked"))
+                                $(containerId).show();
+                            else
+                                $(containerId).hide();
+                        };
+
+                        $("[open-close]").on("change", function(){
+                            toogle_open_close(this);
+                        }); 
+
+                        $("[open-close]").each(function(e){
+                            toogle_open_close(this);
+                        });
+ 
+                    });
+
+                    </script>
+                @stop
 
                 <div class="form-group col-sm-12">
                     {{Form::label('descriptions','Description')}}

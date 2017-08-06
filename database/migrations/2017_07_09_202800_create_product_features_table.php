@@ -12,15 +12,16 @@ class CreateProductFeaturesTable extends Migration
      * @return void
      */
     public function up()
-    { 
+    {         
         Schema::create('product_features', function (Blueprint $table) {         
-            $table->integer('product_id')->unsigned()->index();
-            $table->integer('feature_id')->unsigned()->index();
-            $table->primary(['feature_id', 'product_id']);
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('feature_id'); 
         });
 
         Schema::table('product_features', function (Blueprint $table) {
             
+            $table->unique(['feature_id', 'product_id']);
+
             $table->foreign('product_id')
                 ->references('id')->on('products')
                 ->onDelete('cascade');
@@ -28,6 +29,7 @@ class CreateProductFeaturesTable extends Migration
             $table->foreign('feature_id')
                 ->references('id')->on('features')
                 ->onDelete('cascade'); 
+
             
         });
     }

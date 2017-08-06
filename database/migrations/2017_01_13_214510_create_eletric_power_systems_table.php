@@ -13,6 +13,7 @@ class CreateEletricPowerSystemsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('electric_power_systems');
         Schema::create('electric_power_systems', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name'); 
@@ -33,6 +34,6 @@ class CreateEletricPowerSystemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eletric_power_systems');
+        Schema::dropIfExists('electric_power_systems');
     }
 }

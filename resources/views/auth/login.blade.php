@@ -5,7 +5,7 @@
         <div> 
 
 {!! Form::open(array('route' => array('login'), 'action'=>'POST', 'class'=>'m-t')) !!}
-
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">                    
                     {!! Form::email('email', old('email'), ['class'=>'form-control', 'placeholder'=>'Email', 'required', 'autofocus']) !!}
                     @if ($errors->has('email'))

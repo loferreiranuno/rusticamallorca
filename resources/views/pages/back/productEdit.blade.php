@@ -3,19 +3,28 @@
 @section('breadcrumb')
                 <div class="row wrapper border-bottom white-bg page-heading">       
                     <div class="col-sm-4">
-                        <h2>This is main title</h2>
+                    @if(isset($product))
+                         <h2>{!! $product->title !!}</h2>
+                    @else
+                         <h2>New property</h2>
+                    @endif
+                       
                         <ol class="breadcrumb">
                             <li>
-                                <a href="route('product.index')">This is</a>
+                                <a href="{{route('product.index')}}">Properties</a>
                             </li>
                             <li class="active">
-                                <strong>Property List</strong>
+                            @if(isset($product))
+                                <strong>Edit Property</strong>
+                            @else
+                                <strong>Create</strong>
+                            @endif
                             </li>
                         </ol>
                     </div>
                     <div class="col-sm-8">
                         <div class="title-action">
-                            <a href="{{route('product.create')}}" class="btn btn-primary">New property</a>
+                            <a href="{{route('product.create')}}" class="btn btn-primary">Create New</a>
                         </div>
                     </div>
                 </div>
@@ -33,7 +42,6 @@
  @include('include.form.productForm')
  
 {!! Form::close() !!}
-
-
+ 
 @stop
 
