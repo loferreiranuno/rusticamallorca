@@ -3,9 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductOfferRequest;
+use Illuminate\Support\Facades\Response;
+use App\ProductOffer;
+use App\Product;
+use App\ProductStatus;
 
 class ProductOfferController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,11 +43,65 @@ class ProductOfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductOfferRequest $request)
     {
-        //
+        $offer = ProductOffer::create($request->all());
+        $offer->user_id = 
+        $offer->save(); 
+        
+        return Response::json([
+            'error' => false,
+            'code'  => 200
+        ], 200); 
+
     }
 
+    public function markAsSold($offer){
+            
+            $offer = ProductOffer::find($offer);
+            $offer->sold = true;            
+            $offer->save();
+
+            $product = $offer->product;
+            return view('pages.back.product', compact('product'));
+            // return Response::json([
+            //     'error' => false,
+            //     'code'  => 200
+            // ], 200); 
+
+    }
+    
+    public function markAsRejected($offer){
+
+            $offer = ProductOffer::find($offer);
+            $offer->sold = false;            
+            $offer->rejected = true;
+            $offer->save();
+
+            $product = $offer->product;
+            return view('pages.back.product', compact('product'));
+            // return Response::json([
+            //     'error' => false,
+            //     'code'  => 200
+            // ], 200); 
+            
+    }
+    
+    public function markAsRented($offer){
+
+            $offer = ProductOffer::find($offer);
+            $offer->sold = true;            
+            $offer->save();
+            
+            $product = $offer->product;
+            return view('pages.back.product', compact('product'));
+            // return Response::json([
+            //     'error' => false,
+            //     'code'  => 200
+            // ], 200); 
+            
+    }
+    
     /**
      * Display the specified resource.
      *
@@ -79,6 +144,16 @@ class ProductOfferController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $offer = ProductOffer::find($id);
+        $product = $offer->product;
+
+        ProductOffer::destroy($id);
+
+        return view('pages.back.product', compact('product'));
+
+        // return Response::json([
+        //     'error' => false,
+        //     'code'  => 200
+        // ], 200); 
     }
 }

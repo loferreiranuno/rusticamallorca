@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    protected $fillable = [
+        "task_kind_id",
+        "user_id",
+        "start_date",
+        "end_date", 
+        "description"
+    ];
+
     public function feedbacks(){
         return $this->belongsToMany('App\FeedbackType', 'task_feedbacks');
     }

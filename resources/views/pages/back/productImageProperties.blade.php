@@ -42,7 +42,7 @@
             'rootTitle' => $product->title,
             'root' => route("product.show", ['product' => $product->id]),
             'currentTitle' => "Pictures", 
-            'actionHtml' => '<a href="' . route('photo.show', ['product' => $product->id]) . '" class="btn btn-primary">Add Images</a>&nbsp;<a href="' . route('product.show', ['product' => $product->id]) . '" class="btn btn-primary">View</a>'
+            'actionHtml' => '<a href="' . route('photo.show', ['product' => $product->id]) . '" class="btn btn-primary">Add Images</a>&nbsp;<a href="' . route('product.show', ['product' => $product->id]) . '" class="btn btn-primary">Property dashboard</a>'
         ])           
 @stop 
 

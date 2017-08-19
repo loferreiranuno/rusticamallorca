@@ -142,6 +142,10 @@ class Product extends Model
     public function englishDescription(string $code){
         return $this->descriptions();
     }
+    
+    public function offers(){
+        return $this->hasMany("App\ProductOffer");
+    }
   
     public function getDescription($languageId = null)
     { 
@@ -155,6 +159,10 @@ class Product extends Model
         }           
 
         return $data->description;
+    }
+
+    public function tasks(){
+        return $this->hasMany('App\Task');
     }
  
 

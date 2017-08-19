@@ -17,7 +17,7 @@
                     'rootTitle' => "Properties",
                     'root' => route("product.index"),
                     'currentTitle' => $product->kind->name, 
-                    'actionHtml' => '<a href="' . route('product.show', ['product'=> $product->id]) . '" class="btn btn-primary">View</a>'
+                    'actionHtml' => '<a href="' . route('product.show', ['product'=> $product->id]) . '" class="btn btn-primary">Property dashboard</a>'
                 ])
     @endif     
 @stop 

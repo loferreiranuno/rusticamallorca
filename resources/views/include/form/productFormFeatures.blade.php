@@ -201,12 +201,12 @@
                     {{Form::label('renting_enabled', 'Renting')}}
                 </div>
                 <div class="panel" id="container-renting">
-                    <div class="form-group col-md-3{{ $errors->has('renting_period_id') ? ' has-error' : '' }}">
+                    <div class="form-group col-md-6{{ $errors->has('renting_period_id') ? ' has-error' : '' }}">
                         {{Form::label('renting_period_id','Charge periodicity')}}
                         {!!Form::select('renting_period_id',App\RentingPeriod::pluck('name', 'id'), null, ['class'=> 'form-control'])!!} 
                     </div>
 
-                    <div class="col-md-3 form-block{{ $errors->has('renting_cost') ? ' has-error' : '' }}">
+                    <div class="col-md-6 form-block{{ $errors->has('renting_cost') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_cost', 'Renting cost')}}
                             <div class="input-group">
@@ -216,7 +216,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 form-block{{ $errors->has('renting_agency_fee') ? ' has-error' : '' }}">
+                    <div class="col-md-6 form-block{{ $errors->has('renting_agency_fee') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_agency_fee', 'Agency fee')}}
                             <div class="input-group">
@@ -226,7 +226,7 @@
                         </div>
                     </div>
                 
-                    <div class="col-md-3 form-block{{ $errors->has('renting_bond') ? ' has-error' : '' }}">
+                    <div class="col-md-6 form-block{{ $errors->has('renting_bond') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_bond', 'Bond')}}
                             <div class="input-group">
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                 
-                    <div class="col-md-3 form-block{{ $errors->has('renting_deposit') ? ' has-error' : '' }}">
+                    <div class="col-md-6 form-block{{ $errors->has('renting_deposit') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_deposit', 'Deposit')}}
                             <div class="input-group">
@@ -354,7 +354,7 @@
     <h2>Property amenities</h2>                    
     <div class="row hidden">
     @foreach(App\Feature::all()->sortBy('name') as $item)
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <ul class="todo-list m-t" feature-item>
                 <li>
                     {!! Form::checkbox('feature-'.$item->id, $item->id, old('feature-'.$item->id) != null ? old('feature-'.$item->id) : (isset($product)? $product->features->find($item->id) != null : false), ["class" => "i-checks", "name"=> "feature-".$item->id]) !!}
