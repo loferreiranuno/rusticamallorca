@@ -49,6 +49,6 @@
 
     @parent  
     <script src="{!! asset("js/rustica/back/product.map.js") !!}" ></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('app.mapsKey', 'AIzaSyByQXjRsfRYWr9dD5zwDfWvrQl_wrOFGiE') }}&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('app.mapsKey') }}&callback=initMap" async defer></script>
 @stop
  

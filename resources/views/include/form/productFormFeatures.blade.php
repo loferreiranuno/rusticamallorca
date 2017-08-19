@@ -1,3 +1,34 @@
+ 
+                @section('scripts')  
+                    @parent
+ 
+                    <script>
+ 
+                    $(function() {
+ 
+                        var toogle_open_close = function(obj){
+                            var containerId = $(obj).attr('open-close');
+                            if($(obj).prop("checked"))
+                                $(containerId).show();
+                            else
+                                $(containerId).hide();
+                        };
+
+                        $("[open-close]").on("change", function(){
+                            toogle_open_close(this);
+                        }); 
+
+                        $("[open-close]").each(function(e){
+                            toogle_open_close(this);
+                        });
+
+                        $(".ibox-content .hidden").removeClass("hidden");
+                         
+                    });
+
+                    </script>
+                @stop
+
  <div class="col-lg-12">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -252,74 +283,7 @@
                 </div>
 
                 <div class="col-sm-6 b-r"> 
-
-                <div class="col-sm-12{{ $errors->has('features') ? ' has-error' : '' }}">                     
-                    <div class="form-group">                        
-                            {{Form::label('fatures','Tags')}}
-                            <input type="text" name="features" id="features" clas="form-control col-sm-12" />                         
-                    </div> 
-
-                </div> 
-                @section('scripts')  
-                    @parent
-                    <script type="text/javascript" src="{!! asset('js/plugins/tokenfield-typeahead/scrollspy.js') !!}" charset="UTF-8"></script>
-                    <script type="text/javascript" src="{!! asset('js/plugins/tokenfield-typeahead/affix.js') !!}" charset="UTF-8"></script>
-                    <script type="text/javascript" src="{!! asset('js/plugins/tokenfield-typeahead/typeahead.bundle.min.js') !!}" charset="UTF-8"></script>
-                    <script type="text/javascript" src="{!! asset('js/plugins/tokenfield-typeahead/docs.min.js') !!}" charset="UTF-8"></script>
-                    <script>
-                    var allFeatures = {!! App\Feature::all() !!};
-                    var productFeatures = {!! isset($product->features)?$product->features:'[]' !!};
-                    $(function() {
-
-                        var engine = new Bloodhound({
-                            local: allFeatures.map(function(o){ return {'label': o.name , 'value': o.id}; }),
-                            datumTokenizer: function(d) {
-                                return Bloodhound.tokenizers.whitespace(d.label);
-                            },
-                            queryTokenizer: Bloodhound.tokenizers.whitespace,
-                            dupDetector: function(remoteMatch, localMatch) {
-                                return remoteMatch.id === localMatch.id;
-                            }
-                        });
-
-                        engine.initialize();
-                            
-                        $('#features').tokenfield({
-                            typeahead: [null, { source: engine.ttAdapter(), display: 'label', minLength: 0 }]
-                        })
-                        .on('tokenfield:initialize', function(e){
-                            
-                        }).on('tokenfield:createtoken', function (event) {
-                            var existingTokens = $(this).tokenfield('getTokens');
-                            $.each(existingTokens, function(index, token) {
-                                if (token.value === event.attrs.value){
-                                    event.preventDefault();   
-                                }                                    
-                            });                             
-                        }) 
-                        
-                        $('#features').tokenfield('setTokens', productFeatures.map(function(o){ return {'label': o.name , 'value': o.id}; }));
-                        var toogle_open_close = function(obj){
-                            var containerId = $(obj).attr('open-close');
-                            if($(obj).prop("checked"))
-                                $(containerId).show();
-                            else
-                                $(containerId).hide();
-                        };
-
-                        $("[open-close]").on("change", function(){
-                            toogle_open_close(this);
-                        }); 
-
-                        $("[open-close]").each(function(e){
-                            toogle_open_close(this);
-                        });
  
-                    });
-
-                    </script>
-                @stop
-
                 <div class="form-group col-sm-12">
                     {{Form::label('descriptions','Description')}}
                     <div class="tabs-container ">
@@ -382,5 +346,22 @@
                 </div>
                 </div>
         </div>
+    </div>
+</div>
+
+
+<div class="ibox-content">
+    <h2>Property amenities</h2>                    
+    <div class="row hidden">
+    @foreach(App\Feature::all()->sortBy('name') as $item)
+        <div class="col-sm-2">
+            <ul class="todo-list m-t" feature-item>
+                <li>
+                    {!! Form::checkbox('feature-'.$item->id, $item->id, old('feature-'.$item->id) != null ? old('feature-'.$item->id) : (isset($product)? $product->features->find($item->id) != null : false), ["class" => "i-checks", "name"=> "feature-".$item->id]) !!}
+                    <span class="m-l-xs">{{ $item->name }}</span>
+                </li> 
+            </ul>                            
+        </div> 
+    @endforeach
     </div>
 </div>

@@ -15,15 +15,15 @@ class Task extends Model
     } 
     
     public function product(){
-        return $this->hasOne('App\ProductKindType', 'id', 'product_id');
+        return $this->hasOne('App\Product', 'id', 'product_id');
     } 
 
     public function contact(){
-        return $this->hasOne('App\ProductKindType', 'id', 'contact_id');
+        return $this->hasOne('App\Contact', 'id', 'contact_id');
     } 
 
     public function creator(){
-        return $this->hasOne('App\ProductKindType', 'id', 'creator_id');
+        return $this->hasOne('App\Contact', 'id', 'creator_id');
     } 
 
     public function user(){

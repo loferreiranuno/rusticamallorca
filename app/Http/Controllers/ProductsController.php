@@ -67,7 +67,12 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id); 
+
+        if($product == null)
+            return redirect()->route('product.index'); 
+        
+        return view('pages.back.product', compact('product'));
     }
 
     /**
@@ -120,22 +125,19 @@ class ProductsController extends Controller
                 }
             }
         } 
+         
+        foreach(Feature::all() as $item){ 
+            $value = $request->get("feature-".$item->id);
+            if($value){
+                if($product->features->where('feature_id', $item->id)==null){
+                    $product->features()->save($item);
+                }                
+            }else{
+                $product->features->pull($item->id);
+            } 
+        } 
 
-        //Get Product Features;
-        $iFeatures = $request->get('features');
-
-        foreach($product->features->keys() as $key){
-            $product->features->forget($key);
-        }
-        
         $product->save();
-
-        if(isset($iFeatures))
-        {                        
-            foreach(explode(',',  $iFeatures) as $featureId){
-                $product->features()->save(Feature::find($featureId));
-            }
-        }
 
     }
     /**

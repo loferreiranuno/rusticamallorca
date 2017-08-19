@@ -19,8 +19,14 @@ Route::get('back/', 'HomeController@index')->name('home');
 
 Route::resource('back/product','ProductsController');
 Route::resource('back/contact','ContactsController');
-Route::resource('back/language','LanguagesController');
+Route::resource('back/language','LanguagesController'); 
 
+Route::get('/back/product/{product}/photo', ['uses' =>'PhotoController@index'])->name('photo.show');
+Route::get('/back/product/{product}/photo_properties', ['uses' =>'PhotoController@properties'])->name('photo.properties');
+Route::get('/back/product/{product}/photo.json', ['uses' =>'PhotoController@get'])->name('photo.get');
+Route::post('/back/product/photo/upload', ['uses' =>'PhotoController@upload'])->name('photo.upload');
+Route::delete('/back/product/photo/delete', ['uses' =>'PhotoController@delete'])->name('photo.delete');
+Route::post('/back/product/photo/update', ['uses' =>'PhotoController@update'])->name('photo.update');
 
 
 Auth::routes('back');

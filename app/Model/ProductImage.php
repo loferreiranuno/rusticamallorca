@@ -4,14 +4,26 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
-{
-    static $fillable = [ 
-        'filename'
-    ];
+class ProductImage extends Model
+{ 
 
-    public function products(){
-        return $this->belongsToMany('App\Product', 'product_images',
-        'product_id', 'id');
+    protected $table = 'product_images';
+
+    public function product(){
+        return $this->hasOne('App\Product', 'id', 'product_id');
+    } 
+
+    public function type(){
+        return $this->hasOne('App\ProductImageType', 'id', 'image_type_id');
     }
+
+    public static $rules = [
+        'file' => 'required|mimes:png,gif,jpeg,jpg,bmp'
+    ];
+    
+    public static $messages = [
+        'file.mimes' => 'Uploaded file is not in image format',
+        'file.required' => 'Image is required'
+    ];
+     
 }

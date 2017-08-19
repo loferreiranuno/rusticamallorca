@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ Config::get('app.companyName') }}</title>
 
     <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet">
     <style>
@@ -24,5 +24,8 @@
     <link href={!! asset("css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css") !!} rel="stylesheet">
     <link href={!! asset("css/plugins/tokenfield-typeahead/tokenfield-typeahead.min.css") !!} rel="stylesheet">
     <link href={!! asset("css/plugins/tokenfield-typeahead/bootstrap-tokenfield.min.css") !!} rel="stylesheet">
+
+    @yield("styles")
+    
 
     

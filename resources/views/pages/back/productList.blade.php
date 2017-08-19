@@ -2,24 +2,14 @@
  
 
 @section('breadcrumb')
-    <div class="row wrapper border-bottom white-bg page-heading">       
-    <div class="col-sm-4">
-        <h2>Search properties</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="route('product.index')">Properties</a>
-            </li>
-            <li class="active">
-                <strong>List</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a href="{{route('product.create')}}" class="btn btn-primary">New property</a>
-        </div>
-    </div>
-</div>
+ @include("include.back.breadcrumb", 
+        [
+            'title' => "Search properties" ,
+            'rootTitle' => "Properties",
+            'root' => route('product.index'),
+            'currentTitle' => "List", 
+            'actionHtml' => '<a href="' . route('product.create') . '" class="btn btn-primary">New property</a>'
+        ])   
 @stop 
 
 @section('content')
@@ -126,7 +116,7 @@
                                                                 
                                 @foreach($products as $product)
 
-                                    <tr style="" class="{!! $product->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
+                                    <tr product-row product-url="{{ route('product.show', ['id'=> $product->id]) }}" style="" class="{!! $product->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
                                         
                                         <td class="footable-visible"><!-- checkbox --></td>
                                         <td class="footable-visible"><!-- image --></td>
@@ -165,8 +155,26 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
+@stop
+
+@section("styles")
+    <style>
+        [product-row]
+        {
+            cursor:pointer;
+        }
+    </style>
+@stop 
+
+@section("scripts")
+<script>
+    $(document).ready(function(){
+        
+        $("[product-row]").on("click", function(){
+            window.location = $(this).attr("product-url");
+        });
+    });
+</script>
 @stop

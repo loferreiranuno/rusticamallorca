@@ -14,7 +14,7 @@
                         </div>
                         <div>
                             <div class="sidebar-message">
-                                <a href="#">
+                                <a href="#"> 
                                     <div class="pull-left text-center">
                                         <img alt="image" class="img-circle message-avatar" src="img/a1.jpg">
 

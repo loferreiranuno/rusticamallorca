@@ -11,12 +11,17 @@ return [
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
     */
-
+ 
     'name' => env('APP_NAME', 'Rustica Mallorca'),
     'backOpen' => env('APP_BACK_OPEN', true), // set false to block registration;
     
     'mapsKey' => env('GOOGLE_API_KEY', 'AIzaSyByQXjRsfRYWr9dD5zwDfWvrQl_wrOFGiE'),
     'mapsZoom' => env('GOOGLE_MAPS_ZOOM', 16),
+
+    'companyName' => 'Rustica Mallorca',
+    'companyAddress' => '',
+    'companyPhone' => '',
+    'companyFax' => '',
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -183,6 +188,10 @@ return [
         Collective\Html\HtmlServiceProvider::class ,
         Cornford\Googlmapper\MapperServiceProvider::class,
         Geocoder\Laravel\Providers\GeocoderService::class,
+
+        Laravelista\Ekko\EkkoServiceProvider::class,
+
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -234,9 +243,10 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class ,
         'Input'     => Illuminate\Support\Facades\Input::class,
-        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class
+        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class 
 
-        
+        ,'Ekko' => Laravelista\Ekko\Facades\Ekko::class
+        ,'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

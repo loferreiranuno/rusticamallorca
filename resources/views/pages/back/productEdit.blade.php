@@ -1,33 +1,25 @@
 @extends('layouts.back.default')
- 
+
 @section('breadcrumb')
-                <div class="row wrapper border-bottom white-bg page-heading">       
-                    <div class="col-sm-4">
-                    @if(isset($product))
-                         <h2>{!! $product->title !!}</h2>
-                    @else
-                         <h2>New property</h2>
-                    @endif
-                       
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="{{route('product.index')}}">Properties</a>
-                            </li>
-                            <li class="active">
-                            @if(isset($product))
-                                <strong>Edit Property</strong>
-                            @else
-                                <strong>Create</strong>
-                            @endif
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="title-action">
-                            <a href="{{route('product.create')}}" class="btn btn-primary">Create New</a>
-                        </div>
-                    </div>
-                </div>
+    @if(!isset($product))
+        @include("include.back.breadcrumb", 
+                [
+                    'title' => 'Add new property'  ,
+                    'rootTitle' => "Properties",
+                    'root' => route("product.index"),
+                    'currentTitle' => "Create", 
+                    'actionHtml' => '<a href="' . route('product.index') . '" class="btn btn-primary">Properties</a>'
+                ])
+    @else
+        @include("include.back.breadcrumb", 
+                [
+                    'title' => $product->title  ,
+                    'rootTitle' => "Properties",
+                    'root' => route("product.index"),
+                    'currentTitle' => $product->kind->name, 
+                    'actionHtml' => '<a href="' . route('product.show', ['product'=> $product->id]) . '" class="btn btn-primary">View</a>'
+                ])
+    @endif     
 @stop 
 
 @section('content')

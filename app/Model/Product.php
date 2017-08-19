@@ -94,8 +94,7 @@ class Product extends Model
     }
      
     public function images(){
-        return $this->belongsToMany('App\ProductImage', 'product_images',
-        'id','product_id');
+        return $this->hasMany('App\ProductImage');
     }
 
     public function kind(){
@@ -139,7 +138,11 @@ class Product extends Model
     public function descriptions(){
         return $this->hasMany('App\ProductDescription');
     }
-    
+
+    public function englishDescription(string $code){
+        return $this->descriptions();
+    }
+  
     public function getDescription($languageId = null)
     { 
         $data = $this

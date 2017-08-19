@@ -11,7 +11,7 @@
             </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <span class="m-r-sm text-muted welcome-message">{{ config('app.name', 'Laravel') }}</span>
+                    <span class="m-r-sm text-muted welcome-message">{{ Config::get('app.companyName') }}</span>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -28,7 +28,7 @@
                                     <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
                                     <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                                 </div>
-                            </div>
+                            </div> 
                         </li>                        
                         <li class="divider"></li>
                         <li>
