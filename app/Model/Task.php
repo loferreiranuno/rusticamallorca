@@ -31,11 +31,11 @@ class Task extends Model
     } 
 
     public function creator(){
-        return $this->hasOne('App\Contact', 'id', 'creator_id');
+        return $this->hasOne('App\User', 'id', 'creator_id');
     } 
 
     public function user(){
-        return $this->hasOne('App\Users', 'id', 'user_id');
+        return $this->hasOne('App\User', 'id', 'user_id');
     } 
 
 } 

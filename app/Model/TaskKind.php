@@ -9,6 +9,6 @@ class TaskKind extends Model
     protected $table = 'task_kinds';
 
     public function products(){
-        $this->belongsToMany('App\Tasks');
+        return $this->belongsToMany('App\Tasks');
     }
 }

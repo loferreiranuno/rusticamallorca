@@ -86,8 +86,8 @@
                                                 <i class="fa fa-coffee"></i>
                                             </div>
                                             <div class="vertical-timeline-content">
-                                                <p>{{$task->description}}.
-                                                </p>
+                                                <p>{{$task->description}}</p>
+                                                <a href="{{route('task.edit', ['task'=>$task->id]) }}">Edit</a>
                                                 <span class="vertical-date small text-muted"> {{$task->start_date}} - {{$task->end_date}} </span>
                                             </div>
                                         </div>

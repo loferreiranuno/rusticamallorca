@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Task;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -29,6 +31,10 @@ class User extends Authenticatable
 
 
     public function contacts(){
-        $this->belongsToMany('App\Contact');
+        return $this->belongsToMany('App\Contact');
+    }
+
+    public function tasks(){
+        return $this->hasMany("App\Task", 'user_id', 'id');
     }
 }

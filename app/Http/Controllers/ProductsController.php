@@ -11,16 +11,19 @@ use App\ProductKindType;
 use App\Language;
 use App\ProductDescription;
 use App\Feature;
+use App\Repositories\Product\IProductRepository;
  
 class ProductsController extends Controller
 {
+    private $productRepository;
      /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(IProductRepository $productRepository)
     {
+        $this->productRepository = $productRepository;
         $this->middleware('auth');   
     }
 
@@ -31,7 +34,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = $this->productRepository->getAll();
         return view('pages.back.productList', compact('products'));
     }
  
@@ -53,9 +56,7 @@ class ProductsController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $product = Product::create($request->all());
-        $product->save(); 
-        $this->update_combined_features($product, $request);
+        $product = $this->productRepository->create($request->all());
         return redirect()->route('product.edit', ['id'=> $product->id]); 
     }
 
@@ -67,7 +68,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id); 
+        $product = $this->productRepository->get($id); 
 
         if($product == null)
             return redirect()->route('product.index'); 
@@ -83,7 +84,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     { 
-        $product = Product::find($id); 
+        $product = $this->productRepository->get($id); 
         return View::make('pages.back.productEdit')->with('product', $product); 
     }
 
@@ -96,50 +97,10 @@ class ProductsController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {        
-        $product = Product::find($id);         
-        $product->update($request->all());
-     
-        $this->update_combined_features($product, $request);
-     
+        $product = $this->productRepository->update($id, $request->all());
         return redirect()->route('product.edit', ['id'=> $product->id]);
     }
-
-    private function update_combined_features($product, $request){
-        //Get Product Translations;
-        foreach(Language::all() as $lang){            
-            $iDescription = $request->get('descriptions'.$lang->id);
-            
-            if(isset($iDescription) && !empty($iDescription)){
-
-                $translation = $product->descriptions->where('language_id', $lang->id)->first();
-                if($translation != null){
-                    $translation->description = $iDescription;
-                    $translation->save();
-                }else{                
-                    $pDescription = new ProductDescription([
-                        'language_id'=> $lang->id,
-                        'description'=> $iDescription 
-                    ]);
-
-                    $product->descriptions()->save( $pDescription);
-                }
-            }
-        } 
-         
-        foreach(Feature::all() as $item){ 
-            $value = $request->get("feature-".$item->id);
-            if($value){
-                if($product->features->where('feature_id', $item->id)==null){
-                    $product->features()->save($item);
-                }                
-            }else{
-                $product->features->pull($item->id);
-            } 
-        } 
-
-        $product->save();
-
-    }
+ 
     /**
      * Remove the specified resource from storage.
      *
@@ -148,7 +109,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
-        $product->destroy();
+        $this->productRepository->delete($id);
+        return redirect()->route('product.index'); 
     }
 }

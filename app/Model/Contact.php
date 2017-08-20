@@ -48,5 +48,4 @@ class Contact extends Model
     public function source(){
         return $this->hasOne('App\ContactSource', 'id', 'source_id');
     }
-
 }

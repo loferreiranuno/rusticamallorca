@@ -186,12 +186,14 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class ,
-        Cornford\Googlmapper\MapperServiceProvider::class,
-        Geocoder\Laravel\Providers\GeocoderService::class,
+        //Cornford\Googlmapper\MapperServiceProvider::class,
+        //Geocoder\Laravel\Providers\GeocoderService::class,
 
         Laravelista\Ekko\EkkoServiceProvider::class,
 
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+
+        App\Providers\AppRepositoryProvider::class,
     ],
 
     /*

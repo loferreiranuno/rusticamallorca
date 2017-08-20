@@ -20,13 +20,17 @@ Route::get('back/', 'HomeController@index')->name('home');
 Route::resource('back/product','ProductsController');
 Route::resource('back/contact','ContactsController');
 Route::resource('back/language','LanguagesController'); 
+//TASK CONTROLLER;
 Route::resource('back/task','TaskController'); 
-
+Route::post('back/task/calendar_update', ['uses' =>'TaskController@updateCalendar'])->name('task.calendar.update');
+Route::get('back/task/{task}/search', ['uses' =>'TaskController@search'])->name('task.search');
+//OFFER CONTROLLER;
 Route::resource('back/offer','ProductOfferController'); 
 Route::post('/back/offer/{offer}/status/rented', ['uses' =>'ProductOfferController@markAsRented'])->name('offer.rented');
 Route::post('/back/offer/{offer}/status/rejected', ['uses' =>'ProductOfferController@markAsRejected'])->name('offer.rejected');
 Route::post('/back/offer/{offer}/status/sold', ['uses' =>'ProductOfferController@markAsSold'])->name('offer.sold');
 
+//IMAGES CONTROLLER;
 Route::get('/back/product/{product}/photo', ['uses' =>'PhotoController@index'])->name('photo.show');
 Route::get('/back/product/{product}/photo_properties', ['uses' =>'PhotoController@properties'])->name('photo.properties');
 Route::get('/back/product/{product}/photo.json', ['uses' =>'PhotoController@get'])->name('photo.get');
