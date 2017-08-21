@@ -13,4 +13,6 @@ interface ITaskRepository{
     public function delete($id); 
 
     public function search($id, $start_date, $end_date, $otherOnly);
+
+    public function searchByUser($id, $start_date, $end_date, $otherOnly);
 }

@@ -25,7 +25,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $agent = Auth::user();   
+        $events = json_encode($this->toFullCalendar($agent->tasks));
+        return view('pages.back.taskEdit', compact('events'));
     }
 
     /**
@@ -65,13 +67,21 @@ class TaskController extends Controller
     }
 
     public function search(Request $request){
- 
-        $task_id = $request->get("task");
-        $start_date = $request->get("start");
-        $end_date = $request->get("end");
-        $otherOnly = $request->get("otherOnly");
+         
+        $data = $request->all();
         
-        $results =  $this->taskRepository->search($task_id, $start_date, $end_date, $otherOnly == "true");
+        $task_id = isset($data["task"])? $data["task"] : null;
+
+        $start_date = $data["start"];
+        $end_date = $data["end"];
+        $otherOnly = $data["otherOnly"];
+        
+        if($task_id == null){
+            $results =  $this->taskRepository->searchByUser(Auth::id(), $start_date, $end_date, $otherOnly == "true");
+        }else{
+            $results =  $this->taskRepository->search($task_id, $start_date, $end_date, $otherOnly == "true");
+        }
+        
          
         return Response::json($this->toFullCalendar($results), 200); 
     }

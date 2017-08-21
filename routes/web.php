@@ -20,10 +20,16 @@ Route::get('back/', 'HomeController@index')->name('home');
 Route::resource('back/product','ProductsController');
 Route::resource('back/contact','ContactsController');
 Route::resource('back/language','LanguagesController'); 
+Route::resource('back/language','LanguagesController'); 
+Route::resource('back/user','UserController'); 
+
+//USER CONTROLLER;
+
+
 //TASK CONTROLLER;
 Route::resource('back/task','TaskController'); 
-Route::post('back/task/calendar_update', ['uses' =>'TaskController@updateCalendar'])->name('task.calendar.update');
-Route::get('back/task/{task}/search', ['uses' =>'TaskController@search'])->name('task.search');
+Route::post('back/task/calendar/update', ['uses' =>'TaskController@updateCalendar'])->name('task.calendar.update');
+Route::get('back/task/calendar/search', ['uses' =>'TaskController@search'])->name('task.search');
 //OFFER CONTROLLER;
 Route::resource('back/offer','ProductOfferController'); 
 Route::post('/back/offer/{offer}/status/rented', ['uses' =>'ProductOfferController@markAsRented'])->name('offer.rented');

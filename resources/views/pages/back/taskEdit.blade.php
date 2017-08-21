@@ -4,9 +4,9 @@
    @include("include.back.breadcrumb", 
                 [
                     'title' => "Task edit"  ,
-                    'rootTitle' => "My tasks",
+                    'rootTitle' => isset($task) ?  $task->user->name :  "My tasks",
                     'root' => '',
-                    'currentTitle' => $task->description , 
+                    'currentTitle' => isset($task) ?  $task->description : null , 
                     'actionHtml' => '<button id="save-calendar" class="btn btn-primary">Save Calendar</button>'
                 ])  
 @stop 
@@ -21,6 +21,10 @@
             </div>
         </div>
     </div>
+
+ 
+    {!! Form::text("task_id", isset($task)?$task->id:null) !!}
+ 
     
  
 @stop
@@ -76,7 +80,7 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             }, 
-            defaultView: 'agendaDay',
+            defaultView: 'agendaWeek',
             defaultDate: $("#start_date").val(), 
             editable: true,
             drop: function() {
@@ -88,10 +92,10 @@
             },
             eventSources:[
                 {
-                    url: '{{route("task.search", ["task"=>$task->id])}}',
+                    url: '{{route("task.search", ["task"=> isset($task) ? $task->id : null ])}}',
                     type: 'GET',
                     data: {
-                        task: {{$task->id}},
+                        task:  $("#task_id").val(),
                         otherOnly: false,
                         _token: ''
                     },
@@ -100,10 +104,10 @@
                     } 
                 },
                 {
-                    url: '{{route("task.search", ["task"=>$task->id])}}',
+                    url: '{{route("task.search", ["task"=>isset($task) ? $task->id : null ])}}',
                     type: 'GET',
                     data: {
-                        task: {{$task->id}},
+                        task: $("#task_id").val(),
                         otherOnly: true,
                         _token: ''
                     },

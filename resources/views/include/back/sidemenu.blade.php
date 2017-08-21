@@ -31,16 +31,16 @@
                     <li  class="{{Ekko::areActiveRoutes(['task.index', 'task.create'])}}">
                         <a href="/tasks/"><i class="fa fa-list-alt"></i> <span class="nav-label">Tasks</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="/task/create">New task</a></li>                          
-                            <li><a href="/task/">Search tasks</a></li>  
+                            <li><a href="{{route('task.index')}}">My tasks</a></li>   
                         </ul>
                     </li>
                     
                     <li  class="{{Ekko::areActiveRoutes(['user.index', 'user.create'])}}">
                         <a href="/tasks/"><i class="fa fa-list-alt"></i> <span class="nav-label">Office users</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="/user/create">New office user</a></li>                          
-                            <li><a href="/user/">Seaerch office users</a></li>  
+                            <li><a href="{{route('user.show', ['user'=> Auth::id()])}}">My profile</a></li> 
+                            <li><a href="{{route('user.create')}}">New office user</a></li>                          
+                            <li><a href="{{route('user.index')}}">Seaerch office users</a></li>  
                         </ul>
                     </li>
                     
