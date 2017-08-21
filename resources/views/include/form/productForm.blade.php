@@ -1,29 +1,35 @@
-
+ 
 <div class="wrapper wrapper-content animated fadeInRight">
     
    
     <div class="row">
         @include('include.form.errorMessage')
         {{csrf_field()}}
-    </div>
+    </div> 
     <div class="row">
         <div class="tabs-container">
             <ul class="nav nav-tabs">
-                <li><a data-toggle="tab" href="#tab-1">Location</a></li>
-                <li class="active"><a data-toggle="tab" href="#tab-2">Features</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab-1">Location</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-2">Listing features</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-6">Tags</a></li> 
                 <li class=""><a data-toggle="tab" href="#tab-3">Private data</a></li>
                 <li class=""><a data-toggle="tab" href="#tab-4">Agreement</a></li>
-                <li class=""><a data-toggle="tab" href="#tab-5">Other</a></li>
+                <li class=""><a data-toggle="tab" href="#tab-5">Other</a></li> 
             </ul>
             <div class="tab-content">
-                <div id="tab-1" class="tab-pane">
+                <div id="tab-1" class="tab-pane active">
                     <div class="panel-body">
                         @include("include.form.productFormLocation")
                     </div>
                 </div>
-                <div id="tab-2" class="tab-pane active">
+                <div id="tab-2" class="tab-pane">
                     <div class="panel-body">
                         @include("include.form.productFormFeatures")
+                    </div>
+                </div>
+                <div id="tab-6" class="tab-pane">
+                    <div class="panel-body">
+                        @include("include.form.featureForm", ['product'=> isset($product) ? $product : null])
                     </div>
                 </div>
                 <div id="tab-3" class="tab-pane">

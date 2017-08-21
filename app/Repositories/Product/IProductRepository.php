@@ -10,6 +10,8 @@ interface IProductRepository{
 
     public function update($id, array $data);
 
+    public function putFeatures($id, array $data);
+
     public function delete($id);
 
     public function getAll();

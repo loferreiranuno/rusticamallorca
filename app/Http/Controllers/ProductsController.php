@@ -100,6 +100,14 @@ class ProductsController extends Controller
         $product = $this->productRepository->update($id, $request->all());
         return redirect()->route('product.edit', ['id'=> $product->id]);
     }
+
+    public function updateFeatures(Request $request, $id){
+        $product = $this->productRepository->putFeatures($id, $request->all());
+        return Response::json([
+            'error' => false,
+            'code'  => 200
+        ], 200); 
+    }
  
     /**
      * Remove the specified resource from storage.

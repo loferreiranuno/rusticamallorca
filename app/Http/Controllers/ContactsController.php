@@ -87,7 +87,9 @@ class ContactsController extends Controller
      */
     public function update(ContactRequest $request, $id)
     {
-        //
+        $contact = Contact::find($id);
+        $contact->update($request->all());
+        return View::make('pages.back.contactEdit')->with('contact', $contact);
     }
 
     /**

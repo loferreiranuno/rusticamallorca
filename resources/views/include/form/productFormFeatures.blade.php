@@ -309,9 +309,7 @@
                                 </div>
                             </div>
                         </div>
-                </div>
-
-
+                </div> 
 
                 <div class="form-group col-sm-6{{ $errors->has('energy_certificate_id') ? ' has-error' : '' }}">
                     {{Form::label('energy_certificate_id','Energy Certificate')}}
@@ -346,22 +344,5 @@
                 </div>
                 </div>
         </div>
-    </div>
-</div>
-
-
-<div class="ibox-content">
-    <h2>Property amenities</h2>                    
-    <div class="row hidden">
-    @foreach(App\Feature::all()->sortBy('name') as $item)
-        <div class="col-sm-3">
-            <ul class="todo-list m-t" feature-item>
-                <li>
-                    {!! Form::checkbox('feature-'.$item->id, $item->id, old('feature-'.$item->id) != null ? old('feature-'.$item->id) : (isset($product)? $product->features->find($item->id) != null : false), ["class" => "i-checks", "name"=> "feature-".$item->id]) !!}
-                    <span class="m-l-xs">{{ $item->name }}</span>
-                </li> 
-            </ul>                            
-        </div> 
-    @endforeach
     </div>
 </div>

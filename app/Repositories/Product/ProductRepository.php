@@ -6,6 +6,7 @@ use App\Repositories\Product\IProductRepository;
 use App\Product;
 use App\Language;
 use App\Feature;
+use App\ProductDescription;
 
 class ProductRepository implements IProductRepository{
     
@@ -37,6 +38,16 @@ class ProductRepository implements IProductRepository{
         
         $this->updateDescriptions($product, $data);
         $this->updateFeatures($product, $data);
+        $product->save();
+        return $product;
+    }
+
+    public function putFeatures($id, array $data){
+        $product = $this->get($id);
+        $this->updateFeatures($product, $data);
+        $product->save();
+
+        print_r($product->features->all());
         return $product;
     }
     
@@ -57,7 +68,7 @@ class ProductRepository implements IProductRepository{
         foreach($this->languageModel->all() as $lang){           
 
             $key = "descriptions".$lang->id;
-            if(in_array($key, $data)){
+            if(isset($data[$key])){
                 $iDescription = $data[$key];
                 $translation = $product->descriptions->where('language_id', $lang->id)->first();
                 if($translation != null){
@@ -79,10 +90,10 @@ class ProductRepository implements IProductRepository{
                  
         foreach($this->featureModel->all() as $item){ 
             $key = "feature-".$item->id;
-            if(in_array($key, $data)){
-                $value = $data[$key];
-                if($value){
-                    if($product->features->where('feature_id', $item->id)==null){
+            if(isset($data[$key])){ 
+                $value = $data[$key]; 
+                if($value){                   
+                    if(!$product->features->contains('id', $item->id)){                        
                         $product->features()->save($item);
                     }                
                 }else{
@@ -91,11 +102,9 @@ class ProductRepository implements IProductRepository{
             }else{
                 $product->features->pull($item->id);
             }
-            
         } 
-
+    
         $product->save();
-
     }
 
 }

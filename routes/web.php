@@ -18,6 +18,8 @@ Route::get('/', function () {
 Route::get('back/', 'HomeController@index')->name('home'); 
 
 Route::resource('back/product','ProductsController');
+Route::get('back/product/{product}/features', ['uses' =>'ProductsController@updateFeatures'])->name('product.update.features');
+
 Route::resource('back/contact','ContactsController');
 Route::resource('back/language','LanguagesController'); 
 Route::resource('back/language','LanguagesController'); 
