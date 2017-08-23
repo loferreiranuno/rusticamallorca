@@ -4,7 +4,7 @@ namespace App\Repositories\Product;
 
 use App\Repositories\Product\IProductRepository;
 use App\Product;
-use App\Language;
+use App\Language; 
 use App\Feature;
 use App\ProductDescription;
 
