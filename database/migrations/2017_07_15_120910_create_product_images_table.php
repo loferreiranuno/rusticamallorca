@@ -13,11 +13,13 @@ class CreateProductImagesTable extends Migration
      */
     public function up()
     {
+
+        Schema::dropIfExists('product_images');
         Schema::create('product_images', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('product_id')->nullable();
             $table->integer('image_type_id');
-            $table->string('fileName');
+            $table->string('file_name');
             $table->timestamps();
         });
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model; 
+use Illuminate\Http\Request;
 
 class Product extends Model
 {
@@ -101,26 +102,32 @@ class Product extends Model
         return $this->hasOne('App\ProductKindType', 'id', 'product_kind_id');
     } 
 
-    public function creator(){
-        return $this->hasOne('App\User', 'id', 'owner_id');
+    public function owner(){
+        return $this->hasOne('App\Contact', 'id', 'owner_id');
     }
 
-    public function manager(){
-        return $this->hasOne('App\User', 'users',
-        'manager_id', 'id');
+    public function creator(){
+        return $this->hasOne('App\User', 'id', 'creator_id');
+    }
+
+    public function recruiter(){
+        return $this->hasOne('App\User', 'id', 'recruiter_id');
+    }
+
+    public function seller(){
+        return $this->hasOne('App\User', 'id', 'manager_id');
     }
 
     public function partner(){
-        return $this->hasOne('App\Contact', 'contacts',
-        'partner_id', 'id');
+        return $this->hasOne('App\Contact', 'id', 'partner_id');
     }
 
     public function rentingPeriod(){
-        return $this->hasOne('App\RentingPeriod', 'renting_periods');
+        return $this->hasOne('App\RentingPeriod', 'id', 'renting_period_id');
     }
 
     public function energyCertificate(){
-        return $this->hasOne('App\EnergyCertificate', 'energy_certificates');
+        return $this->hasOne('App\EnergyCertificate', 'id', 'energy_certificate_id');
     }
 
     public function divisionLicense(){
@@ -132,7 +139,11 @@ class Product extends Model
     }
 
     public function agreementType(){
-        return $this->hasOne('App\AgreementType', ' agreement_types');
+        return $this->hasOne('App\AgreementType', 'id', 'agreement_type_id');
+    }
+    
+    public function documents(){
+        return $this->hasMany('App\ProductDocument');
     }
 
     public function descriptions(){
@@ -163,6 +174,43 @@ class Product extends Model
 
     public function tasks(){
         return $this->hasMany('App\Task');
+    }
+  
+
+    public function scopeSearch($query, Request $request){
+ 
+        if($request->has('typology')){
+            $query->where('product_kind_id', '=', $request->get('typology'));
+        }
+
+        if($request->has('status')){
+            $query->where('product_status_id', '=', $request->get('status'));
+        }
+
+        if($request->has('sell_type')){
+            switch($request->get('typology')){
+                case "rent": $query->where('renting_enabled', '=', 1 ); break;
+                case "sell": $query->where('selling_enabled', '=', 1 ); break;
+            }
+        }
+
+        if($request->has('max_price')){
+            switch($request->get('typology'))
+            {
+                case "rent": $query->where('renting_cost', '<=', $request->get('max_price')); break;
+                case "sell": $query->where('selling_cost', '<=', $request->get('max_price')); break;
+                default: 
+                    $query->where('renting_cost', '<=', $request->get('max_price'));
+                    $query->where('selling_cost', '<=', $request->get('max_price'));
+                break;
+            }
+        }
+
+        if($request->has('min_area')){
+           $query->where('area', '>=', $request->get('min_area'));
+        }
+        
+        return $query;
     }
  
 

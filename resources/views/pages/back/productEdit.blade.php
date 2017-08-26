@@ -34,7 +34,7 @@
 @endif
 
  @include('include.form.productForm')
- 
+
 {!! Form::close() !!}
  
 @stop

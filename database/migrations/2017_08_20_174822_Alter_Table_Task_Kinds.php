@@ -26,7 +26,7 @@ class AlterTableTaskKinds extends Migration
     public function down()
     {
          Schema::table('task_kinds', function($table) { 
-              $table->dropColumn('original_name');
+              $table->dropColumn('css_icon');
         });
     }
 }

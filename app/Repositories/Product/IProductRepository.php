@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Product;
 
+use Illuminate\Http\Request;
+
 interface IProductRepository{
 
     public function get($id);
@@ -14,6 +16,8 @@ interface IProductRepository{
 
     public function delete($id);
 
-    public function getAll();
+    public function getAll($pages);
+
+    public function search(Request $request, $pages);
 
 }

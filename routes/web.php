@@ -20,6 +20,8 @@ Route::get('back/', 'HomeController@index')->name('home');
 Route::resource('back/product','ProductsController');
 Route::get('back/product/{product}/features', ['uses' =>'ProductsController@updateFeatures'])->name('product.update.features');
 
+
+
 Route::resource('back/contact','ContactsController');
 Route::resource('back/language','LanguagesController'); 
 Route::resource('back/language','LanguagesController'); 
@@ -46,5 +48,7 @@ Route::post('/back/product/photo/upload', ['uses' =>'PhotoController@upload'])->
 Route::delete('/back/product/photo/delete', ['uses' =>'PhotoController@delete'])->name('photo.delete');
 Route::post('/back/product/photo/update', ['uses' =>'PhotoController@update'])->name('photo.update');
 
+//DOCUMENTS CONTROLLER
+Route::resource('back/document', 'ProductDocumentController');
 
 Auth::routes('back');

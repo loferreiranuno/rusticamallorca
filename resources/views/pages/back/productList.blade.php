@@ -1,3 +1,4 @@
+
 @extends('layouts.back.default')
  
 
@@ -18,33 +19,55 @@
 
             <div class="ibox-content m-b-sm border-bottom">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label" for="product_name">Product Name</label>
-                            <input type="text" id="product_name" name="product_name" value="" placeholder="Product Name" class="form-control">
+                
+                
+                {!! Form::open(array('route' => 'product.index', 'method'=>'GET')) !!}   
+                
+                {!! Form::hidden('search', true) !!}
+                             
+                    {!! Form::token() !!}                    
+                    <div class="col-sm-2">
+                        <div class="form-group">                                                 
+                         {!! Form::select('typology', App\ProductKindType::pluck('name', 'id')->prepend('Typology',''), old('typology'), ['class'=>'form-control']) !!}                                                  
                         </div>
                     </div>
                     <div class="col-sm-2">
+                        <div class="form-group">               
+                         {!! Form::select('status', App\ProductStatus::pluck('name', 'id')->prepend('Status',''), old('status'), ['class'=>'form-control']) !!}                                                  
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
                         <div class="form-group">
-                            <label class="control-label" for="price">Price</label>
-                            <input type="text" id="price" name="price" value="" placeholder="Price" class="form-control">
+                            
+                        <div class="form-group">                                            
+                         {!! Form::select('sell_type', array(''=> 'Renting or selling', 'rent'=>'Renting', 'sell'=>'Selling'), old('sell_type'), ['class'=>'form-control']) !!}                                                  
+                        </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="form-group">
-                            <label class="control-label" for="quantity">Quantity</label>
-                            <input type="text" id="quantity" name="quantity" value="" placeholder="Quantity" class="form-control">
+                        <div class="form-group">        
+                            <div class="input-group">
+                                {!! Form::number('max_price', old('max_price'), ['placeholder'=>'Price', 'title'=>'Max Price',  'class'=>'form-control']) !!}                            
+                                 <span class="input-group-addon">&euro;</span>
+                            </div>                                                
+                        
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label" for="status">Status</label>
-                            <select name="status" id="status" class="form-control">
-                                <option value="1" selected="">Enabled</option>
-                                <option value="0">Disabled</option>
-                            </select>
+                    <div class="col-sm-2">
+                        <div class="form-group">   
+                            <div class="input-group">
+                                {!! Form::number('min_area', old('min_area'), ['placeholder'=>'Area', 'title'=>'Min Area',   'class'=>'form-control']) !!}                                    
+                                <span class="input-group-addon">m&sup2;</span>
+                            </div>                         
+                            
                         </div>
+                    </div> 
+                    <div class="col-sm-1">  
+                    <div class="form-group">                        
+                        {!! Form::submit("GO", ['class'=>'btn btn-primary','title'=>'Search']) !!}                        
                     </div>
+                    </div>
+                {!! Form::close() !!}
                 </div>
 
             </div>
@@ -96,11 +119,14 @@
                                         <span class="footable-sort-indicator"></span>
                                     </th> 
 
-                                    <th data-toggle="true" class="footable-visible"> Renting
+                                    <th data-toggle="true" class="footable-visible"> Rent
+                                        <span class="footable-sort-indicator"></span>
+                                    </th> 
+                                    <th data-toggle="true" class="footable-visible"> Sell
                                         <span class="footable-sort-indicator"></span>
                                     </th> 
 
-                                    <th data-toggle="true" class="footable-visible"> Selling
+                                    <th data-toggle="true" class="footable-visible"> Status
                                         <span class="footable-sort-indicator"></span>
                                     </th> 
 
@@ -118,18 +144,25 @@
 
                                     <tr product-row product-url="{{ route('product.show', ['id'=> $product->id]) }}" style="" class="{!! $product->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
                                         
-                                        <td class="footable-visible"><!-- checkbox --></td>
-                                        <td class="footable-visible"><!-- image --></td>
+                                        <td class="footable-visible">
+                                            {!! Form::checkbox('selected-products[]', $product->id, false, ['class'=>'form-control', 'id'=>'product-'.$product->id]) !!}
+                                        </td>
+                                        <td class="footable-visible"><img src="{!! asset(App\Helpers\RusticaHelper::getProductImage($product, false)); !!}" class="img-thumbnail" /></td>
                                         <td class="footable-visible">{!!$product->identifier!!} </td>
                                         <td class="footable-visible">{!!$product->kind->name!!}</td>
                                         <td class="footable-visible">{!!$product->floors!!} </td>
                                         <td class="footable-visible">{!!$product->beds!!} </td>
                                         <td class="footable-visible">{!!$product->bathrooms!!} </td>
-                                        <td class="footable-visible">{!!$product->area!!} </td>
-                                        <td class="footable-visible">{!!$product->city_name!!} </td>
-                                        <td class="footable-visible">{!!$product->street_name!!} </td>
-                                        <td class="footable-visible">{!!$product->renting_cost!!} </td>
-                                        <td class="footable-visible">{!!$product->selling_cost!!} </td>
+                                        <td class="footable-visible"><small>{!!$product->area!!} </small></td>
+                                        <td class="footable-visible"><small>{!!$product->city_name!!} </small></td>
+                                        <td class="footable-visible"><small>{!!$product->street_name!!} </small></td>
+                                        <td class="footable-visible">
+                                                <span class="  {!! $product->renting_enabled && isset($product->renting_cost)  ? '' : 'hidden' !!}">{!!isset($product->renting_cost) ? $product->renting_cost : "-"!!}&euro; <small>({!! $product->rentingPeriod->name!!})</small> </span>                                                
+                                        </td>
+                                        <td class="footable-visible">                                                
+                                                <span class="  {!! $product->selling_enabled && isset($product->selling_cost) ? '' : 'hidden' !!}">{!!isset($product->selling_cost) ? $product->selling_cost : "-"!!}&euro; </span>
+                                        </td>
+                                        <td class="footable-visible">{!!$product->status->name!!} </td>
 
                                         <td class="text-right footable-visible footable-last-column">
                                             <div class="btn-group">
@@ -150,6 +183,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                            {{ $products->links() }}
                         @endif
                         </div>
                     </div>

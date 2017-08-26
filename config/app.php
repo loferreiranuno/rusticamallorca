@@ -186,8 +186,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class ,
-        //Cornford\Googlmapper\MapperServiceProvider::class,
-        //Geocoder\Laravel\Providers\GeocoderService::class,
+        Cornford\Googlmapper\MapperServiceProvider::class,
+        Geocoder\Laravel\Providers\GeocoderService::class,
 
         Laravelista\Ekko\EkkoServiceProvider::class,
 
@@ -244,7 +244,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class ,
-        'Input'     => Illuminate\Support\Facades\Input::class,
+        'Input'=> Illuminate\Support\Facades\Input::class,
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class 
 
         ,'Ekko' => Laravelista\Ekko\Facades\Ekko::class

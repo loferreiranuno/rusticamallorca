@@ -8,6 +8,8 @@ use App\Language;
 use App\Feature;
 use App\ProductDescription;
 
+use Illuminate\Http\Request;
+
 class ProductRepository implements IProductRepository{
     
     private $model;
@@ -59,8 +61,12 @@ class ProductRepository implements IProductRepository{
     }
     
 
-    public function getAll(){
-        return $this->model->all();
+    public function getAll($pages){
+        return $this->model->paginate($pages);
+    }
+
+    public function search(Request $request, $pages){
+        return $this->model->search($request)->paginate($pages);
     }
     
     private function updateDescriptions(Product $product, array $data){
@@ -87,24 +93,15 @@ class ProductRepository implements IProductRepository{
     }
 
     private function updateFeatures(Product $product, array $data){
-                 
+
+        $product->features()->delete();         
         foreach($this->featureModel->all() as $item){ 
             $key = "feature-".$item->id;
             if(isset($data[$key])){ 
                 $value = $data[$key]; 
-                if($value){                   
-                    if(!$product->features->contains('id', $item->id)){                        
-                        $product->features()->save($item);
-                    }                
-                }else{
-                    $product->features->pull($item->id);
-                } 
-            }else{
-                $product->features->pull($item->id);
+                $product->features()->save($item);
             }
-        } 
-    
-        $product->save();
+        }    
     }
 
 }

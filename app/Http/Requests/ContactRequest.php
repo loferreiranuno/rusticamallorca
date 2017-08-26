@@ -23,7 +23,6 @@ class ContactRequest extends FormRequest
      */
     public function rules()
     {
-         
         return [
            'name' => 'required',
            'email' => 'required|email|unique:contacts,email,'. $this->contact,

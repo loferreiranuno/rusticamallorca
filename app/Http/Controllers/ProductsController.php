@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-
+use Input;
 use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\ProductKindType;
@@ -15,6 +15,7 @@ use App\Repositories\Product\IProductRepository;
  
 class ProductsController extends Controller
 {
+    private $TOTAL_PAGES = 25;
     private $productRepository;
      /**
      * Create a new controller instance.
@@ -32,10 +33,18 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $products = $this->productRepository->getAll();
-        return view('pages.back.productList', compact('products'));
+    public function index(Request $request)
+    { 
+         
+        if($request->has('search')){
+            $products = $this->productRepository->search($request, $this->TOTAL_PAGES)->appends(Input::except('page'));
+            return view('pages.back.productList', compact('products'));
+        }else{
+            $products = $this->productRepository->getAll($this->TOTAL_PAGES);
+            return view('pages.back.productList', compact('products'));
+        }
+
+        
     }
  
     /**

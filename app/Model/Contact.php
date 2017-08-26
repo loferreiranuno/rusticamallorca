@@ -48,4 +48,13 @@ class Contact extends Model
     public function source(){
         return $this->hasOne('App\ContactSource', 'id', 'source_id');
     }
+
+    public function ownedProducts(){
+        return $this->hasMany('App\Products', 'owner_id', 'id');
+    }
+
+    public function partnerProducts(){
+        return $this->hasMany('App\Products', 'partner_id', 'id');
+    }
+    
 }

@@ -23,8 +23,8 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-         
-        return [
+
+        $rules = [
             'city_name' => 'required',
             'zip_code' => 'required',
             'street_name' => 'required',
@@ -38,5 +38,13 @@ class ProductRequest extends FormRequest
             'area_util' => 'required',
             'identifier' => 'required'
         ];
+
+        if ($this->attributes->has('selling_enabled')) { 
+            if($this->attributes->get('selling_enabled') == 1){
+                $rules['selling_cost'] = 'required|integer|min:0';
+            }
+        }
+
+        return $rules;
     }
 }

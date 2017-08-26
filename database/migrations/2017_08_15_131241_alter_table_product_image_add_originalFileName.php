@@ -13,19 +13,19 @@ class AlterTableProductImageAddOriginalFileName extends Migration
      */
     public function up()
     {
-        Schema::table('product_images', function($table) {
-            $table->renameColumn('fileName', 'file_name');
+        // Schema::table('product_images', function($table) {
+        //     $table->renameColumn('fileName', 'file_name');
 
-            if (Schema::hasColumn('product_images', 'original_name'))
-            {
-                Schema::table('product_images', function (Blueprint $table)
-                {
-                    $table->dropColumn('original_name');
-                });
-            } 
+        //     if (Schema::hasColumn('product_images', 'original_name'))
+        //     {
+        //         Schema::table('product_images', function (Blueprint $table)
+        //         {
+        //             $table->dropColumn('original_name');
+        //         });
+        //     } 
             
-            $table->string('original_name')->after('product_id');
-        });
+        //     $table->string('original_name')->after('product_id');
+        // });
     }
 
     /**
@@ -35,9 +35,9 @@ class AlterTableProductImageAddOriginalFileName extends Migration
      */
     public function down()
     {
-        Schema::table('product_images', function($table) {
-            $table->renameColumn('file_name', 'fileName');
-            $table->dropColumn('original_name');
-        });
+        // Schema::table('product_images', function($table) {
+        //     $table->renameColumn('file_name', 'fileName');
+        //     $table->dropColumn('original_name');
+        // });
     }
 }

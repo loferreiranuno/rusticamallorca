@@ -18,6 +18,7 @@
                         <div class="title-action">
                             <a href="" class="btn btn-primary">This is action area</a>
                         </div>
+                        
                     </div>
                 </div>
 @stop 
