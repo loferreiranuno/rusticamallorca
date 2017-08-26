@@ -21,20 +21,20 @@ class CreateTaskKindsTable extends Migration
         
         DB::table('task_kinds')->insert(
             array(
-                array('name'=>'Other'),
-                array('name'=>'Phone call'),
-                array('name'=>'Visit'),
-                array('name'=>'Send email'),
-                array('name'=>'Close sale'),
-                array('name'=>'Close rent'),
-                array('name'=>'Email interests campaign'),
-                array('name'=>'Sign contract'),
-                array('name'=>'Process request'),
-                array('name'=>'Contact satisfied'),
-                array('name'=>'Assessment'),
-                array('name'=>'Proposal'),
-                array('name'=>'Book Task'),
-                array('name'=>'Acquirement')
+                array('name'=>'Other', 'fa fa-tasks'),
+                array('name'=>'Phone call', 'fa fa-phone'),
+                array('name'=>'Visit', 'fa fa-eye'),
+                array('name'=>'Send email', 'fa fa-envelope'),
+                array('name'=>'Close sale', 'fa fa-money'),
+                array('name'=>'Close rent', 'fa fa-money'),
+                array('name'=>'Email interests campaign', 'fa fa-envelope'),
+                array('name'=>'Sign contract', 'fa fa-pencil'),
+                array('name'=>'Process request', 'fa fa-files-o'),
+                array('name'=>'Contact satisfied', 'fa fa-check'),
+                array('name'=>'Assessment', 'fa fa-search'),
+                array('name'=>'Proposal', 'fa fa-briefcase'),
+                array('name'=>'Book Task', 'fa fa-calendar'),
+                array('name'=>'Acquirement', 'fa fa-tasks')
             )
         );
     }

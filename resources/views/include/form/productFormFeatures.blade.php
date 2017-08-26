@@ -51,12 +51,12 @@
                       
                 <div class="form-group col-sm-6{{ $errors->has('product_status_id') ? ' has-error' : '' }}">
                     {{Form::label('product_status_id','Status*')}}
-                    {!!Form::select('product_status_id', App\ProductStatus::pluck('name', 'id'), null, ['class'=> 'form-control'])!!} 
+                    {!!Form::select('product_status_id', App\ProductStatus::pluck('name', 'id')->prepend('',''), old('product_status_id'), ['class'=> 'form-control'])!!} 
                 </div> 
 
                 <div class="form-group col-sm-4{{ $errors->has('product_kind_id') ? ' has-error' : '' }}">
                     {{Form::label('product_kind_id','Kind*')}}
-                    {!!Form::select('product_kind_id', App\ProductKindType::pluck('name', 'id') , null, ['class'=> 'form-control'])!!} 
+                    {!!Form::select('product_kind_id', App\ProductKindType::pluck('name', 'id')->prepend('','') , old('product_kind_id'), ['class'=> 'form-control'])!!} 
                 </div>
                 
                 <div class="form-group col-sm-4{{ $errors->has('rooms') ? ' has-error' : '' }}">
@@ -90,7 +90,7 @@
                     <div class="form-group">
                         {{Form::label('area', 'Area*')}}
                         <div class="input-group">
-                            {!!Form::number('area', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('area', old('area'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -100,7 +100,7 @@
                     <div class="form-group">
                         {{Form::label('area_util', 'Area util*')}}
                         <div class="input-group">
-                            {!!Form::number('area_util', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('area_util', old('area_util'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -110,7 +110,7 @@
                     <div class="form-group">
                         {{Form::label('plot_area', 'Plot area')}}
                         <div class="input-group">
-                            {!!Form::number('plot_area', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('plot_area', old('plot_area'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -120,7 +120,7 @@
                     <div class="form-group">
                         {{Form::label('building_front', 'Front')}}
                         <div class="input-group">
-                            {!!Form::number('building_front', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('building_front', old('building_front'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -130,7 +130,7 @@
                     <div class="form-group">
                         {{Form::label('building_depth', 'Depth')}}
                         <div class="input-group">
-                            {!!Form::number('building_depth', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('building_depth', old('building_depth'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -141,7 +141,7 @@
                     <div class="form-group">
                         {{Form::label('area_first_floor', 'Area first floor')}}
                         <div class="input-group">
-                            {!!Form::number('area_first_floor', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('area_first_floor', old('area_first_floor'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -152,7 +152,7 @@
                     <div class="form-group">
                         {{Form::label('area_underground', 'Area underground')}}
                         <div class="input-group">
-                            {!!Form::number('area_underground', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('area_underground', old('area_underground'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -163,7 +163,7 @@
                     <div class="form-group">
                         {{Form::label('window_area', 'Window area')}}
                         <div class="input-group">
-                            {!!Form::number('window_area', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('window_area', old('window_area'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -174,7 +174,7 @@
                     <div class="form-group">
                         {{Form::label('ceiling_height', 'Ceiling height')}}
                         <div class="input-group">
-                            {!!Form::number('ceiling_height', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('ceiling_height', old('ceiling_height'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -182,7 +182,7 @@
 
                 <div class="form-group col-sm-4{{ $errors->has('year') ? ' has-error' : '' }}">
                     {{Form::label('year','Year built')}}
-                    {{Form::number('year', null, ['class'=> 'form-control'])}}
+                    {{Form::number('year', old('year'), ['class'=> 'form-control'])}}
                 </div>
 
 
@@ -190,7 +190,7 @@
                     <div class="form-group">
                         {{Form::label('building_expenses', 'Building expenses')}}
                         <div class="input-group">
-                            {!!Form::number('building_expenses', null, ['class'=>'form-control' ])!!}
+                            {!!Form::number('building_expenses', old('building_expenses'), ['class'=>'form-control' ])!!}
                             <span class="input-group-addon">&euro;</span>
                         </div> 
                     </div>
@@ -203,14 +203,14 @@
                 <div class="panel" id="container-renting">
                     <div class="form-group col-md-6{{ $errors->has('renting_period_id') ? ' has-error' : '' }}">
                         {{Form::label('renting_period_id','Charge periodicity')}}
-                        {!!Form::select('renting_period_id',App\RentingPeriod::pluck('name', 'id'), null, ['class'=> 'form-control'])!!} 
+                        {!!Form::select('renting_period_id',App\RentingPeriod::pluck('name', 'id'), old('renting_period_id'), ['class'=> 'form-control'])!!} 
                     </div>
 
                     <div class="col-md-6 form-block{{ $errors->has('renting_cost') ? ' has-error' : '' }}">
                         <div class="form-group">
                             {{Form::label('renting_cost', 'Renting cost')}}
                             <div class="input-group">
-                                {!!Form::number('renting_cost', null, ['class'=>'form-control' ])!!}
+                                {!!Form::number('renting_cost', old('renting_cost'), ['class'=>'form-control' ])!!}
                                 <span class="input-group-addon">&euro;</span>
                             </div> 
                         </div>
@@ -283,34 +283,7 @@
                 </div>
 
                 <div class="col-sm-6 b-r"> 
- 
-                <div class="form-group col-sm-12">
-                    {{Form::label('descriptions','Description')}}
-                    <div class="tabs-container ">
-
-                            <div class="tabs-left">
-                                <ul class="nav nav-tabs">
-                                    @foreach(App\Language::all() as $key => $lang)
-                                        <li class="{!! $key == 0 ? 'active' : '' !!}"><a data-toggle="tab" href="#tab-lang{!! $lang->id !!}"> {!! $lang->name !!}</a></li>
-                                    @endforeach
-                                </ul>
-                                <div class="tab-content ">
-                                    @foreach(App\Language::all() as $key => $lang)
-                                        <div id="tab-lang{!!$lang->id!!}" class="tab-pane {!! $key == 0 ? 'active' : '' !!}">
-                                            <div class="panel-body">
-                                            @if(isset($product))
-                                                {{Form::textarea('descriptions'.$lang->id, $product->getDescription($lang->id) , ['class'=> 'form-control'])}}
-                                            @else
-                                                {{Form::textarea('descriptions'.$lang->id, old('descriptions'.$lang->id), ['class'=> 'form-control'])}}
-                                            @endif                                               
-                                            </div>
-                                        </div> 
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                </div> 
-
+                
                 <div class="form-group col-sm-6{{ $errors->has('energy_certificate_id') ? ' has-error' : '' }}">
                     {{Form::label('energy_certificate_id','Energy Certificate')}}
                     {{Form::select('energy_certificate_id', App\EnergyCertificate::pluck('name', 'id')->prepend('',''), null, ['class'=> 'form-control'])}}
@@ -341,6 +314,35 @@
                     {{Form::label('external_url','External URL')}}
                     {{Form::text('external_url', null, ['class'=> 'form-control'])}}
                 </div> 
+
+<div class="form-group col-sm-12">
+                    {{Form::label('descriptions','Description')}}
+                    <div class="tabs-container ">
+
+                            <div class="tabs-left">
+                                <ul class="nav nav-tabs">
+                                    @foreach(App\Language::all() as $key => $lang)
+                                        <li class="{!! $key == 0 ? 'active' : '' !!}"><a data-toggle="tab" href="#tab-lang{!! $lang->id !!}"> {!! $lang->name !!}</a></li>
+                                    @endforeach
+                                </ul>
+                                <div class="tab-content ">
+                                    @foreach(App\Language::all() as $key => $lang)
+                                        <div id="tab-lang{!!$lang->id!!}" class="tab-pane {!! $key == 0 ? 'active' : '' !!}">
+                                            <div class="panel-body">
+                                            @if(isset($product))
+                                                {{Form::textarea('descriptions'.$lang->id, $product->getDescription($lang->id) , ['class'=> 'form-control'])}}
+                                            @else
+                                                {{Form::textarea('descriptions'.$lang->id, old('descriptions'.$lang->id), ['class'=> 'form-control'])}}
+                                            @endif                                               
+                                            </div>
+                                        </div> 
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                </div> 
+
+
                 </div>
                 </div>
         </div>

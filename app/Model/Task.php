@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+ 
 
 class Task extends Model
 {
@@ -37,5 +39,28 @@ class Task extends Model
     public function user(){
         return $this->hasOne('App\User', 'id', 'user_id');
     } 
+
+    public function scopeToday($query){
+        return $query
+            ->where('start_date', '>=', Carbon::today())
+            ->where('start_date', '<', Carbon::today()->addDay(1))
+            ->get();
+    }
+
+
+    public function scopeWeek($query){
+        return $query
+            ->where('start_date', '>=', Carbon::today())
+            ->where('start_date', '<', Carbon::today()->addWeek(1))
+            ->get();
+    }
+
+
+    public function scopeMonth($query){
+        return $query
+            ->where('start_date', '>=', Carbon::today())
+            ->where('start_date', '<', Carbon::today()->addMonth(1))
+            ->get();
+    }
 
 } 

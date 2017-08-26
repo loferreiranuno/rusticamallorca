@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Contact;
 use App\User;
 use Auth;
+use App\Product;
 
 class ContactsController extends Controller
 {
@@ -37,8 +38,12 @@ class ContactsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+         if($request->has('product')){
+             $product = Product::find($request->get('product'));
+             return View::make('pages.back.contactEdit')->with('product', $product);
+         }
          return View::make('pages.back.contactEdit');
     }
 
@@ -52,6 +57,14 @@ class ContactsController extends Controller
     { 
         $contact = Contact::create($request->all()); 
         $contact->save();
+
+        if($request->has("product_id")){
+            $product = Product::find($request->get("product_id"));
+            $product->owner_id = $contact->id;
+            $product->save();
+            return redirect()->route('product.show', ['id'=> $product->id]); 
+        }
+
         return redirect()->route('contact.edit', ['id'=> $contact->id]); 
     }
 

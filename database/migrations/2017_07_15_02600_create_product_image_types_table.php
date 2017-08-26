@@ -55,16 +55,6 @@ class CreateProductImageTypesTable extends Migration
                                 array('name'=> 'basement') 
             ));
 
-
-
-        Schema::table('product_images', function(Blueprint $table){
-            $table->unsignedInteger('image_type_id')->nullable()->change();
-
-            $table->foreign('image_type_id')
-            ->references('id')->on('product_image_types');
-            
-        });
-
     }
 
     /**

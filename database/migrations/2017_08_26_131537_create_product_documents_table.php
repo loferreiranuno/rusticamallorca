@@ -22,7 +22,7 @@ class CreateProductDocumentsTable extends Migration
         });
  
         Schema::table('product_documents', function(Blueprint $table){
-            $table->foreign('product_id')->references('id')->on('products');            
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');            
         });
     }
 

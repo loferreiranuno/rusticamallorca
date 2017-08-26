@@ -35,19 +35,24 @@ class CreateTasksTable extends Migration
         Schema::table('tasks', function(Blueprint $table){
 
             $table->foreign('task_kind_id')
-            ->references('id')->on('task_kinds'); 
+            ->references('id')->on('task_kinds')
+            ->onDelete('cascade'); 
 
             $table->foreign('contact_id')
-            ->references('id')->on('contacts'); 
+            ->references('id')->on('contacts')
+            ->onDelete('cascade'); 
 
             $table->foreign('product_id')
-            ->references('id')->on('products'); 
+            ->references('id')->on('products')
+            ->onDelete('cascade'); 
             
             $table->foreign('user_id')
-            ->references('id')->on('users'); 
+            ->references('id')->on('users')
+            ->onDelete('cascade'); 
             
             $table->foreign('creator_id')
-            ->references('id')->on('users'); 
+            ->references('id')->on('users')
+            ->onDelete('cascade'); 
             
         });
     }

@@ -13,21 +13,22 @@ class CreateProductImagesTable extends Migration
      */
     public function up()
     {
-
-        Schema::dropIfExists('product_images');
         Schema::create('product_images', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('product_id')->nullable();
-            $table->integer('image_type_id');
+            $table->unsignedInteger('image_type_id')->nullable();
             $table->string('file_name');
+            $table->string('original_name');
+
             $table->timestamps();
         });
 
         Schema::table('product_images', function(Blueprint $table){
 
             $table->foreign('product_id')
-            ->references('id')->on('products');
-            
+            ->references('id')->on('products')->onDelete('cascade');
+             $table->foreign('image_type_id')
+            ->references('id')->on('product_image_types')->onDelete('cascade');
         });
         
     }

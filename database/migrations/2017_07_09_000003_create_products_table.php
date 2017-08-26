@@ -157,6 +157,9 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('product_images');
+        Schema::dropIfExists('product_image_types');
+        Schema::dropIfExists('product_descriptions');
         Schema::dropIfExists('products');
     }
 }

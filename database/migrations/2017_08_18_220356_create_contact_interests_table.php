@@ -52,9 +52,12 @@ class CreateContactInterestsTable extends Migration
         Schema::table('contact_interests', function(Blueprint $table){
 
             $table->foreign('contact_id')
-            ->references('id')->on('contacts');
+            ->references('id')->on('contacts')
+            ->onDelete('cascade');
+
             $table->foreign('user_id')
-            ->references('id')->on('users');
+            ->references('id')->on('users')
+            ->onDelete('cascade');
         });
     }
 

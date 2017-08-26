@@ -5,6 +5,7 @@ namespace App\Repositories\Task;
 
 use App\Repositories\Task\ITaskRepository;
 use App\Task;
+use Carbon;
 use Auth;
 
 class TaskRepository implements ITaskRepository{
@@ -74,4 +75,16 @@ class TaskRepository implements ITaskRepository{
             
         return $this->model->where($filter)->get();
     }
+
+    public function groupByDay($tasks){
+
+        $dailyTasks = [];
+         
+        foreach($tasks as $task){ 
+            $key = Carbon\Carbon::parse($task['start_date'])->format('Y-m-d');             
+            $dailyTasks[$key][] = $task;
+        }
+        return $dailyTasks;
+    }
+
 }

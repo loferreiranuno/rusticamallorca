@@ -7,6 +7,11 @@
         {{csrf_field()}}
     </div> 
     <div class="row">
+        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}"><label>Property Title</label> 
+            {!!Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Property title'])!!}
+        </div>    
+    </div>
+    <div class="row">
         <div class="tabs-container">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#tab-1">Location</a></li>

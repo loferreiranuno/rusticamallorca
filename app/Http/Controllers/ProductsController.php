@@ -11,21 +11,25 @@ use App\ProductKindType;
 use App\Language;
 use App\ProductDescription;
 use App\Feature;
+
 use App\Repositories\Product\IProductRepository;
+use App\Repositories\Task\ITaskRepository;
  
 class ProductsController extends Controller
 {
     private $TOTAL_PAGES = 25;
     private $productRepository;
+    private $taskRepository;
      /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(IProductRepository $productRepository)
+    public function __construct(IProductRepository $productRepository, ITaskRepository $taskRepository)
     {
-        $this->productRepository = $productRepository;
         $this->middleware('auth');   
+        $this->productRepository = $productRepository;
+        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -66,7 +70,7 @@ class ProductsController extends Controller
     public function store(ProductRequest $request)
     {
         $product = $this->productRepository->create($request->all());
-        return redirect()->route('product.edit', ['id'=> $product->id]); 
+        return redirect()->route('product.show', ['id'=> $product->id]); 
     }
 
     /**
@@ -81,8 +85,14 @@ class ProductsController extends Controller
 
         if($product == null)
             return redirect()->route('product.index'); 
+
+
+        $taskByDay = [];
+        if($product->tasks != null){
+             $taskByDay = $this->taskRepository->groupByDay($product->tasks);
+        }
         
-        return view('pages.back.product', compact('product'));
+        return view('pages.back.product', compact('product', 'taskByDay'));
     }
 
     /**
@@ -107,7 +117,7 @@ class ProductsController extends Controller
     public function update(ProductRequest $request, $id)
     {        
         $product = $this->productRepository->update($id, $request->all());
-        return redirect()->route('product.edit', ['id'=> $product->id]);
+        return redirect()->route('product.show', ['id'=> $product->id]);
     }
 
     public function updateFeatures(Request $request, $id){

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2194b1c5d3b2181322bf56b7680bad11",
-    "content-hash": "b7c9b2564a4efc6546283bebea3fc6f2",
+    "hash": "1b8da6b088b204d17eb93b1a9026d500",
+    "content-hash": "4826effa287324e31e2d248949dbab26",
     "packages": [
         {
             "name": "cornford/googlmapper",

@@ -18,6 +18,6 @@ interface IProductRepository{
 
     public function getAll($pages);
 
-    public function search(Request $request, $pages);
+    public function search(Request $request, $pages);    
 
 }

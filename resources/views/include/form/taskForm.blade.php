@@ -49,16 +49,15 @@
                         </div> 
                         <div class="form-group">                                                
                             {!! Form::label("contact_id", "Contact") !!}                                                
-                            {!!Form::select('contact_id',App\Contact::pluck('name', 'id'), isset($task) ? $task->contact_id : null, ['class'=> 'form-control'])!!} 
+                            {!!Form::select('contact_id',App\Contact::pluck('name', 'id')->prepend('',''), isset($task) ? $task->contact_id : null, ['class'=> 'form-control'])!!} 
                         </div> 
                         <div class="form-group">                                                
                             {!!Form::label("product_id", "Property") !!}                                                
-                            {!!Form::select('product_id',App\Product::pluck('title', 'id'), isset($task) ? $task->product_id : null, ['class'=> 'form-control'])!!} 
+                            {!!Form::select('product_id',App\Product::pluck('title', 'id')->prepend('',''), isset($task) ? $task->product_id : null, ['class'=> 'form-control'])!!} 
                         </div> 
                         <div class="form-group">
-                        {!! Form::label("description", "Property") !!}          
-                        {!! Form::textarea('description', isset($task) ? $task->description : null, ['class'=>'form-control']) !!}
-                        
+                        {!! Form::label("description", "Description") !!}          
+                        {!! Form::textarea('description', isset($task) ? $task->description : null, ['class'=>'form-control']) !!}                        
                         </div>
                     </div> 
                 </div>

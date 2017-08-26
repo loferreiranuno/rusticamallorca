@@ -15,4 +15,6 @@ interface ITaskRepository{
     public function search($id, $start_date, $end_date, $otherOnly);
 
     public function searchByUser($id, $start_date, $end_date, $otherOnly);
+
+    public function groupByDay($tasks); 
 }

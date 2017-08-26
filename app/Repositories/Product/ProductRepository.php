@@ -31,6 +31,7 @@ class ProductRepository implements IProductRepository{
         $this->updateDescriptions($product, $data);
         $this->updateFeatures($product, $data);
         $product->save();
+ 
         return $product;
     }
     
@@ -91,6 +92,7 @@ class ProductRepository implements IProductRepository{
             } 
         } 
     }
+
 
     private function updateFeatures(Product $product, array $data){
 

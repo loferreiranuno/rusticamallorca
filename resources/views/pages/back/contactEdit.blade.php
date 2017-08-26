@@ -37,9 +37,10 @@
 @if(isset($contact))
     {{ Form::model($contact, ['route' => ['contact.update', $contact->id], 'method' => 'patch']) }}
 @else
-    {{ Form::open(['route' => 'contact.store']) }}
-    
+    {!! Form::open(['route' => 'contact.store']) !!}    
     {!! Form::hidden('creator_id', Auth::user()->id, []) !!}
+    {!! Form::hidden('product_id', isset($product) ? $product->id : null) !!}
+
     
 @endif
 

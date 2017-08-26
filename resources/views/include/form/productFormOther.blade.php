@@ -12,9 +12,7 @@
         <div class="ibox-content">
         <div class="row">
             <div class="col-sm-6 b-r"> 
-                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}"><label>Property Title</label> 
-                        {!!Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Property title'])!!}
-                    </div>
+            
                     <div class="form-group{{ $errors->has('magazine_description') ? ' has-error' : '' }}"><label>Magazine description</label> 
                         {!!Form::textarea('magazine_description', null, ['class'=>'form-control', 'placeholder'=>'Property title'])!!}
                     </div>

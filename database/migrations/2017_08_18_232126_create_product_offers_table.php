@@ -28,11 +28,14 @@ class CreateProductOffersTable extends Migration
          Schema::table('product_offers', function(Blueprint $table){
 
             $table->foreign('product_id')
-            ->references('id')->on('products');
+            ->references('id')->on('products')
+            ->onDelete('cascade');
             $table->foreign('user_id')
-            ->references('id')->on('users');
+            ->references('id')->on('users')
+            ->onDelete('cascade');
             $table->foreign('contact_id')
-            ->references('id')->on('contacts');
+            ->references('id')->on('contacts')
+            ->onDelete('cascade');
         });
     }
 
