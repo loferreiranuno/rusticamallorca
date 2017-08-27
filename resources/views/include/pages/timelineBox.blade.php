@@ -14,7 +14,7 @@
             <div class="vertical-timeline-content">
                 <p>{{$task->description}}</p>
                 <a href="{{route('task.edit', ['task'=>$task->id]) }}">Edit</a>
-                <span class="vertical-date small text-muted"> {{$task->start_date}} - {{$task->end_date}} </span>
+                <span class="vertical-date small text-muted"> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($task->start_date))->diffForHumans() }}  </span>
             </div>
         </div>
         @endforeach

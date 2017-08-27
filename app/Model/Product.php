@@ -188,28 +188,39 @@ class Product extends Model
         }
 
         if($request->has('sell_type')){
-            switch($request->get('typology')){
+            switch($request->get('sell_type')){
                 case "rent": $query->where('renting_enabled', '=', 1 ); break;
                 case "sell": $query->where('selling_enabled', '=', 1 ); break;
             }
         }
 
         if($request->has('max_price')){
-            switch($request->get('typology'))
+            switch($request->get('sell_type'))
             {
-                case "rent": $query->where('renting_cost', '<=', $request->get('max_price')); break;
-                case "sell": $query->where('selling_cost', '<=', $request->get('max_price')); break;
+                case "rent": 
+                    $query
+                        ->where('renting_cost', '<=', $request)
+                        ->get('max_price'); break;
+                case "sell": 
+                    $query->where('selling_cost', '<=', $request->get('max_price')); break;
                 default: 
-                    $query->where('renting_cost', '<=', $request->get('max_price'));
-                    $query->where('selling_cost', '<=', $request->get('max_price'));
+                    $query
+                        ->where(function($q) use($request){
+                            $q->where('renting_cost', '<=', $request->get('max_price'))
+                            ->orWhere('renting_cost', 'is', 'NULL');
+                        })
+                        ->where(function($q)  use($request){
+                            $q
+                            ->where('selling_cost', '<=', $request->get('max_price'))
+                            ->orWhere('selling_cost', 'is', 'NULL');
+                        });
                 break;
             }
         }
 
         if($request->has('min_area')){
            $query->where('area', '>=', $request->get('min_area'));
-        }
-        
+        } 
         return $query;
     }
  

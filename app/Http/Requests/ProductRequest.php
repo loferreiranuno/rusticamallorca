@@ -33,6 +33,8 @@ class ProductRequest extends FormRequest
             'latitude'=> 'required',
             'longitude'=> 'required',
 
+            'product_status_id' => 'required',
+
             'product_kind_id' => 'required',
             'area' => 'required',
             'area_util' => 'required',

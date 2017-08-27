@@ -17,8 +17,7 @@
                     <div class="col-sm-8">
                         <div class="title-action">
                             <a href="" class="btn btn-primary">This is action area</a>
-                        </div>
-                        
+                        </div> 
                     </div>
                 </div>
 @stop 

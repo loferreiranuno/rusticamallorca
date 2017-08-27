@@ -44,6 +44,7 @@ class Task extends Model
         return $query
             ->where('start_date', '>=', Carbon::today())
             ->where('start_date', '<', Carbon::today()->addDay(1))
+            ->sortByDesc('start_date')
             ->get();
     }
 
@@ -52,6 +53,7 @@ class Task extends Model
         return $query
             ->where('start_date', '>=', Carbon::today())
             ->where('start_date', '<', Carbon::today()->addWeek(1))
+            ->sortByDesc('start_date')
             ->get();
     }
 
@@ -60,6 +62,7 @@ class Task extends Model
         return $query
             ->where('start_date', '>=', Carbon::today())
             ->where('start_date', '<', Carbon::today()->addMonth(1))
+            ->sortByDesc('start_date')
             ->get();
     }
 

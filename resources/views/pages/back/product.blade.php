@@ -82,8 +82,7 @@
                                     <button type="button"  class="btn btn-primary m-r-sm" data-toggle="modal"  data-target="#taskModal">
                                                 <i class="fa fa-plus-square-o"></i>
                                     </button> Add Task
-                                </h3> 
-                                
+                                </h3>
                                 @include("include.pages.timelineBox", ['tasks'=> $taskByDay])
 
                             </div>
@@ -238,7 +237,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-3"></div>
+                            <div class="col-lg-3">
+                            
+                            
+                            </div>
                             
                         </div>        
                         </div> 
