@@ -12,10 +12,11 @@ use App\Repositories\Task\ITaskRepository;
 
 class TaskController extends Controller
 {
-
+ 
     private $taskRepository;
 
     public function __construct(ITaskRepository $taskRepository){
+        $this->middleware('auth');
         $this->taskRepository = $taskRepository;
     }
     /**
@@ -74,15 +75,18 @@ class TaskController extends Controller
 
         $start_date = $data["start"];
         $end_date = $data["end"];
-        $otherOnly = $data["otherOnly"];
-        
+
+        $otherOnly = isset($data["otherOnly"]) ? $data["otherOnly"] == "true" : false;
+
+        $results = [];
         if($task_id == null){
-            $results =  $this->taskRepository->searchByUser(Auth::id(), $start_date, $end_date, $otherOnly == "true");
+            if(!$otherOnly){
+                $results =  $this->taskRepository->searchByUser(Auth::id(), $start_date, $end_date, $otherOnly);
+            }
         }else{
-            $results =  $this->taskRepository->search($task_id, $start_date, $end_date, $otherOnly == "true");
+            $results =  $this->taskRepository->search($task_id, $start_date, $end_date, $otherOnly);
         }
-        
-         
+                 
         return Response::json($this->toFullCalendar($results), 200); 
     }
 
@@ -159,5 +163,27 @@ class TaskController extends Controller
             'error' => false,
             'code'  => 200
         ], 200); 
+    }
+
+    public function done(Request $request){
+
+        if($request->has("id") && $request->has("done")){
+            $done = $request->get("done") == "true";
+            $task = $this->taskRepository->get($request->get("id"));
+            
+            if($task!=null){
+                $task->done = $done;
+                $task->save();
+                return Response::json([
+                    'error' => false,
+                    'code'  => 200
+                ], 200); 
+            }           
+        }
+
+        return Response::json([
+            'error' => true,
+            'code'  => 400
+        ], 400); 
     }
 }

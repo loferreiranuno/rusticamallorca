@@ -43,17 +43,17 @@ class Task extends Model
     public function scopeToday($query){
         return $query
             ->where('start_date', '>=', Carbon::today())
-            ->where('start_date', '<', Carbon::today()->addDay(1))
-            ->sortByDesc('start_date')
+            ->where('start_date', '<', Carbon::today()->addDay(1)) 
+            ->sort('start_date')
             ->get();
-    }
+    }   
 
 
     public function scopeWeek($query){
         return $query
             ->where('start_date', '>=', Carbon::today())
             ->where('start_date', '<', Carbon::today()->addWeek(1))
-            ->sortByDesc('start_date')
+            ->sort('start_date')
             ->get();
     }
 
@@ -62,7 +62,7 @@ class Task extends Model
         return $query
             ->where('start_date', '>=', Carbon::today())
             ->where('start_date', '<', Carbon::today()->addMonth(1))
-            ->sortByDesc('start_date')
+            ->sort('start_date')
             ->get();
     }
 

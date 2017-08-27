@@ -34,6 +34,9 @@ Route::resource('back/user','UserController');
 Route::resource('back/task','TaskController'); 
 Route::post('back/task/calendar/update', ['uses' =>'TaskController@updateCalendar'])->name('task.calendar.update');
 Route::get('back/task/calendar/search', ['uses' =>'TaskController@search'])->name('task.search');
+
+Route::post('back/task/done', ['uses' =>'TaskController@done'])->name('task.done'); 
+
 //OFFER CONTROLLER;
 Route::resource('back/offer','ProductOfferController'); 
 Route::post('/back/offer/{offer}/status/rented', ['uses' =>'ProductOfferController@markAsRented'])->name('offer.rented');
@@ -50,5 +53,10 @@ Route::post('/back/product/photo/update', ['uses' =>'PhotoController@update'])->
 
 //DOCUMENTS CONTROLLER
 Route::resource('back/document', 'ProductDocumentController');
+
+//CONTRACT INTEREST 
+
+Route::resource('back/contact/interest', 'ContactInterestController');
+
 
 Auth::routes('back');

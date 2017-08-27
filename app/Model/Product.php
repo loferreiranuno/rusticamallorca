@@ -172,11 +172,21 @@ class Product extends Model
         return $data->description;
     }
 
-    public function tasks(){
-        return $this->hasMany('App\Task');
+    public function getFullAddressAttribute()
+    {
+        return
+            $this->street_name 
+            . " " . $this->street_number 
+            . " " . $this->block
+            . " " . $this->doorway
+            . "," . $this->zip_code 
+            . " " . $this->city_name;
     }
-  
 
+    public function tasks(){
+        return $this->hasMany('App\Task')->orderBy('start_date');
+    }
+   
     public function scopeSearch($query, Request $request){
  
         if($request->has('typology')){

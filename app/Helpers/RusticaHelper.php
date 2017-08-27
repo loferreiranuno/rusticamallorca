@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Product;
+use Carbon;
 
 class RusticaHelper{
 
@@ -16,4 +17,8 @@ class RusticaHelper{
         return 'img/product/'.$product->id.'/'.$size.$images->first()->file_name;
    
     } 
+
+    public static function formatDate($date, $format){
+        return Carbon\Carbon::createFromTimeStamp(strtotime($date))->format($format);
+    }
 }

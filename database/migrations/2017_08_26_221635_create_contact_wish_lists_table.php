@@ -20,7 +20,6 @@ class CreateContactWishListsTable extends Migration
             $table->unsignedInteger('contact_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->boolean('interested')->default(true); 
-
             $table->timestamps();
         });
 
@@ -33,7 +32,7 @@ class CreateContactWishListsTable extends Migration
             $table->foreign('user_id')
             ->references('id')->on('users')
             ->onDelete('cascade');
-            
+
             $table->foreign('contact_id')
             ->references('id')->on('contacts')
             ->onDelete('cascade');

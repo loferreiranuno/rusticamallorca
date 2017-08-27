@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Task;
+use App\Contact;
+use Carbon;
 
 class User extends Authenticatable
 {
@@ -29,15 +31,36 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function contactsCreated(){
+        return $this->hasMany('App\Contact', 'creator_id', 'id');
+    }
 
-    public function contacts(){
-        return $this->belongsToMany('App\Contact');
+    public function contactsReponsible(){
+        return $this->hasMany('App\Contact', 'responsable_id', 'id');
     }
 
     public function tasks(){
         return $this->hasMany("App\Task", 'user_id', 'id');
     }
 
- 
+    public function productsCreated(){
+        return $this->hasMany("App\Product", 'creator_id', 'id');
+    } 
 
+    public function productsRecruited(){
+        return $this->hasMany("App\Product", 'recruiter_id', 'id');
+    }
+
+    public function productsManaged(){
+        return $this->hasMany("App\Product", 'manager_id', 'id');
+    }
+
+    public function scopeTodayTasks(){
+        return $this
+            ->hasMany("App\Task", 'user_id', 'id')
+            ->where('start_date', '>=', Carbon\Carbon::today())
+            ->where('start_date', '<',  Carbon\Carbon::today()->addWeek(1))
+            ->orderBy('start_date')
+            ->get();
+    }
 }

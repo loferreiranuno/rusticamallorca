@@ -11,7 +11,7 @@ use App\ProductKindType;
 use App\Language;
 use App\ProductDescription;
 use App\Feature;
-
+use Auth;
 use App\Repositories\Product\IProductRepository;
 use App\Repositories\Task\ITaskRepository;
  

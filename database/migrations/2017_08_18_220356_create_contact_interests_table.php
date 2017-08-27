@@ -20,23 +20,24 @@ class CreateContactInterestsTable extends Migration
 
             $table->unsignedInteger('contact_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('product_kind_id')->nullable();
 
-            $table->integer("bedroom_min");
-            $table->integer("bedroom_max");
+            $table->integer("bedroom_min")->default(0);
+            $table->integer("bedroom_max")->default(0);
 
-            $table->integer("bathroom_min");
-            $table->integer("bathroom_max");
+            $table->integer("bathroom_min")->default(0);
+            $table->integer("bathroom_max")->default(0);
 
-            $table->integer("area_min");
-            $table->integer("area_max");
+            $table->integer("area_min")->default(0);
+            $table->integer("area_max")->default(0);
 
-            $table->boolean("sale_enabled");
-            $table->decimal("sale_min");
-            $table->decimal("sale_max");
+            $table->boolean("sale_enabled")->default(false);
+            $table->decimal("sale_min")->default(0);
+            $table->decimal("sale_max")->default(0);
 
-            $table->boolean("rent_enabled");
-            $table->decimal("rent_min");
-            $table->decimal("rent_max");
+            $table->boolean("rent_enabled")->default(false);
+            $table->decimal("rent_min")->default(0);
+            $table->decimal("rent_max")->default(0);
 
             $table->integer("min_floor");
 
@@ -58,6 +59,12 @@ class CreateContactInterestsTable extends Migration
             $table->foreign('user_id')
             ->references('id')->on('users')
             ->onDelete('cascade');
+
+            $table->foreign('product_kind_id')
+            ->references('id')->on('product_kinds')
+            ->onDelete('cascade');
+
+            
         });
     }
 

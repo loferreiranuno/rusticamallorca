@@ -10,6 +10,7 @@
             'root' => route("product.index"),
             'currentTitle' => $product->id, 
             'actionHtml' => '
+                <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.create') . '">Add</button>
                 <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.edit', ['product'=> $product->id]) . '">Edit</button>
                 <button class="btn btn-info pull-right margin-left" action-url="'. route('photo.show', ['product'=> $product->id]) .'">Add images</button>
                 <button class="btn btn-primary pull-right margin-left" action-url="'. route('photo.properties', ['product'=> $product->id]).'">Edit Images</button>'
@@ -83,11 +84,11 @@
                                                 <i class="fa fa-plus-square-o"></i>
                                     </button> Add Task
                                 </h3>
-                                @include("include.pages.timelineBox", ['tasks'=> $taskByDay])
+                                @include("include.pages.timelineBox", ['tasks'=> $taskByDay, 'url'=> route("product.show", ['id'=>$product->id])])
 
                             </div>
                             
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 well">
                                
                                 <div class="row"> 
                                     <div class="col-md-12"> 
@@ -129,7 +130,7 @@
                                         <h2>General data</h2>
                                         <div class="row product-details">
                                             <div class="col-sm-6">
-                                            <dl class="dl-horizontal m-t-md">
+                                            <dl class="dl-horizontal">
                                             <dt><span>Address:</span> {!! $product->street_name !!}</dt>
                                             <dt><span>Door:</span>  {{$product->door}}<span>Doorway:</span> {{$product->doorway}} <span>Block:</span> {{$product->block}}</dt>
                                             <dt><span>Urbanization:</span> {{$product->urbanization}} </dt>
@@ -140,7 +141,7 @@
                                             </dl>
                                             </div>
                                             <div class="col-sm-6">
-                                            <dl class="dl-horizontal m-t-md">
+                                            <dl class="dl-horizontal">
                                             <dt><span>Area:</span> {{$product->area}} m&sup2; </dt>
                                             <dt><span>Area util:</span> {{$product->area_util}} m&sup2; </dt>
                                             <dt><span>Area in registry:</span> {{$product->area_in_registry}} m&sup2;</dt>
@@ -169,14 +170,14 @@
                                          <h2>Internal data</h2>
                                          <div class="row product-details">
                                             <div class="col-sm-6">
-                                            <dl class="dl-horizontal m-t-md">
+                                            <dl class="dl-horizontal">
                                             <dt><span>Register number:</span> {!! $product->register_number !!}</dt>
                                             <dt><span>Register date:</span>  {!! $product->simple_note_date !!}</dt>
                                       
                                             </dl>
                                             </div>
                                             <div class="col-sm-6">
-                                            <dl class="dl-horizontal m-t-md">
+                                            <dl class="dl-horizontal">
                                             <dt><span>Agreement type:</span> {{!isset($product->agreementType) ? "" : $product->agreementType->name}}</dt>
                                             <dt><span>Valid until:</span> {{$product->agreement_valid_until}}</dt>
                                             <dt><span>Commission:</span> {{$product->agreement_commission_percentage}} %</dt>
@@ -259,6 +260,7 @@
         .slick-initialized { visibility: visible!important; }
         .product-details dt { font-weight:normal ; text-align:left; }
         .product-details dt span { font-weight: bold; }
+        .image-imitation{ height:150px!important; }
         [action-url] { margin-left: 2px; }
 
     </style>

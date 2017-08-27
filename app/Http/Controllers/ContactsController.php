@@ -9,16 +9,20 @@ use App\User;
 use Auth;
 use App\Product;
 
+use App\Repositories\Task\ITaskRepository;
+
 class ContactsController extends Controller
 {
+    private $taskRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ITaskRepository $taskRepository)
     {
         $this->middleware('auth');
+        $this->taskRepository = $taskRepository;
     }
     
     /**
@@ -76,7 +80,14 @@ class ContactsController extends Controller
      */
     public function show($id)
     {
-        //
+        $contact = Contact::find($id);
+ 
+        $taskByDay = [];
+        if($contact->tasks != null){
+             $taskByDay = $this->taskRepository->groupByDay($contact->tasks);
+        }
+
+        return view('pages.back.contact', compact('contact', 'taskByDay'));
     }
 
     /**

@@ -206,9 +206,16 @@
 <script>
     $(document).ready(function(){
         
-        $("[product-row]").on("click", function(){
+        $("[product-row]")
+        .on("click", function(){
             window.location = $(this).attr("product-url");
-        });
+        })
+        .on("mouseover", function(){
+            $(this).addClass("active");
+        })
+        .on("mouseout", function(){
+            $(this).removeClass("active");
+        });;
     });
 </script>
 @stop

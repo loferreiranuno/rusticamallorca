@@ -21,12 +21,7 @@
             </div>
         </div>
     </div>
-
- 
-    {!! Form::text("task_id", isset($task)?$task->id:null) !!}
- 
-    
- 
+    {!! Form::hidden("task_id", isset($task)?$task->id:null) !!}
 @stop
 
 
@@ -49,10 +44,20 @@
 
             $("#save-calendar").on('click', function(){
                 var events = $('#calendar').fullCalendar('clientEvents').map(function(event){
+                    var start_date =  event.start.format("YYYY-MM-DD HH:mm:ss");
+                    var end_date;
+                    if(!event.end){
+                        if(event.allDay){
+                            end_date = event.start.format("YYYY-MM-DD") + " 23:59:59";
+                        }
+                    }else{
+                        end_date = event.end.format("YYYY-MM-DD HH:mm:ss");
+                    }
+
                     return {  
                         "task": event.id,
-                        "start_date": event.start.format("YYYY-MM-DD HH:mm:ss") ,
-                        "end_date": event.end.format("YYYY-MM-DD HH:mm:ss") 
+                        "start_date": start_date,
+                        "end_date":  end_date
                     }
                 });
 

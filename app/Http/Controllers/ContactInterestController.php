@@ -3,15 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Language;
-use Auth;
 
-class LanguagesController extends Controller
+class ContactInterestController extends Controller
 {
-
-    public function __construct(){
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *

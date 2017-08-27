@@ -85,7 +85,7 @@
                                                                 
                                 @foreach($contacts as $contact)
 
-                                    <tr style="" class="{!! $contact->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
+                                    <tr contact-row contact-url="{{ route('contact.show',['id'=>$contact->id]) }}" style="" class="{!! $contact->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
                                         
                                         <td class="footable-visible"><!-- checkbox --></td>
                                         <td class="footable-visible"><!-- image --></td>
@@ -128,3 +128,28 @@
         </div>
 
 @stop
+
+@section("scripts")
+<script>
+    $(document).ready(function(){        
+        $("[contact-row]").on("click", function(){
+            window.location = $(this).attr("contact-url");
+        })
+        .on("mouseover", function(){
+            $(this).addClass("active");
+        })
+        .on("mouseout", function(){
+            $(this).removeClass("active");
+        });
+    });
+</script>
+@stop
+
+@section("styles")
+    <style>
+        [contact-row]
+        {
+            cursor:pointer;
+        }
+    </style>
+@stop 

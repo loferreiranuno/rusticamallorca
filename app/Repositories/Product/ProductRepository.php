@@ -7,6 +7,7 @@ use App\Product;
 use App\Language; 
 use App\Feature;
 use App\ProductDescription;
+use Auth;
 
 use Illuminate\Http\Request;
 
@@ -28,6 +29,7 @@ class ProductRepository implements IProductRepository{
     
     public function create(array $data){
         $product = $this->model->create($data);
+        $this->creator_id = Auth::id();
         $this->updateDescriptions($product, $data);
         $this->updateFeatures($product, $data);
         $product->save();

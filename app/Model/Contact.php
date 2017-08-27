@@ -33,6 +33,10 @@ class Contact extends Model
         return $this->hasOne('App\User', 'id', 'responsable_id');
     }
 
+    // public function partner(){
+    //     return $this->hasOne('App\Contact', 'partner_id', 'responsable_id');
+    // }
+
     public function kind(){
         return $this->hasOne('App\ContactKind', 'id', 'kind_id');
     }
@@ -50,11 +54,20 @@ class Contact extends Model
     }
 
     public function ownedProducts(){
-        return $this->hasMany('App\Products', 'owner_id', 'id');
+        return $this->hasMany('App\Product', 'owner_id', 'id');
     }
 
     public function partnerProducts(){
-        return $this->hasMany('App\Products', 'partner_id', 'id');
+        return $this->hasMany('App\Product', 'partner_id', 'id');
+    }
+
+    public function getFullAddressAttribute(){
+        return $this->address . " " . $this->city;
     }
     
+    public function tasks(){
+        return $this
+            ->hasMany('App\Task', 'contact_id', 'id')
+            ->orderBy('start_date');
+    }
 }

@@ -5,6 +5,15 @@
     </h2> 
 
     <small>{{ isset($label) ? $label : "" }}</small>
+       
+    @elseif(isset($source))
+        <h2>
+            {{ $source->name }}
+        </h2>
+    
+    <small>{{ isset($label) ? $label : "" }}</small>
+
+    
     @else
     
     <h2>No {!! $label !!} assigned</h2>

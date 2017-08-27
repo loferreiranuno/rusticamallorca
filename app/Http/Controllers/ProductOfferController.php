@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Response;
 use App\ProductOffer;
 use App\Product;
 use App\ProductStatus;
-
+use Auth;
 class ProductOfferController extends Controller
 {
 
@@ -63,11 +63,7 @@ class ProductOfferController extends Controller
             $offer->save();
 
             $product = $offer->product;
-            return view('pages.back.product', compact('product'));
-            // return Response::json([
-            //     'error' => false,
-            //     'code'  => 200
-            // ], 200); 
+            return redirect()->route('product.show', ['id' => $product->id]); 
 
     }
     
@@ -79,11 +75,7 @@ class ProductOfferController extends Controller
             $offer->save();
 
             $product = $offer->product;
-            return view('pages.back.product', compact('product'));
-            // return Response::json([
-            //     'error' => false,
-            //     'code'  => 200
-            // ], 200); 
+            return redirect()->route('product.show', ['id' => $product->id]); 
             
     }
     
@@ -94,11 +86,8 @@ class ProductOfferController extends Controller
             $offer->save();
             
             $product = $offer->product;
-            return view('pages.back.product', compact('product'));
-            // return Response::json([
-            //     'error' => false,
-            //     'code'  => 200
-            // ], 200); 
+            return redirect()->route('product.show', ['id' => $product->id]); 
+            
             
     }
     
@@ -145,12 +134,10 @@ class ProductOfferController extends Controller
     public function destroy($id)
     {
         $offer = ProductOffer::find($id);
-        $product = $offer->product;
-
-        ProductOffer::destroy($id);
-
-        return view('pages.back.product', compact('product'));
-
+        $product_id = $offer->product->id; 
+        $offer->delete();
+        return redirect()->route('product.show', ['id' => $product_id]); 
+            
         // return Response::json([
         //     'error' => false,
         //     'code'  => 200

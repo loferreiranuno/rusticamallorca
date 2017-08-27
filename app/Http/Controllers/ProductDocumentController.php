@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
 use App\ProductDocument;
 use App\Product;
-
+use Auth;
 class ProductDocumentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *

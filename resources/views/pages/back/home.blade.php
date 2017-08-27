@@ -13,109 +13,47 @@
 
 @section("content")
 <div class="row">
-                <div class="col-lg-4">
-                        <div class="widget-head-color-box navy-bg p-lg text-center">
-                            <div class="m-b-md">
-                            <h2 class="font-bold no-margins">
-                                {{ $user->name }}
-                            </h2>
-                                <small>Founder of Groupeq</small>
-                            </div>
-                            <img src="img/a4.jpg" class="img-circle circle-border m-b-md" alt="profile">
-                            <div>
-                                <span>100 Tweets</span> |
-                                <span>350 Following</span> |
-                                <span>610 Followers</span>
-                            </div>
-                        </div>
-                        <div class="widget-text-box">
-                            <h4 class="media-heading">Alex Smith</h4>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <div class="text-right">
-                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                                <a class="btn btn-xs btn-primary"><i class="fa fa-heart"></i> Love</a>
-                            </div>
-                        </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="widget navy-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <i class="fa fa-shield fa-4x"></i>
-                            <h1 class="m-xs">456</h1>
-                            <h3 class="font-bold no-margins">
-                                Shield
-                            </h3>
-                            <small>power</small>
-                        </div>
-                    </div>
-                    <div class="widget  p-lg text-center">
-                        <div class="m-b-md">
-                            <i class="fa fa-flash fa-4x"></i>
-                            <h1 class="m-xs">612</h1>
-                            <h3 class="font-bold no-margins">
-                                Thunder
-                            </h3>
-                            <small>amount</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="widget lazur-bg p-xl">
-
-                                <h2>
-                                    Janet Smith
-                                </h2>
-                        <ul class="list-unstyled m-t-md">
-                            <li>
-                                <span class="fa fa-envelope m-r-xs"></span>
-                                <label>Email:</label>
-                                mike@mail.com
-                            </li>
-                            <li>
-                                <span class="fa fa-home m-r-xs"></span>
-                                <label>Address:</label>
-                                Street 200, Avenue 10
-                            </li>
-                            <li>
-                                <span class="fa fa-phone m-r-xs"></span>
-                                <label>Contact:</label>
-                                (+121) 678 3462
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="widget red-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <i class="fa fa-bell fa-4x"></i>
-                            <h1 class="m-xs">47</h1>
-                            <h3 class="font-bold no-margins">
-                                Notification
-                            </h3>
-                            <small>We detect the error.</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                <div class="widget yellow-bg p-lg text-center">
-                    <div class="m-b-md">
-                        <i class="fa fa-thumbs-up fa-4x"></i>
-                        <h1 class="m-xs">520</h1>
-                        <h3 class="font-bold no-margins">
-                            Likes
-                        </h3>
-                        <small>amount</small>
-                    </div>
-                </div>
-                    <div class="widget yellow-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <i class="fa fa-warning fa-4x"></i>
-                            <h1 class="m-xs">Alarm</h1>
-                            <h3 class="font-bold no-margins">
-                                Do
-                            </h3>
-                            <small>something</small>
-                        </div>
-                    </div>
-                    </div>
-            </div>
+<div class="col-lg-4">
+    <div class="widget primary-bg p-lg text-center">
+        <div class="m-b-md">
+        <a href="{{ route('product.index') }}">
+            <i class="fa fa-home fa-4x"></i>
+        </a>
+            <h1 class="m-xs">{{ App\Product::count()  }}</h1>
+            <h3 class="font-bold no-margins">
+                Properties
+            </h3>
+            <small>Created {{ Auth::user()->productsManaged()->count()  }} | Managed {{ Auth::user()->productsManaged()->count() }} | Recruited {{ Auth::user()->productsRecruited()->count() }}</small>            
+        </div>
+    </div>          
+</div>
+<div class="col-lg-4">
+    <div class="widget  primary-bg  p-lg text-center">
+        <div class="m-b-md">
+            <a href="{{ route('contact.index') }}">
+                <i class="fa fa-users fa-4x"></i>
+            </a>
+            <h1 class="m-xs">{{ App\Contact::count() }}</h1>
+            <h3 class="font-bold no-margins">
+                Contacts
+            </h3>
+            <small>Created {{ Auth::user()->contactsCreated()->count() }} | Responsible {{ Auth::user()->contactsReponsible()->count() }}</small>
+        </div>
+    </div>          
+</div>
+<div class="col-lg-4">
+    <div class="widget primary-bg p-lg text-center">
+        <div class="m-b-md">
+            <a href="{{ route('task.index') }}">
+                <i class="fa fa-calendar fa-4x"></i>
+            </a>
+            <h1 class="m-xs">{{ Auth::user()->tasks()->count()}}</h1>
+            <h3 class="font-bold no-margins">
+                Calendar
+            </h3>
+            <small>Today {{ Auth::user()->todayTasks()->count() }}</small>
+        </div>
+    </div>          
+</div>
+</div>
 @stop
