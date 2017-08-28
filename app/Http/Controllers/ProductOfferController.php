@@ -46,7 +46,7 @@ class ProductOfferController extends Controller
     public function store(ProductOfferRequest $request)
     {
         $offer = ProductOffer::create($request->all());
-        $offer->user_id = 
+        $offer->user_id = Auth::id();
         $offer->save(); 
         
         return Response::json([

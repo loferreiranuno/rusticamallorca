@@ -147,7 +147,7 @@
                                         <td class="footable-visible">
                                             {!! Form::checkbox('selected-products[]', $product->id, false, ['class'=>'form-control', 'id'=>'product-'.$product->id]) !!}
                                         </td>
-                                        <td class="footable-visible"><img src="{!! asset(App\Helpers\RusticaHelper::getProductImage($product, false)); !!}" class="img-thumbnail" /></td>
+                                        <td class="footable-visible"><img src="{!! asset(App\Helpers\RusticaHelper::getProductImage($product, false)); !!}" width="100" class="img-thumbnail" /></td>
                                         <td class="footable-visible">{!!$product->identifier!!} </td>
                                         <td class="footable-visible">{!!$product->kind->name!!}</td>
                                         <td class="footable-visible">{!!$product->floors!!} </td>
@@ -163,7 +163,7 @@
                                                 <span class="  {!! $product->selling_enabled && isset($product->selling_cost) ? '' : 'hidden' !!}">{!!isset($product->selling_cost) ? $product->selling_cost : "-"!!}&euro; </span>
                                         </td>
                                         <td class="footable-visible">{!!$product->status->name!!} </td>
-
+                                        <td class="footable-visible">{!!isset($product->partner)?$product->partner->name:""!!}</td>
                                         <td class="text-right footable-visible footable-last-column">
                                             <div class="btn-group">
                                                 <a href="{!!route('product.edit',['id'=> $product->id])!!}" class="btn btn-primary" title="Edit">
@@ -183,7 +183,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            {{ $products->links() }}
+                            {{ $products->appends(Input::except('page'))->links() }}
                         @endif
                         </div>
                     </div>

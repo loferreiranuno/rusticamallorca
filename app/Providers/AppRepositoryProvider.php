@@ -25,5 +25,6 @@ class AppRepositoryProvider extends ServiceProvider
     {
         $this->app->bind("App\Repositories\Product\IProductRepository", "App\Repositories\Product\ProductRepository");
         $this->app->bind("App\Repositories\Task\ITaskRepository", "App\Repositories\Task\TaskRepository");
+        $this->app->bind("App\Repositories\Contact\IContactRepository", "App\Repositories\Contact\ContactRepository");
     }
 }

@@ -16,16 +16,21 @@
                     <li class="{{Ekko::areActiveRoutes(['product.index', 'product.create', 'product.edit'])}}">
                         <a href="{{route('product.index')}}"><i class="fa fa-home"></i> <span class="nav-label">Office properties</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a class="{{Ekko::isActiveRoute('product.create')}}" href="{{route('product.create')}}">New property</a></li>     
-                            <li><a class="{{Ekko::isActiveRoute('product.index')}}" href="{{route('product.index')}}">Search properties</a></li>                            
+                            {{-- <li><a class="{{Ekko::isActiveRoute('product.create')}}" href="{{route('product.create')}}">New property</a></li>      --}}
+                            <li>
+                            <a class="{{Ekko::isActiveRoute('product.index')}}" href="{{route('product.index')}}">
+                            <i class="fa fa-search"></i> Search properties</a></li>                            
                         </ul>
                     </li>
                     
                     <li  class="{{Ekko::areActiveRoutes(['contact.index', 'contact.create', 'contact.edit'])}}">
                         <a href="{{route('contact.index')}}"><i class="fa fa-user"></i> <span class="nav-label">Office contacts</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="{{route('contact.create')}}">New contact</a>
-                            <li><a href="{{route('contact.index')}}">Search contacts</a>                            
+                        <ul class="nav nav-second-level"> 
+                            <li>
+                                <a href="{{route('contact.index')}}">
+                                    <i class="fa fa-search"></i> Search contacts
+                                </a>                            
+                            </li>                            
                         </ul>
                     </li>                    
                     <li  class="{{Ekko::areActiveRoutes(['task.index', 'task.create'])}}">

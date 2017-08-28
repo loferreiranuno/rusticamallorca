@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
@@ -69,5 +69,40 @@ class Contact extends Model
         return $this
             ->hasMany('App\Task', 'contact_id', 'id')
             ->orderBy('start_date');
+    }
+
+    public function scopeSearch($query, array $request){
+        
+        if(isset($request["searchQuery"])){
+
+            $searchQuery = $request["searchQuery"];
+            if(trim($searchQuery) != ""){
+                $query->where(function($query) use ($searchQuery){
+                    $query->orWhere('email','LIKE', '%'.$searchQuery.'%')
+                    ->orWhere('name', 'LIKE', '%' . $searchQuery . '%')
+                    ->orWhere('phone','LIKE', '%'.$searchQuery.'%')
+                    ->orWhere('phone_alt', 'LIKE', '%' . $searchQuery . '%');
+                });
+            }
+        }
+
+        if(isset($request['responsable'])){
+
+            $responsableId = $request['responsable'];
+            if(trim($responsableId)){
+                $query->where('responsable_id','=', $responsableId);
+            }
+        }
+
+        if(isset($request['step'])){
+
+            $stepId = $request['step'];
+            if(trim($stepId) != ""){
+                $query->where('step_id','=', $stepId);
+            }
+        }
+
+        return $query;
+
     }
 }

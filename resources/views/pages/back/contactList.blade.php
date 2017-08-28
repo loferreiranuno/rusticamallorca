@@ -7,7 +7,7 @@
         <h2>Search contacts</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="route('contact.index')">Contacts</a>
+                <a href="{{route('contact.index')}}">Contacts</a>
             </li>
             <li class="active">
                 <strong>List</strong>
@@ -28,32 +28,38 @@
 
             <div class="ibox-content m-b-sm border-bottom">
             
-            {!! Form::open() !!}
+            {!! Form::open(array('route' => 'contact.index', 'method'=>'GET')) !!}   
+                
+                {!! Form::hidden('search', true) !!}
             
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="form-group">
-                            {!! Form::label('search', "") !!}      
-                            {!! Form::text('search', null, ['placeholder'=> 'Name/Email/Phone Text', 'class'=>'form-control']) !!}                            
+                        <div class="form-group">    
+                            {!! Form::text('searchQuery', old('searchQuery'), ['placeholder'=> 'Name/Email/Phone Text', 'class'=>'form-control']) !!}                            
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">          
-                            {!! Form::label('step', "Funnel step") !!}                  
-                            {!! Form::select('step', App\ContactStep::pluck('name', 'id'), null, ['class'=>'form-control']) !!}                            
-                        </div>
-                    </div>                   
                     <div class="col-sm-2">
-                        <div class="form-group">   
-                        {!! Form::label('responsable', "Responsible") !!}
-                        {!! Form::select('responsable', $responsibles, null, ['class'=>'form-control']) !!}                            
+                        <div class="form-group">                 
+                            {!! Form::select('step', App\ContactStep::pluck('name', 'id')->prepend('Funnel step', ''), old('step'), ['class'=>'form-control']) !!}                            
                         </div>
-                    </div>                   
+                    </div>                    
                     <div class="col-sm-2">
-                        <div class="form-group">   
-                                                 
+                        <div class="form-group">    
+                        {!! Form::select('kind_id', $contactKinds->prepend('Type',''), old('kind_id'), ['class'=>'form-control']) !!}                            
                         </div>
-                    </div>                   
+                    </div>              
+                    <div class="col-sm-2">
+                        <div class="form-group">    
+                        {!! Form::select('responsable', $responsibles->prepend('Responsible',''), old('responsable'), ['class'=>'form-control']) !!}                            
+                        </div>
+                    </div>                
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                    
+                    {!! Form::submit("Go", ['class'=>'btn btn-primary']) !!}
+                    
+                    </div></div>   
+                                    
                 </div>
 
             {!! Form::close() !!}    
@@ -118,6 +124,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                            {{ $contacts->appends(Input::except('page'))->links() }}
                         @endif
                         </div>
                     </div>

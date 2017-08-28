@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\ContactInterest;
 
 class ContactInterestController extends Controller
 {
@@ -23,7 +24,7 @@ class ContactInterestController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,7 +35,13 @@ class ContactInterestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $offer = ContactInterest::create($request->all());
+        $offer->save();
+
+        return Response::json([
+            'error' => false,
+            'code'  => 200
+        ], 200); 
     }
 
     /**

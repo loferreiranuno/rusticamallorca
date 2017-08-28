@@ -8,21 +8,27 @@ use App\Contact;
 use App\User;
 use Auth;
 use App\Product;
+use App\ContactKind;
 
 use App\Repositories\Task\ITaskRepository;
+use App\Repositories\Contact\IContactRepository;
+
 
 class ContactsController extends Controller
 {
+    private $TOTAL_PAGES = 3;
     private $taskRepository;
+    private $contactRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(ITaskRepository $taskRepository)
+    public function __construct(ITaskRepository $taskRepository, IContactRepository $contactRepository)
     {
         $this->middleware('auth');
         $this->taskRepository = $taskRepository;
+        $this->contactRepository = $contactRepository;
     }
     
     /**
@@ -30,11 +36,18 @@ class ContactsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $contacts = Contact::all();
+    public function index(Request $request)
+    {   
         $responsibles = User::pluck('name', 'id');
-        return view('pages.back.contactList', compact('contacts', 'responsibles'));
+        $contactKinds = ContactKind::pluck('name', 'id');
+
+        if($request->has("search")){
+            $contacts = $this->contactRepository->search($request, $this->TOTAL_PAGES);
+        }else{
+            $contacts = $this->contactRepository->getAll($this->TOTAL_PAGES);
+        }
+
+        return view('pages.back.contactList', compact('contacts', 'responsibles','contactKinds'));
     }
 
     /**
@@ -69,7 +82,7 @@ class ContactsController extends Controller
             return redirect()->route('product.show', ['id'=> $product->id]); 
         }
 
-        return redirect()->route('contact.edit', ['id'=> $contact->id]); 
+        return $this->show($contact->id);
     }
 
     /**
