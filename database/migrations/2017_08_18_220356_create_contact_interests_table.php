@@ -25,27 +25,27 @@ class CreateContactInterestsTable extends Migration
             $table->integer("bedroom_min")->default(0);
             $table->integer("bedroom_max")->default(0);
 
-            $table->integer("bathroom_min")->default(0);
-            $table->integer("bathroom_max")->default(0);
+            $table->integer("bathroom_min")->nullable()->default(0);
+            $table->integer("bathroom_max")->nullable()->default(0);
 
-            $table->integer("area_min")->default(0);
-            $table->integer("area_max")->default(0);
+            $table->integer("area_min")->nullable()->default(0);
+            $table->integer("area_max")->nullable()->default(0);
 
             $table->boolean("sale_enabled")->default(false);
-            $table->decimal("sale_min")->default(0);
-            $table->decimal("sale_max")->default(0);
+            $table->decimal("sale_min")->nullable()->default(0);
+            $table->decimal("sale_max")->nullable()->default(0);
 
             $table->boolean("rent_enabled")->default(false);
-            $table->decimal("rent_min")->default(0);
-            $table->decimal("rent_max")->default(0);
+            $table->decimal("rent_min")->nullable()->default(0);
+            $table->decimal("rent_max")->nullable()->default(0);
 
-            $table->integer("min_floor");
+            $table->integer("min_floor")->nullable();
 
-            $table->integer("area_window_min");
-            $table->integer("area_window_max");
+            $table->integer("area_window_min")->nullable();
+            $table->integer("area_window_max")->nullable();
             
-            $table->integer("celling_height_min");
-            $table->integer("celling_height_max"); 
+            $table->integer("celling_height_min")->nullable();
+            $table->integer("celling_height_max")->nullable(); 
 
             $table->timestamps();
         });  

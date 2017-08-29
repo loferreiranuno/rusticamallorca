@@ -118,7 +118,15 @@
                     </div>
                     
                 </div> 
-
+                <div>
+                    <div class="form-group">
+                    @if(!isset($interest))
+                        {!! Form::submit("Submit", ['class'=>'pull-right btn btn-primary']) !!}
+                    @else
+                        {!! Form::submit("Save", ['class'=>'pull-right btn btn-primary']) !!}
+                    @endif
+                    </div>
+                </div>
             </fieldset>
              {!! Form::close() !!}
 
