@@ -15,7 +15,7 @@
         @if(isset($actionData))
             @foreach($actionData as $data)            
                 @if(isset($data['visible']) && $data['visible'])
-                    {!! link_to($data['url'], $data['title'], $data['attributes']) !!}
+                    {!! link_to($data['url'], $data['title'], array_replace_recursive(['class'=>'margin-left'],$data['attributes'])) !!}
                 @endif               
             @endforeach
         @elseif(isset($actionHtml))

@@ -10,7 +10,7 @@ use App\User;
 use Auth;
 use App\Product;
 use App\ContactKind;
-
+use App\ContactStep;
 use App\Repositories\Task\ITaskRepository;
 use App\Repositories\Contact\IContactRepository;
 
@@ -101,7 +101,40 @@ class ContactsController extends Controller
              $taskByDay = $this->taskRepository->groupByDay($contact->tasks);
         }
 
-        return view('pages.back.contact', compact('contact', 'taskByDay'));
+        $actionData = []; 
+        if(!in_array($contact->step->name, ["won","los"])){
+            foreach(ContactStep::whereIn('name',['won','lost'])->get() as $step){
+                    $actionData[] = [
+                        "url"=> null,
+                        "visible"=> true,
+                        "title"=> $step->name,
+                        "attributes"=>[
+                            'class'=>'btn ' . ($step->name == "won" ? "btn-success" : "btn-danger"),
+                            'data-step-id'=> $step->id,
+                            'step-action-btn'=> "",
+                            'data-href'=> route('contact.step',['id'=>$contact->id])
+                        ]
+                    ];
+            }
+        }else{
+             $actionData[] = [
+                        "url"=> null,
+                        "visible"=> true,
+                        "title"=> "reopen",
+                        "attributes"=>[
+                            'class'=>'btn btn-success',
+                            'data-step-id'=> ContactStep::where('name','=','lead')->first()->id,
+                            'step-action-btn'=> "",
+                            'data-href'=> route('contact.step',['id'=>$contact->id])
+                        ]
+                    ];
+        }
+        $actionData = array_merge($actionData, [
+                
+                ["url"=> route('contact.index',['contact'=> $contact??null]),"visible"=>isset($contact), "title"=> "Contacts", "attributes"=> ['class'=>'btn btn-primary']],
+                ["url"=> route('contact.create'),"visible"=>true, "title"=> "Add", "attributes"=> ['class'=>'btn btn-primary']]
+        ]);
+        return view('pages.back.contact', compact('contact', 'taskByDay', 'actionData'));
     }
 
     /**
@@ -131,9 +164,13 @@ class ContactsController extends Controller
     }
 
     public function stepUpdate(Request $request, $id){
-        $contact = Contact::find($id);
-        $contact->update($request->all());
-        $contact->save();
+        
+        if($request->has('step_id')){
+            $contact = Contact::find($id);
+            $contact->step_id = $request->get("step_id");
+            $contact->save();
+        } 
+
         return Response::json([
             'error' => false,
             'code'  => 200

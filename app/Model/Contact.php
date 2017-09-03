@@ -88,6 +88,14 @@ class Contact extends Model
         return Product::filterByInterest($interest)->whereNotIn('id', $filterProducts)->get();
     }
 
+    public function getWonAttribute(){
+        return $this->step->name == "won";
+    }
+
+    public function getLostAttribute(){
+        return $this->step->name == "lost";
+    }
+
     public function getFavouriteListAttribute(){
         return $this
             ->wishList()

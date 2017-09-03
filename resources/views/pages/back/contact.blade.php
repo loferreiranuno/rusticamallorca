@@ -9,13 +9,11 @@
             'rootTitle' => "Contacts",
             'root' => route("contact.index"),
             'currentTitle' => $contact->id, 
-            'actionHtml' => '
-                <a class="btn btn-primary pull-right margin-left"  href="' . route('contact.create') . '" action-url="' . route('contact.create') . '">Add</a>
-                <a class="btn btn-primary pull-right margin-left" href="' . route('contact.edit', ['contact'=> $contact->id]). '" action-url="' . route('contact.edit', ['contact'=> $contact->id]) . '">Edit</a>'
+            'actionData'=>$actionData 
         ])    
 @stop 
 
-@section('content')
+@section('content') 
     @include('include.pages.stepRow',['contact'=>$contact])
         <div class="row">
                 <div class="col-lg-4">
