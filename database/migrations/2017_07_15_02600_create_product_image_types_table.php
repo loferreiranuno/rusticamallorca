@@ -13,7 +13,7 @@ class CreateProductImageTypesTable extends Migration
      */
     public function up()
     {   
-        Schema::dropIfExists('product_image_types');
+        // Schema::dropIfExists('product_image_types');
         Schema::create('product_image_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');

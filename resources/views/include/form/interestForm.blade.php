@@ -1,8 +1,15 @@
+
+@if(isset($contact->id))
+
 @if(isset($interest))
-    {{ Form::model($contact, ['route' => ['interest.update', $interest->id], 'method' => 'patch']) }}
+    {{ Form::model($interest, ['route' => ['interest.update', $interest->id], 'method' => 'patch']) }}
 @else
     {!! Form::open(['route' => 'interest.store']) !!} 
 @endif
+
+
+{!! Form::hidden('contact_id', $contact->id) !!}
+
 
             <h3>Interests</h3>
             
@@ -11,7 +18,7 @@
                     <div class="col-lg-12"> 
                     <div class="form-group">                                        
                     {!! Form::label('product_kind_id', 'Product type') !!}                    
-                    {!! Form::select('product_kind_id', App\ProductKindType::pluck('name', 'id'), isset($interest)?$interest->product_kind_id : null, ['class'=>'form-control']) !!}
+                    {!! Form::select('product_kind_id', App\ProductKindType::pluck('name', 'id'), old('product_kind_id'), ['class'=>'form-control']) !!}
                     </div>
                     </div>
                     <div class="col-sm-6">
@@ -129,7 +136,7 @@
                 </div>
             </fieldset>
              {!! Form::close() !!}
-
+@endif
  
 @section('scripts')  
 @parent

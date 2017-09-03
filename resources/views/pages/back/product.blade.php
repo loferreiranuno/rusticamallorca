@@ -240,6 +240,9 @@
 
                             <div class="col-lg-3">
                             
+                            {{$product->favouriteList}}
+
+                            {{$product->discartedList}}
                             
                             </div>
                             

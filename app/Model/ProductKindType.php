@@ -11,4 +11,8 @@ class ProductKindType extends Model
     public function products(){
         return $this->belongsToMany('App\Product');
     }
+    
+    public function productInterest(){
+        return $this->belongsToMany('App\ContactInterest');
+    }
 }

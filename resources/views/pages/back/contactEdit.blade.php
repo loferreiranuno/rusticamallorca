@@ -2,33 +2,17 @@
   
 
 @section('breadcrumb')
-                <div class="row wrapper border-bottom white-bg page-heading">       
-                    <div class="col-sm-4">
-                    @if(isset($contact))
-                         <h2>{!! $contact->name !!}</h2>
-                    @else
-                         <h2>New Contact</h2>
-                    @endif
-                       
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="{{route('contact.index')}}">Contacts</a>
-                            </li>
-                            <li class="active">
-                            @if(isset($contact))
-                                <strong>Edit Contact</strong>
-                            @else
-                                <strong>Create</strong>
-                            @endif
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="title-action">
-                            <a href="{{route('contact.create')}}" class="btn btn-primary">Create New</a>
-                        </div>
-                    </div>
-                </div>
+        @include("include.back.breadcrumb", 
+        [
+            'title' => isset($contact) ? $contact->name : "Create contact"  ,
+            'rootTitle' => "Contacts",
+            'root' => route("contact.index"),
+            'currentTitle' => isset($contact) ? $contact->name : "Create contact",
+            'actionData'=>[
+                ["url"=> route('contact.show',['contact'=> $contact??null]),"visible"=>isset($contact), "title"=> "View", "attributes"=> ['class'=>'btn btn-primary']],
+                ["url"=> route('contact.create'),"visible"=>true, "title"=> "Add", "attributes"=> ['class'=>'btn btn-primary']]
+            ]  
+        ])   
 @stop 
 
 

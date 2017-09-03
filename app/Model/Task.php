@@ -40,6 +40,10 @@ class Task extends Model
         return $this->hasOne('App\User', 'id', 'user_id');
     } 
 
+    public function getExpiredAttribute(){
+        return $this->start_date >  Carbon::today() && $this->end_date >= Carbon::today();
+    }
+
     public function scopeToday($query){
         return $query
             ->where('start_date', '>=', Carbon::today())

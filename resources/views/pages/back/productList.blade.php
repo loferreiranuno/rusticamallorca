@@ -76,7 +76,7 @@
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-content">
-                        @if(isset($products))
+                        
                             <table class=" table table-stripped toggle-arrow-tiny default breakpoint footable-loaded"  >
                                 <thead>
                                 <tr>
@@ -139,7 +139,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                                                
+                                @if(isset($products))                                
                                 @foreach($products as $product)
 
                                     <tr product-row product-url="{{ route('product.show', ['id'=> $product->id]) }}" style="" class="{!! $product->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
@@ -174,7 +174,7 @@
                                     </tr>  
 
                                 @endforeach
-
+                                @endif
 
                                 </tbody>
                                 <tfoot>
@@ -183,6 +183,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                        @if(isset($products))
                             {{ $products->appends(Input::except('page'))->links() }}
                         @endif
                         </div>

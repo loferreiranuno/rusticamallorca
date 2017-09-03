@@ -16,6 +16,7 @@
 @stop 
 
 @section('content')
+    @include('include.pages.stepRow',['contact'=>$contact])
         <div class="row">
                 <div class="col-lg-4">
                     @include("include.pages.boxContact", ['showTitle'=> false, 'showDetails'=> true,'contactSource'=> $contact, 'label'=> 'Contact data'])
@@ -57,13 +58,45 @@
                             </div>
                             
                             <div class="col-lg-4">
+                            @if($contact->kind->name == "owner")
+
+                            @else
                                 <div class="row well"> 
-                                    @include("include.form.interestForm")
+                                    @include("include.form.interestForm", ['interest'=> $contact->interest, 'contact'=>$contact])
                                 </div>
+                            @endif
                             </div>
 
-                            <div class="col-lg-4">
-                            
+                            <div class="col-lg-4"> 
+                            @if($contact->kind->name == "owner")
+                                    <h3>
+                                        <a href="{{route('product.create',['owner_id'=>$contact])}}" type="button"  class="btn btn-primary m-r-sm">
+                                            <i class="fa fa-plus-square-o"></i>
+                                        </a> Add Property
+                                     </h3>
+                                @include('include.pages.boxSuggestedProduct',[
+                                    'products' => $contact->ownedProducts, 
+                                    'contact'=> $contact, 
+                                    'css_icon'=>'fa fa-house',
+                                    'label'=> 'Owner properties'])
+
+                            @else
+                                @include('include.pages.boxWishList',[
+                                    'wishList' => $contact->favouriteList, 
+                                    'css_icon'=>'fa fa-thumbs-o-up',
+                                    'label'=> 'Favourite properties'])
+
+                                @include('include.pages.boxSuggestedProduct',[
+                                    'products' => $contact->suggestedProducts, 
+                                    'contact'=> $contact, 
+                                    'css_icon'=>'fa fa-list-ol',
+                                    'label'=> 'Suggested properties'])
+
+                                @include('include.pages.boxWishList',[
+                                    'wishList'=> $contact->discardedList,
+                                    'css_icon'=>'fa fa-thumbs-o-down',
+                                    'label'=> 'Discarded properties'])
+                            @endif
                             
                             </div>
                             
@@ -83,7 +116,31 @@
 @section("scripts")
 
 <script>
+    $(document).ready(function(){
 
+        $("[wishlist-btn]").on("click", function(){
+            var contact_id = $(this).data("contact");
+            var product_id = $(this).data("product");
+            var interested = $(this).data("interested");
+            var url = $(this).data("href");
+            var method = $(this).data("method");
+            $.ajax({
+                url: url,
+                method: method,
+                data:{
+                    contact_id: contact_id,
+                    product_id: product_id,
+                    interested: interested ? 1 : 0,
+                    _token: "{{ csrf_token()}}"
+                },
+                success:function(data){
+                    window.location.reload();
+                }
+            });
+        });
+
+
+    });
 </script>
 
 @stop

@@ -9,7 +9,7 @@
         @foreach($taskItems as $task)
         <div class="vertical-timeline-block">
             <div class="vertical-timeline-icon gray-bg">
-                <i class="{{ $task->icon_css }}"></i>
+                <i class="{{ $task->kind->css_icon }}"></i>
             </div>
             <div class="vertical-timeline-content">
                 <div>

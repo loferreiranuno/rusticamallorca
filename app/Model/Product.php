@@ -5,10 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Http\Request;
 
+use App\ContactInterest;
+
 class Product extends Model
 {
     protected $table = 'products';
  
+    public function getTableColumns() {
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+
     protected $fillable = [
         'creator_id',
         'recruiter_id',
@@ -172,6 +178,24 @@ class Product extends Model
         return $data->description;
     }
 
+    public function wishList(){
+        return $this->hasMany('App\ContactWishList');
+    }
+
+    public function getFavouriteListAttribute(){
+        return $this
+            ->wishList()
+            ->where('interested','=',1)
+            ->get();
+    }
+
+    public function getDiscardedListAttribute(){
+        return $this
+            ->wishList()
+            ->where('interested','=',0)
+            ->get();
+    }
+
     public function getFullAddressAttribute()
     {
         return
@@ -182,11 +206,58 @@ class Product extends Model
             . "," . $this->zip_code 
             . " " . $this->city_name;
     }
-
+ 
     public function tasks(){
         return $this->hasMany('App\Task')->orderBy('start_date');
     }
-   
+    
+    public function scopeFilterByInterest($query, ContactInterest $interest){
+
+        if($interest->rent_enabled){
+            $query->where('renting_enabled', '=', 1);
+            if($interest->rent_min > 0 && $interest->rent_max > 0){
+                $query
+                    ->where('renting_cost','>=', $interest->rent_min)
+                    ->where('renting_cost','<=', $interest->rent_max);
+
+            }
+        }
+
+        if($interest->sale_enabled){
+            $query->where('selling_enabled', '=', 1);
+            if($interest->sale_min > 0 && $interest->sale_max > 0){
+                    $query
+                    ->where('selling_cost','>=', $interest->sale_min)
+                    ->where('selling_cost','<=', $interest->sale_max);
+            }
+        }
+
+        if($interest->bathroom_min > 0 && $this->bathroom_max > 0){
+            $query
+                ->where('bathrooms','>=', $interest->bathroom_min)
+                ->where('bathrooms','<=', $interest->bathroom_max);
+        }
+        if($interest->bedroom_max > 0 && $this->bedroom_max > 0){
+            $query
+                ->where('bedroom_max','>=', $interest->bedroom_max)
+                ->where('bedroom_max','<=', $interest->bedroom_max);
+        }
+
+        if($interest->area_min > 0 && $interest->area_max > 0){
+            $query
+                ->where('area','>=', $interest->area_min)
+                ->where('area','<=', $interest->area_max);
+        }
+
+        if(isset($interest->kind)){
+            $query
+                ->where('product_kind_id','=', $interest->kind->id);
+        }
+
+        return $query;
+
+    }
+    //BACKOFFICE PRODUCT SEARCH;
     public function scopeSearch($query, Request $request){
  
         if($request->has('typology')){
@@ -233,6 +304,5 @@ class Product extends Model
         } 
         return $query;
     }
- 
-
+  
 }

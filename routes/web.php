@@ -54,9 +54,12 @@ Route::post('/back/product/photo/update', ['uses' =>'PhotoController@update'])->
 //DOCUMENTS CONTROLLER
 Route::resource('back/document', 'ProductDocumentController');
 
-//CONTRACT INTEREST 
-
+//CONTACT INTEREST 
 Route::resource('back/contact/interest', 'ContactInterestController');
 
+//CONTACT WISH LIST
+Route::resource('back/contact/wishlist', 'ContactWishListController');
 
+//CONTACT STEP
+Route::put('back/contact/{id}/step/update', ['uses' =>'ContactsController@stepUpdate'])->name('contact.step');
 Auth::routes('back');

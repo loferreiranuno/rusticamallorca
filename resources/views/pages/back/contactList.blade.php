@@ -1,25 +1,16 @@
 @extends('layouts.back.default')
  
 
- @section('breadcrumb')
- <div class="row wrapper border-bottom white-bg page-heading">       
-    <div class="col-sm-4">
-        <h2>Search contacts</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="{{route('contact.index')}}">Contacts</a>
-            </li>
-            <li class="active">
-                <strong>List</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a href="{{route('contact.create')}}" class="btn btn-primary">New contact</a>
-        </div>
-    </div>
-</div>
+@section('breadcrumb')
+        @include("include.back.breadcrumb", 
+        [
+            'title' => "Contact list"  ,
+            'rootTitle' => "Contacts",
+            'root' => route("contact.index"),
+            'currentTitle' => "List", 
+            'actionHtml' => '
+                <a class="btn btn-primary pull-right margin-left"  href="' . route('contact.create') . '" action-url="' . route('contact.create') . '">Add</a>'
+        ])   
 @stop 
 
 
@@ -69,12 +60,13 @@
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-content">
-                        @if(isset($contacts))
+                     
                             <table class=" table table-stripped toggle-arrow-tiny default breakpoint footable-loaded"  >
                                 <thead>
                                 <tr>
                                     <th data-toggle="true" class="footable-visible"></th> 
                                     <th data-toggle="true" class="footable-visible"></th> 
+                                    <th data-toggle="true" class="footable-visible">Kind</th> 
                                     <th data-toggle="true" class="footable-visible">Name</th> 
                                     <th data-toggle="true" class="footable-visible">Email</th> 
                                     <th data-toggle="true" class="footable-visible">Phone</th> 
@@ -88,13 +80,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                                                
+                                @if(isset($contacts))                                   
                                 @foreach($contacts as $contact)
 
                                     <tr contact-row contact-url="{{ route('contact.show',['id'=>$contact->id]) }}" style="" class="{!! $contact->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
                                         
                                         <td class="footable-visible"><!-- checkbox --></td>
                                         <td class="footable-visible"><!-- image --></td>
+                                        <td class="footable-visible">{!! $contact->kind->name !!}</td>
                                         <td class="footable-visible">{!! $contact->name !!}</td> 
                                         <td class="footable-visible">{!! $contact->email !!}</td> 
                                         <td class="footable-visible">{!! $contact->phone !!}</td> 
@@ -115,7 +108,7 @@
                                     </tr>  
 
                                 @endforeach
-
+                                @endif
 
                                 </tbody>
                                 <tfoot>
@@ -124,6 +117,8 @@
                                     </tr>
                                 </tfoot>
                             </table>
+
+                        @if(isset($contacts))    
                             {{ $contacts->appends(Input::except('page'))->links() }}
                         @endif
                         </div>

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ContactInterest;
-use Illuminate\Support\Facades\Validator; 
-use Auth;
-use Response;
+use App\Http\Requests\ContactWishListRequest;
+use App\ContactWishList;
+use Illuminate\Support\Facades\Response;
 
-class ContactInterestController extends Controller
+class ContactWishListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +26,7 @@ class ContactInterestController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -36,12 +35,27 @@ class ContactInterestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactWishListRequest $request)
     {
-        $interest = ContactInterest::create($request->all());
-        $interest->user_id = Auth::id();
-        $interest->save();
-        return redirect()->route('contact.show', ['id'=> $interest->contact_id]); 
+        $filter = [
+            ['product_id','=',$request->get('product_id')],
+            ['contact_id','=', $request->get('contact_id')]
+        ];
+
+        $items = ContactWishList::where($filter);
+        if($items->count() == 0){
+            $item = ContactWishList::create($request->all());
+        }else{
+            foreach($items as $item){
+                $item->update($request->all());
+            }
+        }
+
+        return Response::json([
+            'error' => false,
+            'code'  => 200
+        ], 200);         
+
     }
 
     /**
@@ -74,14 +88,14 @@ class ContactInterestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    { 
-        $interest = ContactInterest::find($id); 
-        $interest->update($request->all());
-        // $interest->save();
-        // $interest->sale_enabled =$request->has('sale_enabled');
-        // $interest->rent_enabled =$request->has('rent_enabled');
-        // $interest->save();
-        return redirect()->route('contact.show', ['id'=> $interest->contact_id]); 
+    {
+        $item = ContactWishList::find($id);
+        $item->update($request->all());
+
+        return Response::json([
+            'error' => false,
+            'code'  => 200
+        ], 200);
     }
 
     /**

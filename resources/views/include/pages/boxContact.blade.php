@@ -3,7 +3,7 @@
     @if(isset($contact))   
 
     @if(!isset($showTitle) || $showTitle)
-        <h2>
+        <h2> 
             {{ $contact->name }}
         </h2>
     @endif    
@@ -12,11 +12,11 @@
         <ul class="list-unstyled">
             
             @if(isset($contact->email))
-            <li>
-                <span class="fa fa-envelope m-r-xs"></span>
-                <label>Email:</label>
-                <a href="mailto:'{{$contact->email}}'">{{$contact->email}}</a>
-            </li>
+                <li>
+                    <span class="fa fa-envelope m-r-xs"></span>
+                    <label>Email:</label>
+                    {{$contact->email}}
+                </li>
             @endif
 
             @if(isset($contact->fullAddress) && trim($contact->fullAddress)!= "")
@@ -31,13 +31,20 @@
             <li>
                 <span class="fa fa-phone m-r-xs"></span>
                 <label>Contact:</label>
-                {{ $contact->phone }} {{ $contact->phone_alt }}
+                {{ $contact->phone }}  
+            </li>
+            @endif
+            @if(isset($contact->phone_alt))
+                <li>
+                <span class="fa fa-phone m-r-xs"></span>
+                <label>Contact alt.:</label>
+                {{ $contact->phone_alt }}  
             </li>
             @endif
         </ul>
     @endif
 
-    <small>{{ isset($label) ? $label : "" }}</small>    
+    <small>{{ isset($label) ? link_to_route('contact.show',  $label, ['contact'=>$contact], ['class'=>'' ]) : "" }}</small>    
  
     @elseif(isset($user))
 
@@ -45,7 +52,7 @@
             {{ $user->name }}
         </h2>
     
-    <small>{{ (isset($label) ? $label : "") }}</small>
+    <small>{{ (isset($label) ? link_to_route('user.show',  $label, ['user'=>$user], ['class'=>'' ]): "") }}</small>
     @else    
         <h2>No {{ $label }} assigned</h2>
         <ul class="list-unstyled m-t-md">

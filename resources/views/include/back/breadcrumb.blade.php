@@ -12,7 +12,15 @@
 </div>
 <div class="col-sm-8">
     <div class="title-action">
-        {!! isset($actionHtml) ?  $actionHtml : "" !!}
+        @if(isset($actionData))
+            @foreach($actionData as $data)            
+                @if(isset($data['visible']) && $data['visible'])
+                    {!! link_to($data['url'], $data['title'], $data['attributes']) !!}
+                @endif               
+            @endforeach
+        @elseif(isset($actionHtml))
+            {!! $actionHtml !!}
+        @endif 
     </div>
 </div>
 </div>

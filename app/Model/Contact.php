@@ -4,6 +4,8 @@ namespace App;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Product;
+
 class Contact extends Model
 {
     protected $fillable = [             
@@ -69,6 +71,39 @@ class Contact extends Model
         return $this
             ->hasMany('App\Task', 'contact_id', 'id')
             ->orderBy('start_date');
+    }
+
+    public function interest(){
+        return $this
+            ->hasOne('App\ContactInterest', 'contact_id', 'id');
+    }
+
+    public function getSuggestedProductsAttribute(){
+         
+        $interest =  $this->interest;
+        if($interest == null)
+            return null;
+        
+        $filterProducts = $this->wishList()->pluck('product_id')->toArray();
+        return Product::filterByInterest($interest)->whereNotIn('id', $filterProducts)->get();
+    }
+
+    public function getFavouriteListAttribute(){
+        return $this
+            ->wishList()
+            ->where('interested','=',1)
+            ->get();
+    }
+
+    public function getDiscardedListAttribute(){
+        return $this
+            ->wishList()
+            ->where('interested','=',0)
+            ->get();
+    }
+
+    public function wishList(){
+        return $this->hasMany('App\ContactWishList');
     }
 
     public function scopeSearch($query, array $request){

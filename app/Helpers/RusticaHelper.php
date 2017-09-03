@@ -21,4 +21,7 @@ class RusticaHelper{
     public static function formatDate($date, $format){
         return Carbon\Carbon::createFromTimeStamp(strtotime($date))->format($format);
     }
+
+  
+    
 }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactInterest extends Model
 {    
+    protected $table = 'contact_interests';
+    protected $primaryKey = 'id';
     protected $fillable = [
     
     'contact_id',
@@ -21,12 +23,7 @@ class ContactInterest extends Model
     'sale_max',
     'rent_enabled',
     'rent_min',
-    'rent_max',
-    // 'min_floor',
-    // 'area_window_min',
-    // 'area_window_max',
-    // 'celling_height_min',
-    // 'celling_height_max'
+    'rent_max', 
     ]; 
 
 

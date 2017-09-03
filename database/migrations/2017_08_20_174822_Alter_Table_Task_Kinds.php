@@ -19,7 +19,7 @@ class AlterTableTaskKinds extends Migration
             }            
         });
 
-        DB::table('task_kinds')->insert(
+        DB::table('task_kinds')->update(
             array(
                 array('name'=>'Other', 'css_icon'=> 'fa fa-tasks'),
                 array('name'=>'Phone call', 'css_icon'=>'fa fa-phone'),

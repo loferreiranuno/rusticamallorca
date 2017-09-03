@@ -4,7 +4,7 @@
         {{ $user->name }}
     </h2> 
 
-    <small>{{ isset($label) ? $label : "" }}</small>
+    <small>{{ isset($label) ? link_to_route('user.show',  $label, ['user'=>$user], ['class'=>'' ]) : "" }}</small>
        
     @elseif(isset($source))
         <h2>

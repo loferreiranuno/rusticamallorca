@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use App\Contact;
 use App\User;
@@ -126,7 +127,17 @@ class ContactsController extends Controller
     {
         $contact = Contact::find($id);
         $contact->update($request->all());
-        return View::make('pages.back.contactEdit')->with('contact', $contact);
+        return $this->show($contact->id);
+    }
+
+    public function stepUpdate(Request $request, $id){
+        $contact = Contact::find($id);
+        $contact->update($request->all());
+        $contact->save();
+        return Response::json([
+            'error' => false,
+            'code'  => 200
+        ], 200); 
     }
 
     /**
