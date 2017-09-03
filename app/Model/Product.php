@@ -163,7 +163,7 @@ class Product extends Model
     public function offers(){
         return $this->hasMany("App\ProductOffer");
     } 
-    
+
     public function getDescription($languageId = null)
     { 
         $data = $this

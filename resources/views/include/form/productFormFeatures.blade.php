@@ -59,122 +59,122 @@
                     {!!Form::select('product_kind_id', App\ProductKindType::pluck('name', 'id')->prepend('','') , old('product_kind_id'), ['class'=> 'form-control'])!!} 
                 </div>
                 
-                <div class="form-group col-sm-4{{ $errors->has('rooms') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="form-group col-sm-4{{ $errors->has('rooms') ? ' has-error' : '' }}">
                     {{Form::label('rooms','Bedrooms')}}
-                    {!! Form::selectRange('rooms', 0, 10, old('rooms'), ['class'=>'form-control'])  !!}
+                    {!! Form::selectRange('rooms', 0, 10, old('rooms'), ['kind-filter-input'=>'','class'=>'form-control'])  !!}
                 </div>
                 
-                <div class="form-group col-sm-4{{ $errors->has('bathrooms') ? ' has-error' : '' }}">
+                <div  kind-filter-cell class="form-group col-sm-4{{ $errors->has('bathrooms') ? ' has-error' : '' }}">
                     {{Form::label('bathrooms','Bathrooms')}}
                     
-                    {!! Form::selectRange('bathrooms', 0, 10, old('bathrooms'), ['class'=>'form-control'])  !!}
+                    {!! Form::selectRange('bathrooms', 0, 10, old('bathrooms'), ['kind-filter-input'=>'','class'=>'form-control'])  !!}
                     
                 </div>
                 
-                <div class="form-group col-sm-4{{ $errors->has('floors') ? ' has-error' : '' }}">
+                <div  kind-filter-cell class="form-group col-sm-4{{ $errors->has('floors') ? ' has-error' : '' }}">
                     {{Form::label('floors','Floor')}} 
-                    {!! Form::selectRange('floors', -3, 10, old('building_floors'), ['class'=>'form-control'])  !!}
+                    {!! Form::selectRange('floors', 0, 10, old('building_floors'), ['kind-filter-input'=>'','class'=>'form-control'])  !!}
                 </div>
 
-                <div class="form-group col-sm-4{{ $errors->has('building_floors') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="form-group col-sm-4{{ $errors->has('building_floors') ? ' has-error' : '' }}">
                     {{Form::label('building_floors','Building floors')}}
-                    {!! Form::selectRange('building_floors', 0, 14, old('building_floors'), ['class'=>'form-control'])  !!}
+                    {!! Form::selectRange('building_floors', 0, 14, old('building_floors'), ['kind-filter-input'=>'','class'=>'form-control'])  !!}
                 </div>
 
-                <div class="form-group col-sm-4{{ $errors->has('building_floors_expand') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="form-group col-sm-4{{ $errors->has('building_floors_expand') ? ' has-error' : '' }}">
                     {{Form::label('building_floors_expand','Floors to expand')}}
-                    {!! Form::selectRange('building_floors_expand', 0, 10, old('building_floors_expand'), ['class'=>'form-control'])  !!}
+                    {!! Form::selectRange('building_floors_expand', 0, 10, old('building_floors_expand'), ['kind-filter-input'=>'','class'=>'form-control'])  !!}
                 </div>
                 
-                <div class=" form-block col-md-4{{ $errors->has('area') ? ' has-error' : '' }}">
+                <div kind-filter-cell class=" form-block col-md-4{{ $errors->has('area') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('area', 'Area*')}}
                         <div class="input-group">
-                            {!!Form::number('area', old('area'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('area', old('area'), ['kind-filter-input'=>'', 'class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
                 </div>
                 
-                <div class="col-md-4 form-block{{ $errors->has('area_util') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="col-md-4 form-block{{ $errors->has('area_util') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('area_util', 'Area util*')}}
                         <div class="input-group">
-                            {!!Form::number('area_util', old('area_util'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('area_util', old('area_util'), ['kind-filter-input'=>'', 'class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
                 </div> 
                 
-                <div class="col-md-4 form-block{{ $errors->has('plot_area') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="col-md-4 form-block{{ $errors->has('plot_area') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('plot_area', 'Plot area')}}
                         <div class="input-group">
-                            {!!Form::number('plot_area', old('plot_area'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('plot_area', old('plot_area'), ['kind-filter-input'=>'','class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
                 </div>
                 
-                <div class="col-md-4 form-block{{ $errors->has('building_front') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="col-md-4 form-block{{ $errors->has('building_front') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('building_front', 'Front')}}
                         <div class="input-group">
-                            {!!Form::number('building_front', old('building_front'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('building_front', old('building_front'), ['kind-filter-input'=>'','class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
                 </div>
                 
-                <div class="col-md-4 form-block{{ $errors->has('building_depth') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="col-md-4 form-block{{ $errors->has('building_depth') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('building_depth', 'Depth')}}
                         <div class="input-group">
-                            {!!Form::number('building_depth', old('building_depth'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('building_depth', old('building_depth'), ['kind-filter-input'=>'','class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
                 </div>
 
 
-                <div class="col-md-4 form-block{{ $errors->has('area_first_floor') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="col-md-4 form-block{{ $errors->has('area_first_floor') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('area_first_floor', 'Area first floor')}}
                         <div class="input-group">
-                            {!!Form::number('area_first_floor', old('area_first_floor'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('area_first_floor', old('area_first_floor'), ['kind-filter-input'=>'','class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
                 </div>
 
 
-                <div class="col-md-4 form-block{{ $errors->has('area_underground') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="col-md-4 form-block{{ $errors->has('area_underground') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('area_underground', 'Area underground')}}
                         <div class="input-group">
-                            {!!Form::number('area_underground', old('area_underground'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('area_underground', old('area_underground'), ['kind-filter-input'=>'','class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
                 </div>
 
 
-                <div class="col-md-4 form-block{{ $errors->has('window_area') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="col-md-4 form-block{{ $errors->has('window_area') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('window_area', 'Window area')}}
                         <div class="input-group">
-                            {!!Form::number('window_area', old('window_area'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('window_area', old('window_area'), ['kind-filter-input'=>'','class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
                 </div>
 
 
-                <div class="col-md-4 form-block{{ $errors->has('ceiling_height') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="col-md-4 form-block{{ $errors->has('ceiling_height') ? ' has-error' : '' }}">
                     <div class="form-group">
                         {{Form::label('ceiling_height', 'Ceiling height')}}
                         <div class="input-group">
-                            {!!Form::number('ceiling_height', old('ceiling_height'), ['class'=>'form-control' ])!!}
+                            {!!Form::number('ceiling_height', old('ceiling_height'), ['kind-filter-input'=>'','class'=>'form-control' ])!!}
                             <span class="input-group-addon">m&sup2;</span>
                         </div> 
                     </div>
@@ -289,18 +289,18 @@
                     {{Form::select('energy_certificate_id', App\EnergyCertificate::pluck('name', 'id')->prepend('',''), null, ['class'=> 'form-control'])}}
                 </div>
 
-                <div class="form-group col-sm-6{{ $errors->has('division_license_id') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="form-group col-sm-6{{ $errors->has('division_license_id') ? ' has-error' : '' }}">
                     {{Form::label('division_license_id','Horizontal division license')}}
-                    {{Form::select('division_license_id', App\DivisionLicense::pluck('name', 'id')->prepend('',''), null, ['class'=> 'form-control'])}}
+                    {{Form::select('division_license_id', App\DivisionLicense::pluck('name', 'id')->prepend('',''), null, ['kind-filter-input'=>'','class'=> 'form-control'])}}
                 </div>
 
-                <div class="form-group col-sm-6{{ $errors->has('electric_power_system_id') ? ' has-error' : '' }}">
+                <div kind-filter-cell class="form-group col-sm-6{{ $errors->has('electric_power_system_id') ? ' has-error' : '' }}">
                     {{Form::label('electric_power_system_id','Electric power system')}}
-                    {{Form::select('electric_power_system_id', App\ElectricPowerSystem::pluck('name', 'id')->prepend('',''), null, ['class'=> 'form-control'])}}
+                    {{Form::select('electric_power_system_id', App\ElectricPowerSystem::pluck('name', 'id')->prepend('',''), null, ['kind-filter-input'=>'','class'=> 'form-control'])}}
                 </div>
 
 
-                <div class="form-group col-sm-12{{ $errors->has('video_url') ? ' has-error' : '' }}">
+                <div  class="form-group col-sm-12{{ $errors->has('video_url') ? ' has-error' : '' }}">
                     {{Form::label('video_url','Video URL')}}
                     {{Form::text('video_url', null, ['class'=> 'form-control'])}}
                 </div> 
@@ -348,3 +348,42 @@
         </div>
     </div>
 </div>
+
+@section("scripts")
+@parent
+<script>
+$(document).ready(function(){
+    
+    var hideShowAllField = function(attribute, show){
+        if(!show)
+            $(attribute).parents("[kind-filter-cell]").hide();
+        else
+            $(attribute).parents("[kind-filter-cell]").show();
+    }
+    var filterFieldsLoad = function(){
+
+        var kind = $("#product_kind_id").val(); 
+        $.ajax({
+            method:"GET",
+            data:{
+                kind: kind
+            },
+            url: "{{route('product.filter.fields')}}",
+            success:function(data){
+                hideShowAllField("[kind-filter-input]", false);
+                $.each(data.fields, function(item){ 
+                    hideShowAllField("#" + this, true);
+                });
+            }
+        })
+    };
+
+    $("#product_kind_id").on("change", function(){
+        filterFieldsLoad();
+    });
+
+    filterFieldsLoad();
+
+});
+</script>
+@stop

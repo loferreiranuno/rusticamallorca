@@ -19,7 +19,7 @@ Route::get('back/', 'HomeController@index')->name('home');
 
 Route::resource('back/product','ProductsController');
 Route::get('back/product/{product}/features', ['uses' =>'ProductsController@updateFeatures'])->name('product.update.features');
-
+Route::get('back/product/filter/fields',['uses'=> 'ProductsController@getFields'])->name('product.filter.fields');
 
 
 Route::resource('back/contact','ContactsController');
