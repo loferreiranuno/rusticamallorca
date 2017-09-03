@@ -1,16 +1,26 @@
- 
-<div class="widget lazur-bg p-xs">
-    @if(isset($contact))   
-
-    @if(!isset($showTitle) || $showTitle)
-        <h2> 
-            {{ $contact->name }}
-        </h2>
-    @endif    
-    
-    @if(isset($showDetails) && $showDetails)
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>        
+        <span class="label label-primary pull-right">{{$label}}</span>
+        @if(isset($contact))
+            {{$contact->name}}
+        @elseif(isset($user))
+            {{$user->name}}
+        @else
+            {{ isset($label) ? $label : ""}}
+        @endif
+        </h5>  
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-down"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content" style="display: none;">
+    @if(isset($contact))
+        
         <ul class="list-unstyled">
-            
+           
             @if(isset($contact->email))
                 <li>
                     <span class="fa fa-envelope m-r-xs"></span>
@@ -41,25 +51,20 @@
                 {{ $contact->phone_alt }}  
             </li>
             @endif
-        </ul>
-    @endif
-
-    <small>{{ isset($label) ? link_to_route('contact.show',  $label, ['contact'=>$contact], ['class'=>'' ]) : "" }}</small>    
- 
-    @elseif(isset($user))
-
-        <h2>
-            {{ $user->name }}
-        </h2>
-    
-    <small>{{ (isset($label) ? link_to_route('user.show',  $label, ['user'=>$user], ['class'=>'' ]): "") }}</small>
+            <li>
+                {{link_to_route('contact.show', "Visit ". $label . " profile", ['contact'=>isset($contact)?$contact:null], ['class'=>'small' ])}}
+            </li>
+        </ul> 
+    @elseif(isset($user))    
+        <small>{{ (isset($label) ? link_to_route('user.show',  $label, ['user'=>$user], ['class'=>'' ]): "") }}</small>
     @else    
-        <h2>No {{ $label }} assigned</h2>
+        
         <ul class="list-unstyled m-t-md">
+            <li><h3>No {{ $label }} assigned</h3></li>
             <li>
                 <a href="{{ route('contact.create', ['product'=> isset($product) ? $product->id : null ]) }}" class="btn btn-primary">Add new {{ $label }}</a>
             </li>
         </ul>
     @endif
-
-</div> 
+        </div>
+    </div>

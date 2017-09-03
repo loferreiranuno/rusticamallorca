@@ -30,7 +30,7 @@
             @include("include.pages.boxUser", ['user'=> $product->creator, 'label'=> 'Creator'])
         </div>
         <div class="col-lg-4  {{ !isset($product->partner) ? 'hidden':null }}">
-            @include("include.pages.boxUser", ['user'=> $product->partner, 'label'=> 'Partner'])
+            @include("include.pages.boxContact", ['contact'=> $product->partner, 'label'=> 'Partner'])
         </div>
     </div>
     @include("include.pages.statusRow",['product'=>$product])
@@ -215,6 +215,7 @@
                                 'css_icon'=>'fa fa-thumbs-o-up'
                             ])  
                             </div>
+
 
                             <div class="clearfix">
                             @include('include.pages.boxSuggestedContact',[
