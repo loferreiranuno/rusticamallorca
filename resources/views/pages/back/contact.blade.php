@@ -114,31 +114,7 @@
 @section("scripts")
 
 <script>
-    $(document).ready(function(){
-
-        $("[wishlist-btn]").on("click", function(){
-            var contact_id = $(this).data("contact");
-            var product_id = $(this).data("product");
-            var interested = $(this).data("interested");
-            var url = $(this).data("href");
-            var method = $(this).data("method");
-            $.ajax({
-                url: url,
-                method: method,
-                data:{
-                    contact_id: contact_id,
-                    product_id: product_id,
-                    interested: interested ? 1 : 0,
-                    _token: "{{ csrf_token()}}"
-                },
-                success:function(data){
-                    window.location.reload();
-                }
-            });
-        });
-
-
-    });
+    
 </script>
 
 @stop

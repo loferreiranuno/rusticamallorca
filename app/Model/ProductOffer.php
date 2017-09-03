@@ -15,7 +15,7 @@ class ProductOffer extends Model
     ];
 
     public function product(){
-        return $this->belongsTo("App\Product");
+        return $this->hasOne("App\Product", "id", "product_id");
     }
 
     public function seller(){
@@ -24,5 +24,17 @@ class ProductOffer extends Model
 
     public function contact(){
         return $this->hasOne("App\Contact", "id", "contact_id");
+    }
+
+    public function getStatusAttribute(){
+        if($this->rejected == 0){
+            if($this->sold == 0){
+                return "open";
+            }else{
+                return "accepted";
+            }
+        }else{
+            return "rejected";
+        }
     }
 }

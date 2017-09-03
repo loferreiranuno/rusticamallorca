@@ -61,8 +61,9 @@ class ProductOfferController extends Controller
             $offer = ProductOffer::find($offer);
             $offer->sold = true;            
             $offer->save();
-
             $product = $offer->product;
+            $product->product_status_id = ProductStatus::where('name','=','sold')->first()->id;
+            $product->save();
             return redirect()->route('product.show', ['id' => $product->id]); 
 
     }
@@ -83,12 +84,11 @@ class ProductOfferController extends Controller
 
             $offer = ProductOffer::find($offer);
             $offer->sold = true;            
-            $offer->save();
-            
-            $product = $offer->product;
-            return redirect()->route('product.show', ['id' => $product->id]); 
-            
-            
+            $offer->save();            
+            $product = $offer->product;            
+            $product->product_status_id = ProductStatus::where('name','=','rented')->first()->id;
+            $product->save();
+            return redirect()->route('product.show', ['id' => $product->id]);             
     }
     
     /**
@@ -134,13 +134,10 @@ class ProductOfferController extends Controller
     public function destroy($id)
     {
         $offer = ProductOffer::find($id);
-        $product_id = $offer->product->id; 
         $offer->delete();
-        return redirect()->route('product.show', ['id' => $product_id]); 
-            
-        // return Response::json([
-        //     'error' => false,
-        //     'code'  => 200
-        // ], 200); 
+        return Response::json([
+            'error' => false,
+            'code'  => 200
+        ], 200); 
     }
 }

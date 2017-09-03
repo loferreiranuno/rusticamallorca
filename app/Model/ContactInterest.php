@@ -39,4 +39,13 @@ class ContactInterest extends Model
     public function kind(){
         return $this->hasOne('App\ProductKindType', 'id', 'product_kind_id');
     }
+    
+    public function getSaleAttribute(){
+        return $this->sale_enabled > 0 && $this->sale_min <= $this->sale_max;
+    }
+    
+    public function getRentAttribute(){
+        return $this->rent_enabled > 0&& $this->rent_min <= $this->rent_max;
+    }
+ 
 }

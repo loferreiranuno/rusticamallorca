@@ -40,6 +40,8 @@ class ContactInterestController extends Controller
     {
         $interest = ContactInterest::create($request->all());
         $interest->user_id = Auth::id();
+
+        $interest->product_kind_id = $request->get("product_kind_id"); 
         $interest->save();
         return redirect()->route('contact.show', ['id'=> $interest->contact_id]); 
     }
@@ -77,6 +79,8 @@ class ContactInterestController extends Controller
     { 
         $interest = ContactInterest::find($id); 
         $interest->update($request->all());
+        $interest->product_kind_id = $request->get("product_kind_id");
+        $interest->save();
         // $interest->save();
         // $interest->sale_enabled =$request->has('sale_enabled');
         // $interest->rent_enabled =$request->has('rent_enabled');

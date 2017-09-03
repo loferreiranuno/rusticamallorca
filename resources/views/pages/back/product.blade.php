@@ -8,7 +8,7 @@
             'title' => $product->title  ,
             'rootTitle' => "Properties",
             'root' => route("product.index"),
-            'currentTitle' => $product->id, 
+            'currentTitle' => "Ref.".$product->identifier. " " . $product->kind->name, 
             'actionHtml' => '
                 <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.create') . '">Add</button>
                 <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.edit', ['product'=> $product->id]) . '">Edit</button>
@@ -18,6 +18,7 @@
 @stop  
 
 @section('content')
+    
     <div class="row">
         <div class="col-lg-4">
             @include("include.pages.boxContact", ['contact'=> $product->owner, 'label'=> 'Owner'])
@@ -32,6 +33,7 @@
             @include("include.pages.boxUser", ['user'=> $product->partner, 'label'=> 'Partner'])
         </div>
     </div>
+    @include("include.pages.statusRow",['product'=>$product])
       <div class="row">
                 <div class="col-lg-12">
 
@@ -39,44 +41,10 @@
                         <div class="ibox-content">
                         <div class="row">    
                             <div class="col-lg-3"> 
-                            <h3>
-                             <button type="button"  class="btn btn-primary m-r-sm" data-toggle="modal"  data-target="#offerModal">
-                                        <i class="fa fa-plus-square-o"></i>
-                                        </button>
-                                        Add Offer
-                            </h3> 
-                         
-                            @if(isset($product->offers))
-                                <div class="feed-activity-list">
-                                    @foreach($product->offers as $offer)
-                                        <div class="feed-element">
-                                            <div class="pull-left">                                               
-                                                    
-                                            </div>
-                                            <div class="media-body ">      
-                                                <h2>{{$offer->value}} &euro;</h2>                                          
-                                                <strong>{{ $offer->contact->name }}</strong> made a {{$offer->operation}} offer!<br>
-                                                <small class="text-muted">{{ $offer->created_at }} seller {{$offer->seller->name}}</small>
-                                                <div class="actions">
-                                                @if(!$offer->rejected && !$offer->sold) 
-                                                    <button method="POST" offer-id="{{$offer->id}}" offer-action="{{ route('offer.rejected', ['offer'=>$offer->id]) }}" class="btn btn-xs btn-dangert pull-left"><i class="fa fa-thumbs-down"></i> Reject!</button>
-                                                    @if($offer->operation == "sell")
-                                                    <button method="POST" offer-id="{{$offer->id}}" offer-action="{{ route('offer.sold', ['offer'=>$offer->id]) }}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-thumbs-up"></i> Sold!</button>
-                                                    @else
-                                                    <button method="POST" offer-id="{{$offer->id}}" offer-action="{{ route('offer.rented', ['offer'=>$offer->id]) }}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-thumbs-up"></i> Rented!</button>
-                                                    @endif
-                                                @else
-                                                    <button method="DELETE" offer-id="{{$offer->id}}" offer-action="{{ route('offer.destroy', ['offer'=>$offer->id]) }}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-minus-square-o"></i> Remove!</button>
-                                                @endif
-                                                </div>
-                                            </div>
-                                        </div>                                 
-                                    @endforeach
-                                </div>                     
-                            @endif
                             
-                                  
-                            @include("include.modal.offerModal", ['modalId'=> 'offerModal'])  
+                            @include('include.pages.boxProductOffer',['product'=>$product])
+
+
                             @include("include.modal.taskModal", ['modalId'=> 'taskModal'])   
 
                                 <h3>
@@ -239,11 +207,23 @@
                             </div>
 
                             <div class="col-lg-3">
-                            
-                            {{$product->favouriteList}}
+                            <div class="clearfix">
+                            @include('include.pages.boxSuggestedContact',[
+                                'product'=>$product,
+                                'wishList'=>$product->favouriteList,
+                                'label'=> 'Interested',
+                                'css_icon'=>'fa fa-thumbs-o-up'
+                            ])  
+                            </div>
 
-                            {{$product->discartedList}}
-                            
+                            <div class="clearfix">
+                            @include('include.pages.boxSuggestedContact',[
+                                'product'=>$product,
+                                'wishList'=>$product->discardedList,
+                                'label'=> 'Discarded',
+                                'css_icon'=>'fa fa-thumbs-o-down'
+                            ]) 
+                            </div>
                             </div>
                             
                         </div>        
@@ -288,28 +268,6 @@
             window.location = $(this).attr("action-url");
         });
 
-        $("[offer-action]").on("click", function(e){
-            e.preventDefault();
-
-            var method = $(this).attr("method") || "GET";
-            var action = $(this).attr("offer-action");
-            var offer_id = $(this).attr("offer-id");
-
-            $.ajax({
-                type: method,
-                url: action,       
-                data:{
-                    offer: offer_id,
-                    _token: "{{csrf_token()}}"
-                },     
-                success: function(data){ 
-                    window.location.reload();
-                },
-                error: function(error){ 
-
-                }
-            });
-        });
 
         $("[upload-listener]").addClass("hidden");
 

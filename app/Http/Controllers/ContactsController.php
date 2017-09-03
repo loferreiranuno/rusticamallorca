@@ -102,7 +102,7 @@ class ContactsController extends Controller
         }
 
         $actionData = []; 
-        if(!in_array($contact->step->name, ["won","los"])){
+        if(!in_array($contact->step->name, ["won","lost"])){
             foreach(ContactStep::whereIn('name',['won','lost'])->get() as $step){
                     $actionData[] = [
                         "url"=> null,
@@ -130,7 +130,7 @@ class ContactsController extends Controller
                     ];
         }
         $actionData = array_merge($actionData, [
-                
+                ["url"=> route('contact.edit',['contact'=> $contact??null]),"visible"=>isset($contact), "title"=> "Edit", "attributes"=> ['class'=>'btn btn-primary']],
                 ["url"=> route('contact.index',['contact'=> $contact??null]),"visible"=>isset($contact), "title"=> "Contacts", "attributes"=> ['class'=>'btn btn-primary']],
                 ["url"=> route('contact.create'),"visible"=>true, "title"=> "Add", "attributes"=> ['class'=>'btn btn-primary']]
         ]);
