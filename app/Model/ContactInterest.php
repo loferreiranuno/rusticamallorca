@@ -48,4 +48,5 @@ class ContactInterest extends Model
         return $this->rent_enabled > 0&& $this->rent_min <= $this->rent_max;
     }
  
+ 
 }

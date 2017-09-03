@@ -22,6 +22,7 @@
         {{$product->fullAddress}} 
         </div> --}}
         <div class="actions">
+        @if(isset($contact))
         @if($contact->kind->name === "owner")
 
         @else
@@ -43,6 +44,7 @@
                     <a class="btn btn-xs btn-white" data-id="" data-method="POST" wishlist-btn data-href="{{route('wishlist.store')}}" data-product="{{$product->id}}" data-contact="{{$contact->id}}" data-interested="true"><i class="fa fa-thumbs-up"></i> Like </a>
                 @endif
             @endif
+        @endif
         @endif
         </div>
     </div>

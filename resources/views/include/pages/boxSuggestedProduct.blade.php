@@ -12,7 +12,7 @@
        No {{$label}} for this contact
   @else                    
     @foreach($products as $product)
-        @include('include.pages.boxProduct',['product'=>$product, 'contact'=>$contact])      
+        @include('include.pages.boxProduct',['product'=>$product, 'contact'=>$contact??null])      
     @endforeach    
     @endif
 </div> 

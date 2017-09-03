@@ -51,7 +51,15 @@
 <script>
 $(document).ready(function(){
     $(document).ready(function(){
-
+        $("[contact-row]").on("click", function(){
+            window.location = $(this).attr("contact-url");
+        })
+        .on("mouseover", function(){
+            $(this).addClass("active");
+        })
+        .on("mouseout", function(){
+            $(this).removeClass("active");
+        });
         $("[wishlist-btn]").on("click", function(){
             var contact_id = $(this).data("contact");
             var product_id = $(this).data("product");

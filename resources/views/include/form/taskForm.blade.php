@@ -45,7 +45,7 @@
                         </div> 
                         <div class="form-group">                                                
                             {!!Form::label("user_id", "Assign to*") !!}                                                
-                            {!!Form::select('user_id',App\User::pluck('name', 'id'), isset($task) ? $task->user_id : null, ['class'=> 'form-control'])!!} 
+                            {!!Form::select('user_id',App\User::pluck('name', 'id'), isset($task) ? $task->user_id : (isset($user)?$user->id:null), ['class'=> 'form-control'])!!} 
                         </div> 
                         <div class="form-group">                                                
                             {!! Form::label("contact_id", "Contact") !!}                                                

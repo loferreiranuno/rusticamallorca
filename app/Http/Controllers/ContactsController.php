@@ -17,7 +17,7 @@ use App\Repositories\Contact\IContactRepository;
 
 class ContactsController extends Controller
 {
-    private $TOTAL_PAGES = 3;
+    private $TOTAL_PAGES = 25;
     private $taskRepository;
     private $contactRepository;
     /**

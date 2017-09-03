@@ -47,8 +47,7 @@
                         <a href="/tasks/"><i class="fa fa-list-alt"></i> <span class="nav-label">Office users</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="{{Ekko::isActiveRoute('user.show')}}"><a href="{{route('user.show', ['user'=> Auth::id()])}}">My profile</a></li> 
-                            <li class="{{Ekko::isActiveRoute('user.create')}}"><a href="{{route('user.create')}}" >New office user</a></li>                          
-                            <li class="{{Ekko::isActiveRoute('user.index')}}"><a href="{{route('user.index')}}">Seaerch office users</a></li>  
+                            <li class="{{Ekko::isActiveRoute('user.index')}}"><a href="{{route('user.index')}}">Search office users</a></li>  
                         </ul>
                     </li>
                     

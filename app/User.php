@@ -63,4 +63,19 @@ class User extends Authenticatable
             ->orderBy('start_date')
             ->get();
     }
+
+    public function scopeSearch($query, array $request){
+        
+        if(isset($request["searchQuery"])){
+
+            $searchQuery = $request["searchQuery"];
+            if(trim($searchQuery) != ""){
+                $query->where(function($query) use ($searchQuery){
+                    $query->orWhere('email','LIKE', '%'.$searchQuery.'%')
+                    ->orWhere('name', 'LIKE', '%' . $searchQuery . '%');
+                });
+            }
+        }
+        return $query;
+    }
 }

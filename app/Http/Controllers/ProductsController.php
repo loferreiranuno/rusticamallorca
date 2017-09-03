@@ -71,6 +71,7 @@ class ProductsController extends Controller
     public function store(ProductRequest $request)
     {
         $product = $this->productRepository->create($request->all());
+        
         return redirect()->route('product.show', ['id'=> $product->id]); 
     }
 
@@ -81,7 +82,7 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    { 
         $product = $this->productRepository->get($id); 
 
         if($product == null)
