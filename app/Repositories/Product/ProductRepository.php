@@ -28,6 +28,8 @@ class ProductRepository implements IProductRepository{
     }
     
     public function create(array $data){
+
+        $data = $this->formatRequest($data);
         $product = $this->model->create($data);
         $product->creator_id = Auth::id();
         $this->updateDescriptions($product, $data);
@@ -37,8 +39,29 @@ class ProductRepository implements IProductRepository{
         return $product;
     }
     
+    private $checkBoxField =
+    [
+        "selling_enabled",
+        "renting_enabled",
+        "vacation_enabled",
+        "selling_cost_visible",
+        "keys",
+        "simple_note_enabled",
+        "mortage_enabled",
+        
+    ];
+
+    private function formatRequest(array $data){
+        foreach($this->checkBoxField  as $field){
+             $data[$field] = isset($data[$field]);
+        }
+       
+        return $data;
+    }
+
     public function update($id, array $data){
         $product = $this->get($id);
+        $data = $this->formatRequest($data);
         $product->update($data);
         
         $this->updateDescriptions($product, $data);

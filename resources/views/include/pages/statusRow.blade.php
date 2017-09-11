@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 staff-box" style="z-index:1000">
         <h2 class="funnel-title" id="funnel-title-{{$product->status->id}}" style="font-size:20px;">
+        @if($product->keys)
+            <span class="pull-right">Keys handed in <span class=" label label-warning" ><i class="fa fa-key"></i></span></span>
+        @endif
         <div class="funnel-title-text">
             {{$product->status->name}}        
         </div>

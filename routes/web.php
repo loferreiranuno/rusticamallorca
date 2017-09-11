@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('back/');
-});
+Route::get('/', 'Front\HomeController@index')->name("front.home");
+Route::get('/front/contactus', 'Front\ContactUsController@index')->name("front.contactus");
+Route::get('/front/aboutus', 'Front\AboutUsController@index')->name("front.aboutus");
+Route::get('/front/search', 'Front\SearchController@index')->name("front.search");
+Route::resource('/front/property', 'Front\PropertyController'); 
 
+//--------------------------------------------------------
+//BACKOFFICE
+//--------------------------------------------------------
 Route::get('back/', 'HomeController@index')->name('home'); 
 
 Route::resource('back/product','ProductsController');
@@ -63,3 +68,5 @@ Route::resource('back/contact/wishlist', 'ContactWishListController');
 //CONTACT STEP
 Route::put('back/contact/{id}/step/update', ['uses' =>'ContactsController@stepUpdate'])->name('contact.step');
 Auth::routes('back');
+
+//FRONT

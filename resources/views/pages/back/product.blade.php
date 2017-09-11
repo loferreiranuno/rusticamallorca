@@ -8,7 +8,7 @@
             'title' => $product->title  ,
             'rootTitle' => "Properties",
             'root' => route("product.index"),
-            'currentTitle' => "Ref.".$product->identifier. " " . $product->kind->name, 
+            'currentTitle' => "<span class='label label-default'>Ref.".$product->identifier. " " . $product->kind->name . "</span>", 
             'actionHtml' => '
                 <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.create') . '">Add</button>
                 <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.edit', ['product'=> $product->id]) . '">Edit</button>

@@ -9,6 +9,7 @@
     <div class="row">
         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}"><label>Property Title</label> 
             {!!Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Property title'])!!}
+            {!! Form::hidden("tab_hash", null, ['id'=>'tab_hash']) !!}
         </div>    
     </div>
     <div class="row">
@@ -95,7 +96,22 @@
          $('.i-checks').iCheck({
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green',
-                });
+        });
+
+        $('[data-toggle="tab"]').on("click", function(){
+            $("#tab_hash").val($(this).attr('href'));
+            window.location.hash =$(this).attr('href');
+        });
+
+        var reloadHash = function(){
+            var hash = window.location.hash.substr(1); 
+            if(hash){
+                $("[href='#" + hash + "']").trigger("click");
+                $("#tab_hash").val("#" + hash);
+            }
+        };
+        reloadHash();
+        
 
     });
     </script>

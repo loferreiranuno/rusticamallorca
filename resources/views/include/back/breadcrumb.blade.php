@@ -6,7 +6,7 @@
             <a href="{{ isset($root) ? $root : "" }}">{{ isset($rootTitle)? $rootTitle : "" }}</a>
         </li>
         <li class="active">
-            <strong>{{ isset($currentTitle) ? $currentTitle : "" }}</strong>
+            <strong>{!! isset($currentTitle) ? $currentTitle : "" !!}</strong>
         </li>
     </ol>
 </div>

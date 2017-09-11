@@ -28,7 +28,7 @@ class ProductsController extends Controller
      */
     public function __construct(IProductRepository $productRepository, ITaskRepository $taskRepository)
     {
-        $this->middleware('auth');   
+        $this->middleware('auth');    
         $this->productRepository = $productRepository;
         $this->taskRepository = $taskRepository;
     }
@@ -118,7 +118,7 @@ class ProductsController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {        
-        $product = $this->productRepository->update($id, $request->all());
+        $product = $this->productRepository->update($id, $request->all());        
         return redirect()->route('product.show', ['id'=> $product->id]);
     }
 
@@ -158,7 +158,15 @@ class ProductsController extends Controller
      ],
     ];
     public function getFields(Request $request){
-        $kindId = $request->get("kind");
+        
+        if($request->has("kind")){
+            $kindId = $request->get("kind");
+        }
+        
+        if(!isset($kindId)){
+            $kindId = 1;
+        }
+
         $kind = ProductKindType::find($kindId); 
         return Response::json([ 'fields' => $this->fieldKindAvailable[$kind->name] ]);
     }

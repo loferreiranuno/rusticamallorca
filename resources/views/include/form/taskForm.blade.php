@@ -1,5 +1,11 @@
-{{ Form::open(array('method'=>'post', 'id'=>'task-form', 'name' => 'task-form', 'url' => route("task.store"))) }}
-            @if(!isset($task))
+@if(isset($task))    
+    {!! Form::model($task, ['id'=>'task-form', 'method'=>'post', 'name'=>'task-form','url'=> route("task.update")]) !!}
+@else
+    {{ Form::open(array('method'=>'post', 'id'=>'task-form', 'name' => 'task-form', 'url' => route("task.store"))) }}
+@endif
+
+
+        @if(!isset($task))
                 <h1>Task form</h1>
             @endif
             <fieldset> 
@@ -23,6 +29,7 @@
                                     <div class="col-sm-6">        
                                         <div class="form-group">    
                                             {!! Form::label("day_hour", "Minutes") !!}
+                                            
                                             {!! Form::selectRange("minutes", 0, 59, isset($task) ? intval(date('H', strtotime(str_replace('-','/', $task->start_date)))) :  30, ['class'=>'form-control' ,'time-select' => '', 'id'=>'minutes']) !!}
                                         </div>
                                     </div>

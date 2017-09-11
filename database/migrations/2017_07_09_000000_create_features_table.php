@@ -23,7 +23,7 @@ class CreateFeaturesTable extends Migration
              array('name' => 'disabled access')
             ,array('name' => 'attached')
             ,array('name' => 'new')
-            ,array('name' => 'air conditioner')
+            ,array('name' => 'air conditioner') //
             ,array('name' => 'alarm')
             ,array('name' => 'warehouse')
             ,array('name' => 'luxury')
@@ -81,7 +81,7 @@ class CreateFeaturesTable extends Migration
             ,array('name' => 'hotel')
             ,array('name' => 'villa')
             ,array('name' => 'interior')
-            ,array('name' => 'internet')
+            ,array('name' => 'internet') //
             ,array('name' => 'garden')
             ,array('name' => 'community garden')
             ,array('name' => 'laundry')

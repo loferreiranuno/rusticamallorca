@@ -78,6 +78,23 @@
                 
             });
 
+            var slotMoment;
+
+            function dayClickCallback(date){
+                slotMoment = date;
+                $("#calendar").on("mousemove", forgetSlot);
+            }
+
+            function forgetSlot(){
+                slotMoment = null;
+                $("#calendar").off("mousemove", forgetSlot);
+            }
+
+            $("#calendar").dblclick(function() {
+                if(slotMoment){
+                    alert('[MODAL]');
+                }
+            });
 
             $('#calendar').fullCalendar({
             header: {
@@ -95,6 +112,12 @@
                     $(this).remove();
                 }
             },
+            eventRender: function(event, element) {
+                element.bind('dblclick', function() {
+                
+                });
+            },
+            dayClick: dayClickCallback,
             eventSources:[
                 {
                     url: '{{route("task.search", ["task"=> isset($task) ? $task->id : null ])}}',

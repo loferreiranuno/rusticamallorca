@@ -66,7 +66,7 @@
                                 <tr>
                                     <th data-toggle="true" class="footable-visible"></th> 
                                     <th data-toggle="true" class="footable-visible"></th> 
-                                    <th data-toggle="true" class="footable-visible">Kind</th> 
+                                    {{-- <th data-toggle="true" class="footable-visible">Kind</th>  --}}
                                     <th data-toggle="true" class="footable-visible">Name</th> 
                                     <th data-toggle="true" class="footable-visible">Email</th> 
                                     <th data-toggle="true" class="footable-visible">Phone</th> 
@@ -75,7 +75,7 @@
                                     <th data-toggle="true" class="footable-visible">Responsible</th> 
                                     <th data-toggle="true" class="footable-visible">Created</th> 
                                     <th data-toggle="true" class="footable-visible">Last action</th> 
-                                    <th data-toggle="true" class="footable-visible">Funnel step</th>                                    
+                                    {{-- <th data-toggle="true" class="footable-visible">Funnel step</th>                                     --}}
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -87,7 +87,7 @@
                                         
                                         <td class="footable-visible"><!-- checkbox --></td>
                                         <td class="footable-visible"><!-- image --></td>
-                                        <td class="footable-visible">{!! $contact->kind->name !!}</td>
+                                        {{-- <td class="footable-visible">{!! $contact->kind->name !!}</td> --}}
                                         <td class="footable-visible">{!! $contact->name !!}</td> 
                                         <td class="footable-visible">{!! $contact->email !!}</td> 
                                         <td class="footable-visible">{!! $contact->phone !!}</td> 
@@ -96,7 +96,7 @@
                                         <td class="footable-visible">{!! $contact->responsable->name !!}</td> 
                                         <td class="footable-visible">{!! $contact->created_at !!}</td> 
                                         <td class="footable-visible">{!! $contact->updated_at !!}</td> 
-                                        <td class="footable-visible">{!! isset($contact->step)?$contact->step->name : '-' !!}</td>    
+                                        {{-- <td class="footable-visible">{!! isset($contact->step)?$contact->step->name : '-' !!}</td>     --}}
 
                                         <td class="text-right footable-visible footable-last-column">
                                             <div class="btn-group">
