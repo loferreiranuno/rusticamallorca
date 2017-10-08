@@ -1,6 +1,4 @@
-@extends('layouts.front.default')
-
-
+@extends('layouts.front.default',["header"=>['class'=>''], "body"=>['class'=>'page-search', 'id'=>'page-top', 'content'=>['id'=>'page-content-search']]])
 
 @section('content')
 <div class="home_1">
@@ -8,14 +6,14 @@
 					<h1>Rústica Mallorca Inmobiliaria</h1>
 					<h4>Venta y alquiler de propiedades en el sector de las Fincas Rústicas.</h4>
 				</div>
-					<form id="form-submit" class="form-submit" action="search_result.html">
+				 
+					<form id="form-submit" class="form-submit" action="{{route('front.search')}}">
 						<div class="search">
-							<div class="selector col-md-3  col-sm-3">
+							<div class="selector col-md-3 col-sm-3">
 								<select class="selection" id="rent-sale">
-									<option>Venta</option>
-									<option>Alquiler</option>
-									<option>Todos</option>
-								</select>
+									<option value="sale">Venta</option> 
+									<option value="rent">Alquiler</option>
+								</select> 
 							</div>
 							<div id="email-label" class="col-md-7 col-sm-7">
 								<i class="fa fa-location-arrow"></i>
@@ -83,6 +81,7 @@
 					</div>
 				</div>
 			</div>
+
 			<!-- end container -->
 			<div class="wide-1">
 				<div class="container rel-img">
@@ -113,6 +112,7 @@
 				</div>
 				<div class="ab-us-img col-md-4 col-sm-4"></div>
 			</div>
+			
 			<!-- end wide-1 -->
 			<div class="wide-2">
 				<div class="container">
@@ -161,6 +161,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="col-md-3 col-sm-3 col-xs-6 prop">
 							<div class="wht-cont">
 								<div class="exp-img-2" style="background:url(http://www.extravaganzi.com/wp-content/uploads/2013/04/Architect-Designed-Luxury-Villa-in-Mallorca-2.jpg) center;background-size: cover;">

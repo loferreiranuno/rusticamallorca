@@ -1,4 +1,5 @@
-@extends('layouts.front.default')
+@extends('layouts.front.default',["header"=>['class'=>''], "body"=>['class'=>'page-search', 'id'=>'page-top', 'content'=>['id'=>'page-content-search']]])
+
 @section('content')
     <div class="container">
         <ol class="breadcrumb">

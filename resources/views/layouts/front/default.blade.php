@@ -28,7 +28,7 @@
 	<!-- Wrapper -->
 	<div class="wrapper">
 		<!-- Start Header -->
-		<div id="header" class="menu-wht">
+		<div id="header" class="{{(isset($header) && isset($header['class']))? $header['class'] : 'menu-wht'}}">
 		@include('include.front.header')
 		</div>
 		<!-- End Header -->

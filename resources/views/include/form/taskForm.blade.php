@@ -22,13 +22,13 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">    
-                                            {!! Form::label("day_hour", "Hour") !!}
+                                            {!! Form::label("hours", "Hour") !!}
                                             {!! Form::selectRange("hours", 0, 23, isset($task) ? intval(date('H', strtotime(str_replace('-','/', $task->start_date)))) :  12, ['class'=>'form-control', 'time-select' => '', 'id'=>'hours']) !!}
                                         </div>
                                     </div>
                                     <div class="col-sm-6">        
                                         <div class="form-group">    
-                                            {!! Form::label("day_hour", "Minutes") !!}
+                                            {!! Form::label("minutes", "Minutes") !!}
                                             
                                             {!! Form::selectRange("minutes", 0, 59, isset($task) ? intval(date('H', strtotime(str_replace('-','/', $task->start_date)))) :  30, ['class'=>'form-control' ,'time-select' => '', 'id'=>'minutes']) !!}
                                         </div>

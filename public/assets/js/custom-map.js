@@ -8,9 +8,9 @@ $.ajaxSetup({
 // Google Map - Homepage
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function createHomepageGoogleMap(_latitude,_longitude){
-    if( document.getElementById('map') != null ){
-        $.getScript("assets/js/locations.js", function(){
+function createHomepageGoogleMap(_latitude,_longitude, locations){
+    if( document.getElementById('map') != null ){ 
+            var bounds = new google.maps.LatLngBounds();
             var map = new google.maps.Map(document.getElementById('map'),{
                 zoom: 15,
                 zoomControl: true,
@@ -46,22 +46,26 @@ function createHomepageGoogleMap(_latitude,_longitude){
                     title: locations[i][0],
                     position: new google.maps.LatLng(locations[i][3], locations[i][4]),
                     map: map,
-                    labelContent: '<div class="marker-loaded"><div class="map-marker"><img src="' + locations[i][7] + '" alt="" /></div></div>',
+                    labelContent: '<div class="marker-loaded"><div class="map-marker"></div></div>',
                     labelAnchor: new google.maps.Point(50, 0),
                     labelClass: "marker-style"
                 });
                 newMarkers.push(marker);
+
+                //extend the bounds to include each marker's position
+                bounds.extend(marker.position);
+                
                 boxText.innerHTML =
                 '<div class="infobox-inner">' +
-                '<a href="' + locations[i][5] + '">' +
-                '<div class="infobox-image" style="position: relative">' +
-                '<img src="' + locations[i][6] + '">' + '<div><span class="infobox-price">' + locations[i][2] + '</span></div>' +
-                '</div>' +
-                '</a>' +
-                '<div class="infobox-description">' +
-                '<div class="infobox-title"><a href="'+ locations[i][5] +'">' + locations[i][0] + '</a></div>' +
-                '<div class="infobox-location">' + locations[i][1] + '</div>' +
-                '</div>' +
+                    '<a href="' + locations[i][5] + '">' +
+                    '<div class="infobox-image" style="position: relative">' +
+                    '<img src="' + locations[i][6] + '">' + '<div><span class="infobox-price">' + locations[i][2] + '</span></div>' +
+                    '</div>' +
+                    '</a>' +
+                    '<div class="infobox-description">' +
+                    '<div class="infobox-title"><a href="'+ locations[i][5] +'">' + locations[i][0] + '</a></div>' +
+                    '<div class="infobox-location">' + locations[i][1] + '</div>' +
+                    '</div>' +
                 '</div>';
                 //Define the infobox
                 newMarkers[i].infobox = new InfoBox(infoboxOptions);
@@ -74,6 +78,9 @@ function createHomepageGoogleMap(_latitude,_longitude){
                     }
                 })(marker, i));
             }
+
+            //now fit the map to the newly inclusive bounds
+            map.fitBounds(bounds);
 
             // Autocomplete
             if ($("#address-map").length) {
@@ -101,7 +108,6 @@ function createHomepageGoogleMap(_latitude,_longitude){
                     }
                 });
             }
-        });
     }
 }
 

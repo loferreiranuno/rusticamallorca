@@ -33,7 +33,14 @@
                                 <a href="{{route('contact.index')}}">
                                     <i class="fa fa-search"></i> Search contacts
                                 </a>                            
-                            </li>                            
+                            </li>   
+                            @foreach(App\ContactKind::all() as $kind)
+                                <li class="{{Ekko::isActiveRoute('contact.index')}}">
+                                    <a href="{{route('contact.index',['search'=>1, 'kind_id'=>$kind->id])}}">
+                                        <i class="fa fa-user"></i> {{ucfirst($kind->name)}}
+                                    </a>                            
+                                </li>                             
+                            @endforeach
                         </ul>
                     </li>                    
                     <li  class="{{Ekko::areActiveRoutes(['task.index', 'task.show', 'task.create'])}}">

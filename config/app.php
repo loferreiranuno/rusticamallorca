@@ -249,6 +249,7 @@ return [
 
         ,'Ekko' => Laravelista\Ekko\Facades\Ekko::class
         ,'Image' => Intervention\Image\Facades\Image::class
+        ,'RMHelper' => App\Helpers\RusticaHelper::class
 
     ],
 

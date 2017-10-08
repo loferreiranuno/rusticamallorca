@@ -22,22 +22,23 @@
 						<li class="active has-child"><a href="{{route('front.home')}}">Homepage</a>
 							
 						</li>
+						{{--
 						<li class="has-child"><a href="#">Agents&nbsp;&amp;&nbsp;agencies</a>
 							<ul class="child-navigation">
-								{{-- <li><a href="agency_profile.html">Agency Profile</a></li>
-								<li><a href="agent_profile.html">Agents Profile</a></li> --}}
+								 <li><a href="agency_profile.html">Agency Profile</a></li>
+								<li><a href="agent_profile.html">Agents Profile</a></li> 
 							</ul>
-						</li>
-						<li class="has-child"><a href="#">All Properties</a>
-							<ul class="child-navigation">
+						</li>--}}
+						<li class="has-child"><a href="{{route('front.search')}}">All Properties</a>
+							{{-- <ul class="child-navigation">
 								<li><a href="our_property.html">For Rent</a></li>
 								<li><a href="our_property_list_type.html">For Sell</a></li>
 								<li><a href="add_property.html">Add Property</a></li>
 								<li><a href="property_page.html">Property Page</a></li>
-							</ul>
+							</ul> --}}
 						</li>           
 						<li><a href="{{route('front.aboutus')}}">About Us</a></li>
-						<li><a href="{{route('front.aboutus')}}">Contact us</a></li>
+						<li><a href="{{route('front.contactus')}}">Contact us</a></li>
 						<li>
 							<a href="#" data-toggle="dropdown" class="pull-right drop-close">Close
 								<span class="cross"></span>
@@ -49,9 +50,10 @@
 					<ul class="nav navbar-nav pull-right">
 					    <li><a href="{{route('front.search')}}">Propiedades</a></li> 
 						<li>
-							<select class="selection" id="menu-language" onChange="window.location.href=this.value">
-								<option value="index_v_1.html">ES</option>
-								<option value="index_v_1.html">EN</option>
+							<select class="selection" id="menu-language" menu-language>
+								@foreach(App\Language::all() as $language)
+									<option value="{{$language->code}}">{{$language->code}}</option> 
+								@endforeach
 							</select>
 						</li>							
 					</ul>
@@ -79,56 +81,30 @@
 					</a>
 					<nav class="secondary">					
 						<ul class="nav navbar-nav">
-							<li><a href="#" data-toggle="modal" data-target="#modal-login">Log in<i class="fa fa-arrow-right"></i></a></li>	
-							<li><a href="#" data-toggle="modal" data-target="#modal-register">Registration</a></li>
-							<li class="active has-child"><a href="#">Homepage</a>
-								<ul class="child-navigation">
+							{{-- <li><a href="#" data-toggle="modal" data-target="#modal-login">Log in<i class="fa fa-arrow-right"></i></a></li>	
+							<li><a href="#" data-toggle="modal" data-target="#modal-register">Registration</a></li> --}}
+							<li class="active has-child"><a href="{{route('front.home')}}">Homepage</a>
+								{{-- <ul class="child-navigation">
 									<li><a href="index_v_1.html">Index V1</a></li>
 									<li><a href="index_v_2.html">Index V2</a></li>
 									<li><a href="index_v_3.html">Index V3</a></li>
-								</ul>
+								</ul> --}}
 							</li>
-							<li class="has-child"><a href="#">Agents&nbsp;&amp;&nbsp;agencies</a>
+							{{-- <li class="has-child"><a href="#">Agents&nbsp;&amp;&nbsp;agencies</a>
 								<ul class="child-navigation">
 									<li><a href="agency_profile.html">Agency Profile</a></li>
 									<li><a href="agent_profile.html">Agents Profile</a></li>
 								</ul>
-							</li>
-							<li class="has-child"><a href="#">All Properties</a>
-								<ul class="child-navigation">
-									<li><a href="our_property.html">Our Property</a></li>
-									<li><a href="our_property_list_type.html">Our Property List</a></li>
-									<li><a href="add_property.html">Add Property</a></li>
-									<li><a href="property_page.html">Property Page</a></li>
-								</ul>
-							</li>
-							<li class="has-child"><a href="#">Pages</a>
-								<ul class="child-navigation">
-									<li><a href="404_page.html">404 Page</a></li>
-									<li><a href="pricing_page.html">Pricing Page</a></li>
-									<li><a href="compare_page.html">Compare Page</a></li>
-									<li><a href="shotcodes.html">Shortcodes</a></li>
-									<li><a href="search_result.html">Search</a></li>
-									<li><a href="user_profile_(horizontal).html">user profile (horizontal)</a></li>
-									<li><a href="user_profile_(vertical).html">user profile (vertical)</a></li>
-								</ul>
-							</li>
-							<li class="has-child"><a href="#">Blog</a>
-								<ul class="child-navigation">
-									<li><a href="blog_list.html">Blog List</a></li>
-									<li><a href="blog_list_fullwidth.html">Blog List Fullwidth</a></li>
-									<li><a href="blog_article.html">Blog Article</a></li>
-									<li><a href="blog_text_article.html">Blog Text Article</a></li>
-									<li><a href="blog_article_styles.html">Blog Article Styles</a></li>
-									<li><a href="blog_video.html">Blog Video</a></li>
-								</ul>
-							</li>                        
-							<li><a href="about_us.html">About Us</a></li>
-							<li><a href="contact_us.html">Contact us</a></li>
-							<li>
-								<select class="selection" id="menu-language-2" onChange="window.location.href=this.value">
-									<option value="index_v_1.html">Eng</option>
-									<option value="rtl.html">الأرابيسك</option>
+							</li> --}}
+							<li class="has-child"><a href="{{route('front.search')}}">All Properties</a> 
+							</li>                       
+							<li><a href="{{route('front.aboutus')}}">About Us</a></li>
+							<li><a href="{{route('front.contactus')}}">Contact us</a></li>
+							<li>								
+								<select class="selection" id="menu-language" menu-language>
+									@foreach(App\Language::all() as $language)
+										<option value="{{$language->code}}">{{$language->code}}</option> 
+									@endforeach
 								</select>
 							</li>
 						</ul>				

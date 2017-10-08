@@ -94,7 +94,7 @@ class Product extends Model
     }  
     
     public function address_access(){
-        return $this->belongsTo('App\PublicAccess');
+        return $this->hasOne('App\PublicAccess', 'id', 'public_access_id');
     }
     public function features(){
         return $this->belongsToMany('App\Feature', 'product_features');
@@ -206,11 +206,53 @@ class Product extends Model
             . "," . $this->zip_code 
             . " " . $this->city_name;
     }
+
+    public function getSalePriceAttribute(){
+        if($this->selling_enabled == 1){
+            if($this->selling_cost_visible == 1){
+                return $this->selling_cost;
+            }
+        }
+        return 0;
+    }
+
+    public function getRentPriceAttribute(){
+        if($this->renting_enabled == 1){
+            return $this->renting_cost;
+        }
+        return 0;
+    }
  
     public function tasks(){
         return $this->hasMany('App\Task')->orderBy('start_date');
     }
+
+    public function scopeCities($query){
+        return $query->distinct('city_name')->select('city_name')->get();
+    }
     
+    public function scopeLastSale($query){
+        $query
+        ->where('selling_enabled','=', 1)
+        ->where('selling_cost','>', 0)
+        ->orderBy('id','DESC');
+        return $query;
+    }
+
+    public function scopeLastRent($query){
+        $query
+        ->where('renting_enabled','=', 1)
+        ->where('renting_cost','>', 0)
+        ->orderBy('id','DESC');
+        return $query;
+    }
+
+    public function scopeSimilar($query, Product $product){
+        $query->where('id','<>', $product->id); 
+        $query->where('product_kind_id', '=', $product->product_kind_id);
+        return $query;
+    }
+
     public function scopeFilterByInterest($query, ContactInterest $interest){
 
         if($interest->rent_enabled){

@@ -12,10 +12,12 @@
 */
 
 Route::get('/', 'Front\HomeController@index')->name("front.home");
-Route::get('/front/contactus', 'Front\ContactUsController@index')->name("front.contactus");
-Route::get('/front/aboutus', 'Front\AboutUsController@index')->name("front.aboutus");
-Route::get('/front/search', 'Front\SearchController@index')->name("front.search");
-Route::resource('/front/property', 'Front\PropertyController'); 
+Route::get('/contactus', 'Front\ContactUsController@index')->name("front.contactus");
+Route::get('/aboutus', 'Front\AboutUsController@index')->name("front.aboutus");
+Route::get('/search', 'Front\SearchController@index')->name("front.search");
+Route::get('/privacy', 'Front\PrivacyController@index')->name("front.privacy");
+Route::get('/conditions', 'Front\TermsAndContitionsController@index')->name("front.termsconditions");
+Route::resource('/property', 'Front\PropertyController'); 
 
 //--------------------------------------------------------
 //BACKOFFICE

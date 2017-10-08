@@ -1,5 +1,6 @@
 
-@extends('layouts.front.default')
+
+@extends('layouts.front.default',["header"=>['class'=>''], "body"=>['class'=>'page-search', 'id'=>'page-top', 'content'=>['id'=>'page-content-search']]])
 
 @section('content')
 		<div id="map2" class="map"></div>

@@ -145,6 +145,10 @@ class Contact extends Model
             }
         }
 
+        if(isset($request['kind_id'])){
+            $kindId = $request['kind_id'];
+            $query->where('kind_id','=',3);
+        }
         return $query;
 
     }

@@ -21,7 +21,13 @@
             </div>
         </div>
     </div>
+
     {!! Form::hidden("task_id", isset($task)?$task->id:null) !!}
+
+    
+    @include("include.modal.taskModal", ['modalId'=> 'taskModal']) 
+                        
+
 @stop
 
 
@@ -82,6 +88,12 @@
 
             function dayClickCallback(date){
                 slotMoment = date;
+                $("#start_date").val(slotMoment.format("YYYY-MM-DD"));
+                $("#day").val(slotMoment.format("YYYY-MM-DD")); 
+
+                $("#hours").val(parseInt(slotMoment.format("hh")));
+                $("#minutes").val(parseInt(slotMoment.format("mm")));
+
                 $("#calendar").on("mousemove", forgetSlot);
             }
 
@@ -91,8 +103,8 @@
             }
 
             $("#calendar").dblclick(function() {
-                if(slotMoment){
-                    alert('[MODAL]');
+                if(slotMoment){ 
+                    $("#taskModal").modal();
                 }
             });
 
@@ -101,9 +113,9 @@
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
-            }, 
+            },  
             defaultView: 'agendaWeek',
-            defaultDate: $("#start_date").val(), 
+            defaultDate: $("#start_date").val()||new Date(), 
             editable: true,
             drop: function() {
                 // is the "remove after drop" checkbox checked?
@@ -112,11 +124,13 @@
                     $(this).remove();
                 }
             },
-            eventRender: function(event, element) {
+            eventRender: function(event, element, view) {
                 element.bind('dblclick', function() {
-                
+                    
                 });
-            },
+                return $('<div class="well">' + event.title + '</div>');
+              
+            }, 
             dayClick: dayClickCallback,
             eventSources:[
                 {

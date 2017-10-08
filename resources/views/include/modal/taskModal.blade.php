@@ -12,6 +12,8 @@
                     @include("include.form.taskForm", ["contact"=>$contact])
                 @elseif(isset($user))
                     @include("include.form.taskForm", ["user"=>$user])
+                @else
+                    @include("include.form.taskForm")
                 @endif
             </div>
             <div class="modal-footer">

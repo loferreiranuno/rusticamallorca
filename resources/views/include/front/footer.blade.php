@@ -14,31 +14,21 @@
 						<div class="col-md-3 col-sm-3">
 							<article>
 								<h3>Propiedades recientes en venta</h3>
-								<div class="property small">
-									<a href="property-detail.html">
-										<div class="property-thumbnail">
-											<img alt="" src="http://img.rnudah.com/thumbs/88/880722011283874.jpg">
-										</div>
-									</a>
-									<div class="info">
-										<a href="property-detail.html">Casa de campo</a>
-										<figure>Deia</figure>
-										<div class="tag price">72.000€</div>
-									</div>
-								</div><!-- /.property -->
-								<div class="property small">
-									<a href="property-detail.html">
-										<div class="property-thumbnail">
-											<img alt="" src="http://img.rnudah.com/thumbs/88/880722011283874.jpg">
-										</div>
-									</a>
-									<div class="info">
-										<a href="property-detail.html">Casa de campo</a>
-										<figure>Deia</figure>
-										<div class="tag price">72.000€</div>
-									</div>
-								</div><!-- /.property -->
 								
+								@foreach(App\Product::lastSale()->get()->take(2) as $last)
+									<div class="property small">
+										<a href="{{route('property.show',['id'=> $last->id])}}">
+											<div class="property-thumbnail">
+												<img alt="" src="{{RMHelper::getProductImage($last, false)}}">
+											</div>
+										</a>
+										<div class="info">
+											<a href="{{route('property.show',['id'=>$last->id])}}">{{$last->title}}</a>
+											<figure>{{$last->city_name}}</figure>
+											<div class="tag price">{{$last->salePrice}}€</div>
+										</div>
+									</div><!-- /.property -->
+								@endforeach
 							</article>
 						</div><!-- /.col-sm-3 -->
 						<div class="col-md-3 col-sm-3">
@@ -57,9 +47,9 @@
 							<article>
 								<h3>Enlaces útiles</h3>
 								<ul class="list-unstyled list-links">
-									<li><a href="our_property.html">Propiedades</a></li>
-									<li><a href="#">Privacy Policy</a></li>
-									<li><a href="terms_and_conditions.html">Terminos y condiciones</a></li>
+									<li><a href="{{route('front.search')}}">Propiedades</a></li>
+									<li><a href="{{route('front.privacy')}}">Privacy Policy</a></li>
+									<li><a href="{{route('front.termsconditions')}}">Terminos y condiciones</a></li>
 								</ul>
 							</article>						
 						</div><!-- /.col-sm-3 -->
@@ -75,10 +65,8 @@
 					<a href="http://fruitfulcode.com" target="blank">© rusticamallorca.com,</a> 
 					<span>Powered by</span>    
 					<a href="http://tonifont.com " target="blank">tonifont.com</a>           
-					<img class="pull-right bank-logo" alt="" src="assets/img/master-card.png">
-					<img class="pull-right bank-logo" alt="" src="assets/img/visa.png">
-<!--					<img class="pull-right bank-logo" alt="" src="assets/img/stripe.png">
-					<img class="pull-right bank-logo" alt="" src="assets/img/paypal.png">-->
+					<img class="pull-right bank-logo" alt="" src="{{asset('assets/img/master-card.png')}}">
+					<img class="pull-right bank-logo" alt="" src="{{asset('assets/img/visa.png')}}"> 
 					<span class="pull-right">Aceptamos:</span>
 				</div>
 			</section>
