@@ -143,7 +143,7 @@
 						<div class="pr-info col-md-8 col-xs-12">
 							<h3>Property Features:</h3>
 							<section class="block">
-								<ul class="submit-features"> 
+								<ul class="submit-features">  
 								@foreach($features as $feature)
 									@if($feature['active'])
 										<li class="col-md-4 col-xs-4"><div >{{$feature['name']}}</div></li>
@@ -269,6 +269,7 @@
 								</div>
 							</section> --}}
 						</div>
+						
 						@if(isset($similarProducts) && count($similarProducts) > 0)
 
 						<div class="col-md-4 col-xs-12 some-prp">

@@ -222,13 +222,31 @@ class Product extends Model
         }
         return 0;
     }
- 
+    public function getPublicAddressAttribute(){
+         switch($this->address_access->name){
+             case "Hide all": return $this->city_name; break;
+             case "Hide Street Number": return  $this->street_name . " " . $this->street_number . "," . $this->zip_code . " " . $this->city_name; break;
+             case "Hide street": return $this->city_name; break;
+             default:  return $this->getFullAddressAttribute(); break;
+         }
+    }
+    public function getHasGarageAttribute(){
+        $features = $this->features->whereIn('name',['garage', 'garage included']);
+        $area = $this->garage_area;
+        return $area > 0 || $features->count() > 0;
+    }
+
+    public function getHasPoolAttribute(){
+        $features = $this->features->whereIn('name',['pool']); 
+        return $features->count() > 0;
+    }
+    
     public function tasks(){
         return $this->hasMany('App\Task')->orderBy('start_date');
     }
 
     public function scopeCities($query){
-        return $query->distinct('city_name')->select('city_name')->get();
+        return $query->distinct('city_name')->select('city_name');
     }
     
     public function scopeLastSale($query){
@@ -250,6 +268,12 @@ class Product extends Model
     public function scopeSimilar($query, Product $product){
         $query->where('id','<>', $product->id); 
         $query->where('product_kind_id', '=', $product->product_kind_id);
+        return $query;
+    }
+
+    public function scopeSameArea($query, Product $product){
+        $query->where('city_name','Like', $product->city_name); 
+        $query->where('id','<>', $product->id); 
         return $query;
     }
 

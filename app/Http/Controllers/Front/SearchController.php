@@ -15,6 +15,25 @@ class SearchController extends Controller
         
     }
 
+    public function cities(Request $request){
+
+        $name = $request->get('name');
+
+        $cities =  Product::cities()
+        ->where('city_name','like', '%'.$name.'%')
+        ->get()
+        ->all();
+
+        $data = [];
+        foreach($cities as $city){
+            $data[] = $city->city_name;
+        }
+        return [
+            'success'=> true,
+            'data' => $data
+        ];
+    }
+
     public function index(Request $request)
     {
         $products = Product::paginate($this->RESULTS_PER_PAGE);

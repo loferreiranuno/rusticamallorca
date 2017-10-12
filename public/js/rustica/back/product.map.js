@@ -77,10 +77,14 @@
         };
 
         function geocodeHandler (results, status){
+           
             marker.addressData == null;
             if (status === google.maps.GeocoderStatus.OK) { 
                 marker.addressData = {};                
                 jQuery.each(results[0].address_components, function(k,v1) {jQuery.each(v1.types, function(k2, v2){marker.addressData[v2]=v1.long_name});})
+                
+                marker.addressData.code = results[0].place_id;
+
                 updateGeoInput(results[0].geometry.location.lng(), results[0].geometry.location.lat());                     
             } else {
                 if(document.getElementById('map_show_default_values').value == "true")
@@ -117,6 +121,7 @@
                 return;
 
             var data = marker.addressData;
+ 
             setInputValue('street_number', data.street_number);
             setInputValue('city_name', data.locality);
             setInputValue('zip_code', data.postal_code);

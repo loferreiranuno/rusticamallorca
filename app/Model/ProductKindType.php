@@ -15,4 +15,8 @@ class ProductKindType extends Model
     public function productInterest(){
         return $this->belongsToMany('App\ContactInterest');
     }
+
+    public function getTextAttribute(){
+        return __("kinds.".$this->name);
+    }
 }

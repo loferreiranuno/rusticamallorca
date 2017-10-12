@@ -16,6 +16,7 @@ Route::get('/contactus', 'Front\ContactUsController@index')->name("front.contact
 Route::get('/aboutus', 'Front\AboutUsController@index')->name("front.aboutus");
 Route::get('/search', 'Front\SearchController@index')->name("front.search");
 Route::get('/privacy', 'Front\PrivacyController@index')->name("front.privacy");
+Route::post('/search/cities', 'Front\SearchController@cities')->name("front.api.cities");
 Route::get('/conditions', 'Front\TermsAndContitionsController@index')->name("front.termsconditions");
 Route::resource('/property', 'Front\PropertyController'); 
 

@@ -60,6 +60,12 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'brand' => [
+        'address' => env('BRAND_EMAIL_FROM_ADDRESS', 'info@rusticamallorca.com'),
+        'name' => env('BRAND_EMAIL_FROM_NAME', 'info@rusticamallorca.com')
+    ],
+    
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol

@@ -43,22 +43,42 @@ class Feature extends Model
         $query->whereIn('name', $filter);
         return $query->get();
     }
+    public function scopePropertyFeatures($query){
+         $filter = [
+             'air conditioner',
+             'built-in wardrobes',
+            //'elevator',
+            // 'outdoor',
+            // 'garage',
+            // 'garden',
+            // 'community garden',
+            //'swimming pool',
+            // 'communal swimming pool',
+             'terrace',
+            // 'storage room',
+             'balcony'
+        ];
 
-    public function scopeBasicFeatures($query){
+        $query->whereIn('name', $filter);
+        return $query->get();
+    }
+ 
+
+    public function scopeBuildingFeatures($query){
         
         $filter = [
-            'air conditioner',
-            'built-in wardrobes',
+            // 'air conditioner',
+            // 'built-in wardrobes',
             'elevator',
-            'outdoor',
-            'garage',
-            'garden',
-            'community garden',
+            // 'outdoor',
+            // 'garage',
+            // 'garden',
+            // 'community garden',
             'swimming pool',
-            'communal swimming pool',
-            'terrace',
-            'storage room',
-            'balcony'
+            // 'communal swimming pool',
+            // 'terrace',
+            // 'storage room',
+            // 'balcony'
         ];
 
         $query->whereIn('name', $filter);

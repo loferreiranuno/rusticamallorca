@@ -12,16 +12,17 @@ return [
     | any other location as required by the application or its packages.
     */
  
-    'name' => env('APP_NAME', 'Rustica Mallorca'),
+    'name' => env('APP_NAME', 'Rústica Mallorca'),
     'backOpen' => env('APP_BACK_OPEN', true), // set false to block registration;
     
     'mapsKey' => env('GOOGLE_API_KEY', 'AIzaSyByQXjRsfRYWr9dD5zwDfWvrQl_wrOFGiE'),
     'mapsZoom' => env('GOOGLE_MAPS_ZOOM', 16),
 
-    'companyName' => 'Rustica Mallorca',
-    'companyAddress' => '',
-    'companyPhone' => '',
-    'companyFax' => '',
+    'companyName' => env('BRAND_NAME', 'Rústica Mallorca'),
+    'companyAddress' => env('BRAND_ADDRESS', 'Rústica Mallorca, Carrer Glosadors 7, 07010 Palma de Mallorca'),
+    'companyPhone' => env('BRAND_PHONE', '(+34) 971 590 066'),
+    'companyMobile' => env('BRAND_MOBILE', '(+34) 697 524 838'),
+    'companyFax' => env('BRAND_FAX', '(+34) 971 000 000'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -46,7 +47,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,7 +61,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
-
+    'domain' => env('APP_DOMAIN', 'rusticamallorca.com'),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

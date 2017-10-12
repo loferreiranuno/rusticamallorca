@@ -18,21 +18,21 @@ class PropertyController extends Controller
 
         //Locations
         $locations = [];
- 
-        //Features
-        $visibleFeatures = Feature::basicFeatures();
+        
         $features = []; 
-        foreach($visibleFeatures->all() as $feature){
-            $active = $product->features()->find($feature->id) != null;
+        foreach($product->features as $feature){
             $features[] = array(
                 'id' => $feature->id,
-                'active' => $active,
+                'active' => true,
                 'name' => $feature->name
             );
-        }
-        
+        } 
+
         //Similar
         $similarProducts = Product::similar($product)->get();
+
+        //Same area
+        $sameArea = Product::SameArea($product)->get();
 
         //Comments - It will not be implemented.
         $comments = [];
@@ -41,6 +41,7 @@ class PropertyController extends Controller
             'locations',
             'features',
             'similarProducts',
+            'sameArea',
             'comments'));
     }
 

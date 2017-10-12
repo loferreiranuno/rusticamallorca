@@ -16,6 +16,20 @@ class RusticaHelper{
         return $product->getDescription($language->id);
     }
 
+    public static function getProductKindInfo(Product $product){
+        $info =  $product->kind->text;
+        switch($product->kind->name){
+            case "flat":
+            case "villa":
+            case "rooms":
+            case "country house":
+                $info .= ", ". __("include.nRooms",['total'=>$product->rooms]);
+                $info .= ", ". __("include.nBathRooms",['total'=>$product->bathrooms]);
+            break;
+        }
+        return $info;
+    }
+
     public static function getProductImage(Product $product, $fullSize){
         $images = $product->images;
         if($images == null || count($images) == 0)

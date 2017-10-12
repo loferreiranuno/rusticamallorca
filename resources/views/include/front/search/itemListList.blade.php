@@ -13,7 +13,7 @@
         <p class="team-color">{{RMHelper::getProductAddress($product)}}</p>
         <div class="block">
             <div class="col-md-3 col-sm-3 col-xs-3 cat-img">
-                <img src="asset('assets/img/bedroom.png')}}" alt="">
+                <img src="{{asset('assets/img/bedroom.png')}}" alt="">
                 <p class="info-line">{{$product->rooms}} Bedrooms</p>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-3 cat-img">
@@ -24,14 +24,14 @@
                 <img src="{{asset('assets/img/square.png')}}" alt="">
                 <p class="info-line">{{$product->area}} m<span class="rank">2</span></p>
             </div>
-                <div class="col-md-3 col-sm-3 col-xs-3 cat-img">
-                    @if($product->garage_area!=null)
-                            <img src="{{asset('assets/img/garage.png')}}" alt="">
-                            <p class="info-line">{{$product->garage_area}} Garage</p>
-                    @else
-                        <p class="info-line"></p>
-                    @endif
-                </div>
+            <div class="col-md-3 col-sm-3 col-xs-3 cat-img">
+                @if($product->hasGarage)
+                        <img src="{{asset('assets/img/garage.png')}}" alt="">
+                        <p class="info-line">{{$product->garage_area}} Garage</p>
+                @else
+                    <p class="info-line"></p>
+                @endif
+            </div>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-3 line"></div>
         <div class="col-md-3 col-sm-3 col-xs-3 line"></div>
