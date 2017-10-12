@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="item-title">
-        <h4><a href="property_page.html">{{$product->title}}</a></h4>
+        <h4><a href="{{route('property.show',['id'=>$product->id])}}">{{$product->title}}</a></h4>
         <p class="team-color">{{$product->publicAddress}}</p>
         <div class="col-md-7 col-sm-7 col-xs-7">
             <p>{{ RMHelper::getProductKindInfo($product) }}</p>
