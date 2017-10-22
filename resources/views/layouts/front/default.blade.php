@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}" type="text/css">
 	<link rel="stylesheet" href="{{asset('assets/css/owl.carousel.css')}}" type="text/css">
 	<link rel="stylesheet" href="{{asset('assets/css/selectize.css')}}" type="text/css">
+	<link rel="stylesheet" href="{{asset('assets/css/jquery.slider.min.css')}}" type="text/css" /> 
 
 	@yield('styles')
 	
@@ -18,12 +19,12 @@
 </head>
 
 <body class="{{isset($body['class']) ? $body['class'] : 'page-homepage'}}" id="{{isset($body['class']) ? $body['id'] : 'page-top'}}">
-	<!-- Preloader 
+	<!-- Preloader  -->
 	<div id="page-preloader">
 		<div class="loader-ring"></div>
 		<div class="loader-ring2"></div>
 	</div>
-	 End Preloader -->
+	<!-- End Preloader -->
 	
 	<!-- Wrapper -->
 	<div class="wrapper">
@@ -47,37 +48,19 @@
 		<!-- End Footer -->
 	</div>
 
-	<!-- Modal login, register, custom gallery -->
-	<div id="login-modal-open"></div>
-	<div id="register-modal-open"></div>
-	<div class="custom-galery">
-		<input type="checkbox" class="gal" id="op">
-		<div class="lower"></div>
-		<div class="overlay overlay-hugeinc">
-			<label for="op"></label>
-			<nav>
-				<!-- Owl carousel -->
-				<div class="owl-carousel owl-theme carousel-full-width owl-demo-3">
-					<div class="item" style="background-image: url(http://placehold.it/950X8.000€);"></div>
-					<div class="item" style="background-image: url(http://placehold.it/8.000€X650);"></div>
-				</div>
-				<!-- End Owl carousel -->
-			</nav>
-		</div>
-	</div>
-
 	<!-- End Modal login, register, custom gallery -->
 
 	<script type="text/javascript" src="{{asset('assets/js/jquery-2.1.4.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('assets/js/jquery-migrate-1.2.1.min.js')}}"></script>
-	<script type="text/javascript" src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript"  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="{{asset('assets/js/jquery.placeholder.js')}}"></script>
+	<script type="text/javascript" src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('assets/js/retina-1.1.0.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('assets/js/masonry.pkgd.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('assets/js/selectize.min.js')}}"></script>	
 	<!--[if gt IE 8]>
-	<script type="text/javascript" src="assets/js/ie.js"></script>
+	<script type="text/javascript" src="{{asset('assets/js/ie.js')}}"></script>
 	<![endif]-->
 	@yield('scripts')
 

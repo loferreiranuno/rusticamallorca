@@ -55,9 +55,11 @@ return [
 
     'more'=> 'Más',
     'home'=> 'Inicio', 
-
+    'search'=> 'Buscar',
+    'all'=> 'Todos',
     'rent'=> 'Alquiler',
     'sale'=> 'Venta',
+    'whereYouWannaLive' => 'Dónde quieres vivir?',
     'aboutUs'=> 'Sobre nosotros',
     'contactUs'=> 'Contáctenos',
 

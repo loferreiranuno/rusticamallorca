@@ -121,7 +121,7 @@ class ProductRepository implements IProductRepository{
 
     private function updateFeatures(Product $product, array $data){
 
-        $product->features()->delete();         
+        $product->features()->detach();         
         foreach($this->featureModel->all() as $item){ 
             $key = "feature-".$item->id;
             if(isset($data[$key])){ 

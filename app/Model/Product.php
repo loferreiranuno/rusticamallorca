@@ -96,7 +96,10 @@ class Product extends Model
     public function address_access(){
         return $this->hasOne('App\PublicAccess', 'id', 'public_access_id');
     }
-    public function features(){
+
+ 
+
+    public function features(){ 
         return $this->belongsToMany('App\Feature', 'product_features');
     }
      
@@ -323,9 +326,14 @@ class Product extends Model
         return $query;
 
     }
+
     //BACKOFFICE PRODUCT SEARCH;
     public function scopeSearch($query, Request $request){
  
+        if($request->has('city_name')){
+            $query->where('city_name','Like', $request->get('city_name'));
+        }
+        
         if($request->has('typology')){
             $query->where('product_kind_id', '=', $request->get('typology'));
         }
@@ -334,31 +342,53 @@ class Product extends Model
             $query->where('product_status_id', '=', $request->get('status'));
         }
 
+        if($request->has('rooms')){
+            if(is_numeric($request->get('rooms'))){
+                $query->where('rooms','>=', $request->get('rooms') );
+            }
+        }
+
         if($request->has('sell_type')){
             switch($request->get('sell_type')){
                 case "rent": $query->where('renting_enabled', '=', 1 ); break;
                 case "sell": $query->where('selling_enabled', '=', 1 ); break;
             }
-        }
+        } 
 
         if($request->has('max_price')){
+            $minPrice = 0;
+            $maxPrice = $request->get('max_price');
+ 
+            if($request->has('min_price')){
+                $minPrice = $request->get('min_price');
+            }
+
             switch($request->get('sell_type'))
             {
                 case "rent": 
                     $query
-                        ->where('renting_cost', '<=', $request)
-                        ->get('max_price'); break;
+                        ->where('renting_enabled','=', 1) 
+                        ->whereBetween('renting_cost', [$minPrice, $maxPrice]); 
+                    break;
                 case "sell": 
-                    $query->where('selling_cost', '<=', $request->get('max_price')); break;
-                default: 
                     $query
-                        ->where(function($q) use($request){
-                            $q->where('renting_cost', '<=', $request->get('max_price'))
+                        ->where('selling_enabled','=', 1) 
+                        ->where('selling_cost_visible', '=', 1)
+                        ->whereBetween('selling_cost', [$minPrice, $maxPrice]); break;
+                default: 
+                    
+                    $query
+                        ->orWhere(function($q) use($request, $minPrice, $maxPrice){
+                            $q
+                            ->where('renting_enabled','=', 1) 
+                            ->whereBetween('renting_cost', [$minPrice, $maxPrice])
                             ->orWhere('renting_cost', 'is', 'NULL');
                         })
-                        ->where(function($q)  use($request){
+                        ->orWhere(function($q)  use($request, $minPrice, $maxPrice){
                             $q
-                            ->where('selling_cost', '<=', $request->get('max_price'))
+                            ->where('selling_enabled','=', 1) 
+                            ->where('selling_cost_visible', '=', 1)
+                            ->whereBetween('selling_cost', [$minPrice, $maxPrice])
                             ->orWhere('selling_cost', 'is', 'NULL');
                         });
                 break;
@@ -368,7 +398,74 @@ class Product extends Model
         if($request->has('min_area')){
            $query->where('area', '>=', $request->get('min_area'));
         } 
+        if($request->has('max_area')){
+            if($request->has('min_area')){
+           $query->where('area', '>=', $request->get('min_area'));
+        } 
+        if($request->has('max_area')){
+            $query->where('area', '<=', $request->get('max_area'));
+        }
+
+        if($request->has('features')){
+            $query->whereHas('features', function($q) use($request){
+                $q->whereIn('id', $request->get('features'));
+            }, '=', count($request->get('features')) );
+        }    $query->where('area', '<=', $request->get('max_area'));
+        }
+
+        if($request->has('features')){
+            $query->whereHas('features', function($q) use($request){
+                $q->whereIn('id', $request->get('features'));
+            }, '=', count($request->get('features')) );
+        }
+
         return $query;
+    } 
+    
+    public static function scopeSalePriceRange($query){
+        $min = self::scopeMinSalePrice($query);
+        $max = self::scopeMaxSalePrice($query);
+        return [
+            'min'=> $min,
+            'max'=> $max
+        ];
+    }
+
+    public static function scopeRentPriceRange($query){
+        $min = self::scopeMinRentPrice($query);
+        $max = self::scopeMaxRentPrice($query);
+        return[
+            'min'=>$min,
+            'max'=>$max
+        ];
+    }
+
+    public static function scopeMinSalePrice($query){
+        return $query
+        ->where('selling_enabled', '=', 1)
+        ->where('selling_cost','>',0)
+        ->min('selling_cost');
+    }
+
+    public static function scopeMinRentPrice($query){
+        return $query
+        ->where('renting_enabled', '=', 1)
+        ->where('renting_cost','>',0)
+        ->min('renting_cost');
+    }
+
+    public static function scopeMaxSalePrice($query){
+        return $query
+        ->where('selling_enabled', '=', 1)
+        ->where('selling_cost','>',0)
+        ->max('selling_cost');
+    }
+
+    public static function scopeMaxRentPrice($query){
+        return $query
+        ->where('renting_enabled', '=', 1)
+        ->where('renting_cost','>',0)
+        ->max('renting_cost');
     }
   
 }

@@ -41,6 +41,11 @@ return[
     'entry_exit' => 'Salida de entrada', 
     'land' => 'Terreno',
     'dining_room' => 'Comedor',
+    'elevator' => 'Ascensor',
+    'swimming pool'=>'Piscina',
+    'air conditioner' =>'Aire acondicionado',
+    'built-in wardrobes' => 'Armario empotrado',
+    'balcony'=> 'Balcón',
     'patio' => 'Patio', 
     'laundry_room' => 'Cuarto de lavado', 
     'rooftop_terrace' => 'Terraza en la azotea',
@@ -54,4 +59,8 @@ return[
     'reserved'=>'Reservado',
     'prospect'=>'Perspectiva',
 
+    'day' => 'Dia',
+    'week' => 'Semana',
+    'month' => 'Mes',
+    'bimonthly' => 'Bimensual'
 ];

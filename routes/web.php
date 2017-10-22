@@ -68,6 +68,9 @@ Route::resource('back/contact/interest', 'ContactInterestController');
 //CONTACT WISH LIST
 Route::resource('back/contact/wishlist', 'ContactWishListController');
 
+//FEATURES
+Route::resource('back/feature', 'FeatureController');
+
 //CONTACT STEP
 Route::put('back/contact/{id}/step/update', ['uses' =>'ContactsController@stepUpdate'])->name('contact.step');
 Auth::routes('back');

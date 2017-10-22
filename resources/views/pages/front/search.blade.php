@@ -5,47 +5,46 @@
 	<div class="wide_container_2">
 		<div class="tabs">
 			<header class="col-md-8 col-xs-12 no-pad">
+			
+			{!! Form::open(array('method'=>'get', 'route' => 'front.search', 'id'=>'search-form')) !!}
+			
 				<div class="location-map col-sm-4 col-xs-4">
 					<div class="input-group">
-						<input type="text" class="form-control" id="address-map" name="address" placeholder="Manhattan, New York">
-						<i class="fa fa-search"></i>
+						@include("include.front.search.searchField") 
+						<a href="" id="search-btn"><i class="fa fa-search"></i></a>
 					</div>
 				</div>
 				<div class="select-block col-sm-2 col-xs-2">
-					<select class="selection">
-						<option>Beds</option>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-					</select>
+				
+				{!! Form::select('rooms', RMHelper::getRoomSelectItems(), old('rooms'), ['class'=>'selection']) !!}
+			 
 				</div>
-				<div class="select-block col-sm-2 col-xs-2 ">
-					<select class="selection">
-						<option>Type</option>
-						<option>For Sale</option>
-						<option>For Rent</option>
-					</select>
+				<div class="select-block col-sm-2 col-xs-2 "> 
+				
+				{!! Form::select("sell_type", RMHelper::getSaleType() , old('sell_type'), ['class'=> 'selection']) !!}
+ 
 				</div>
 				<div class="select-block col-md-3 col-xs-4 last">
-					<a class="options-button" id="toggle-link">More Filters</a>
+					<a class="options-button" id="toggle-link">@lang('include.moreFilters')</a>
 				</div>
 				<div class="options-overlay col-md-offset-4 col-sm-offset-5 col-sm-7" id="hidden_content" style="display: none;">
 					<div class="row">
 						<div class="col-xs-6 top-mrg">
 							<div class="internal-container features">
 								<div class="form-group">
-									<label>Minimum Square Footage:</label>
-									<input type="text" class="form-control" placeholder="Enter an Amount">
+									<label>@lang('include.minimunSquareFootage'):</label>
+									{!! Form::number('area', old('area'), ['class'=> 'form-control', 'placeholder'=> __('include.enterAnAmount')]) !!}
 								</div>
-								<label>Building Features:</label>
+								<label>@lang('include.buildingFeatures'):</label>
 								<section class="block">
 									<section>
 										<ul class="submit-features">
 										@foreach(App\Feature::buildingFeatures() as $feature)
 										<li>
 											<div class="checkbox">
-												<label>
-												<input type="checkbox">{{$feature->name}}
+												<label>  
+													{!! Form::checkbox("features[]", $feature->id, RMHelper::isChecked(Request::all(),'features', $feature->id)) !!}
+													{{ $feature->text }}
 												</label>
 											</div>
 										</li>
@@ -57,7 +56,7 @@
 						</div>
 						<div class="col-xs-6 top-mrg">
 							<div class="internal-container features">
-								<label>Property Features:</label>
+								<label>@lang('include.propertyFeatures'):</label>
 								<section class="block">
 									<section>
 										<ul class="submit-features">
@@ -65,7 +64,10 @@
 											<li>
 												<div class="checkbox">
 													<label>
-													<input type="checkbox">{{$feature->name}}
+													
+													{!! Form::checkbox("features[]", $feature->id, old('features')) !!}
+													{{ $feature->text }}
+														{{-- <input name="features[]" value="{{$feature->id}}" type="checkbox">{{$feature->text}} --}}
 													</label>
 												</div>
 											</li>
@@ -77,11 +79,18 @@
 						</div>
 					</div>
 					</div><!-- options-overlay -->
+			
+			{!! Form::hidden('price', old('price'), ['id'=>'price']) !!}
+			
+			{!! Form::close() !!}
+			
 			</header><!-- end header -->
 			<ul class="tab-links col-md-4 col-xs-12">
-				<li class="col-lg-3 col-lg-offset-2 col-md-4 col-xs-4 no-pad active"><a href="#tab1" class="map2"><img src="assets/img/map.png" alt=""/>Map</a></li>
-				<li class="col-lg-3 col-md-4 col-xs-4 no-pad"><a href="#tab2"><img src="{{asset('assets/img/grid.png')}}" alt=""/>Grig</a></li>
-				<li class="col-lg-3 col-md-4 col-xs-4 bdr-rgh no-pad"><a href="#tab3"><i class="fa fa-th-list"></i>List</a></li>
+				<li class="col-lg-3 col-lg-offset-2 col-md-4 col-xs-4 no-pad active"><a href="#tab1" class="map2">
+					<img src="{{asset('assets/img/map.png')}}" alt=""/>@lang('include.map')</a></li>
+				<li class="col-lg-3 col-md-4 col-xs-4 no-pad"><a href="#tab2">
+					<img src="{{asset('assets/img/grid.png')}}" alt=""/>@lang('include.grid')</a></li>
+				<li class="col-lg-3 col-md-4 col-xs-4 bdr-rgh no-pad"><a href="#tab3"><i class="fa fa-th-list"></i>@lang('include.list')</a></li>
 			</ul>
 			<!-- tab-links -->
 			<div class="tab-content"> 
@@ -101,7 +110,7 @@
 					<label for="op"></label>
 					<nav>
 						<!-- Owl carousel -->
-						<div class="owl-carousel owl-theme carousel-full-width owl-demo-3">
+						<div id='op-carousel' class="owl-carousel owl-theme carousel-full-width owl-demo-3">
 							<div class="item" style="background-image: url(http://placehold.it/950X800);"></div>
 							<div class="item" style="background-image: url(http://placehold.it/800X650);"></div>
 						</div>
@@ -113,12 +122,7 @@
 </div> 
 
 @stop
-		 
-
-@section('styles')
-	<link rel="stylesheet" href="{{asset('assets/css/jquery.slider.min.css')}}" type="text/css" />
-	<link rel="stylesheet" href="{{asset('assets/css/owl.carousel.css')}}" type="text/css" />
-@stop
+		  
 @section('scripts')
 
 	<script src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places"></script>
@@ -148,7 +152,62 @@
 		var locations = {!!json_encode($locations)!!};
 		createHomepageGoogleMap(_latitude,_longitude, locations);
 
-		
+		$(document).ready(function(){
+			
+			$("#search-btn").on('click', function(e){
+				e.preventDefault();
+				$("#price").val($(".price-input:first").val());
+				$("#search-form").submit();
+			});
+ 
+			//  Price slider search page 
+			if( $(".price-input").length > 0) {
+				$(".price-input").each(function() { 
+					var vSLider = $(this).slider({
+						from: {{ $minPrice }},
+						to: {{ $maxPrice }}, 
+						smooth: true, 
+						round: 0,       
+						dimension: ',00&nbsp;&euro;' 
+					}); 
+				});
+			}
+
+			$("[data-images]").on('click', function(e){		 
+				var carousel = $('.owl-demo-3'); 
+				
+				//these 3 lines kill the owl, and returns the markup to the initial state
+				carousel.trigger('destroy.owl.carousel'); 
+				carousel.find('.owl-stage-outer').children().unwrap();
+				carousel.removeClass("owl-center owl-loaded owl-text-select-on"); 
+
+				var images = $(this).data("images");
+				// add the new items 
+				var content = "";
+				for (var i = 0; i < images.length; i++) { 
+					content += "<div class=\"item\" style=\"background-image: url(" + images[i] + ");\"></div>";
+				}
+				carousel.html(content);
+
+				//reinitialize the carousel (call here your method in which you've set specific carousel properties)
+				carousel.owlCarousel({
+					items : 1,
+					pagination:true,
+					nav: true,
+					autoHeight:true,
+					itemsCustom: [1600, 1],
+					smartSpeed: 1000,
+					loop:true,
+					touchDrag:true,
+					mouseDrag:true,
+					navText: [
+						"<i class='fa fa-chevron-left'></i>",
+						"<i class='fa fa-chevron-right'></i>"
+					]
+				});
+
+			});
+		});
 	</script>
 
 <!--[if gt IE 8]>

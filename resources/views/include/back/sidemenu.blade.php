@@ -44,19 +44,29 @@
                         </ul>
                     </li>                    
                     <li  class="{{Ekko::areActiveRoutes(['task.index', 'task.show', 'task.create'])}}">
-                        <a href="/tasks/"><i class="fa fa-list-alt"></i> <span class="nav-label">Tasks</span> <span class="fa arrow"></span></a>
+                        <a href="{{route('task.index')}}"><i class="fa fa-list-alt"></i> <span class="nav-label">Tasks</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="{{Ekko::isActiveRoute('task.index')}}"><a href="{{route('task.index')}}">My tasks</a></li>   
                         </ul>
                     </li>
                     
                     <li  class="{{Ekko::areActiveRoutes(['user.index', 'user.show', 'user.create'])}}">
-                        <a href="/tasks/"><i class="fa fa-list-alt"></i> <span class="nav-label">Office users</span> <span class="fa arrow"></span></a>
+                        <a href="{{route('user.index')}}"><i class="fa fa-list-alt"></i> <span class="nav-label">Office users</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="{{Ekko::isActiveRoute('user.show')}}"><a href="{{route('user.show', ['user'=> Auth::id()])}}">My profile</a></li> 
                             <li class="{{Ekko::isActiveRoute('user.index')}}"><a href="{{route('user.index')}}">Search office users</a></li>  
                         </ul>
                     </li>
+                    
+
+                    {{-- <li  class="{{Ekko::areActiveRoutes(['feature.index'])}}">
+                        <a href=""><i class="fa fa-list-alt"></i> <span class="nav-label">Web</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="{{Ekko::isActiveRoute('feature.index')}}">
+                                <a href="{{route('feature.index')}}">Manage Features</a>
+                            </li>
+                         </ul>
+                    </li> --}}
                     
                 </ul>
 

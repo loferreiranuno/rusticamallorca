@@ -2,7 +2,7 @@
     <div class="col-md-3 col-sm-3 prp-img">
         <div class="exp-img-2" style="background:url({{RMHelper::getProductImage($product, false)}}) center;background-size: cover;">
             <span class="filter"></span>
-            <span class="ffs-bs"><label for="op" class="btn btn-small btn-primary">browse photos</label></span>
+            <span class="ffs-bs"><label  data-images="{{RMHelper::getProductImages($product, true) }}"  for="op" class="btn btn-small btn-primary">browse photos</label></span>
             <div class="overlay">
                 <div class="img-counter">{{$product->images()->count()}} Photo</div>
             </div>

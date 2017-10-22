@@ -86,17 +86,17 @@ $(document).ready(function($) {
     });
 
     //  Price slider search page 
-    if( $(".price-input").length > 0) {
-        $(".price-input").each(function() {
-            var vSLider = $(this).slider({
-                from: 0,
-                to: 9000000,
-                smooth: true, 
-                round: 0,       
-                dimension: ',00&nbsp;$',
-            }); 
-        });
-    }
+    // if( $(".price-input").length > 0) {
+    //     $(".price-input").each(function() {
+    //         var vSLider = $(this).slider({
+    //             from: 0,
+    //             to: 9000000,
+    //             smooth: true, 
+    //             round: 0,       
+    //             dimension: ',00&nbsp;$',
+    //         }); 
+    //     });
+    // }
 
     //Magnific popup init
     if ($('.image-popup').length > 0 ) {

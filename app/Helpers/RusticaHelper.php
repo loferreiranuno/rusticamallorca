@@ -9,13 +9,32 @@ use App\Language;
 use Carbon;
 
 class RusticaHelper{
- 
+  
+
+    public static function getSaleType(){ 
+        $result = [
+            'all'=>  __('front/home.all'),
+            'rent'=>  __('front/home.rent'),
+            'sale'=>  __('front/home.sale')
+        ]; 
+
+        return $result;
+    }
+
+    public static function getRoomSelectItems($total = 8){        
+        $result['-'] = __('include.rooms');
+        for($i=1; $i<$total; $i++)
+        {
+            $result[$i] = __('include.nRooms',['total'=> $i]);    
+        }  
+        return $result;
+    }
 
     public static function getProductDescription(Product $product, $languageCode){
         $language = Language::where('code','=',$languageCode)->first();
         return $product->getDescription($language->id);
     }
-
+    
     public static function getProductKindInfo(Product $product){
         $info =  $product->kind->text;
         switch($product->kind->name){
@@ -29,15 +48,20 @@ class RusticaHelper{
         }
         return $info;
     }
+    public static function getProductImages(Product $product, $fullSize){
+        $images = [];
+        foreach($product->images as $image){
+            $images[] = self::getImagePath($product, $image, $fullSize);
+        }
+        return json_encode($images);
+    }
 
     public static function getProductImage(Product $product, $fullSize){
         $images = $product->images;
         if($images == null || count($images) == 0)
             return 'img/product/house_no_pic.jpg';
 
-        return  RusticaHelper::getImagePath($product, $images->first(), $fullSize);
-        // $size = $fullSize ? "full_" : "icon_"; 
-        // return 'img/product/'.$product->id.'/'.$size.$images->first()->file_name;
+        return  RusticaHelper::getImagePath($product, $images->first(), $fullSize); 
    
     } 
     public static function getImagePath(Product $product, ProductImage $image, $fullSize){
@@ -63,6 +87,15 @@ class RusticaHelper{
         return Carbon\Carbon::createFromTimeStamp(strtotime($date))->format($format);
     }
 
+    public static function isChecked(array $request, $name, $value){
+        
+        if(!isset($request[$name])){
+            return false;
+        }
+        
+        return in_array($value, $request[$name]);
+        
+    }
   
     
 }

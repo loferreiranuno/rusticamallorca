@@ -16,6 +16,9 @@ class Feature extends Model
         return $this->belongsToMany('App\Product', 'product_features');
     }
 
+    public function getTextAttribute(){
+        return __('kinds.'.$this->name);
+    }
     public function scopeOrientationFeatures($query){
         $filter = [
             'east',

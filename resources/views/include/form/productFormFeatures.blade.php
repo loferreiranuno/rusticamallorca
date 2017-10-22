@@ -275,7 +275,7 @@
                 </div>
 
                 <div class="form-group col-md-12{{ $errors->has('selling_cost_visible') ? ' has-error' : '' }}">
-                    {!!Form::checkbox('selling_cost_visible', '1', false, ['class'=> ''])!!}
+                    {!!Form::checkbox('selling_cost_visible', '1', isset($product)?$product->selling_cost_visible : true, ['class'=> ''])!!}
                     {{Form::label('selling_cost_visible', 'Show cost')}}    
                     <small>Choose whether to show or hide the cost on your web</small>
                 </div>
