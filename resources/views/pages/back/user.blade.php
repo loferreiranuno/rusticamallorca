@@ -5,11 +5,11 @@
  
         @include("include.back.breadcrumb", 
         [
-            'title' => (isset($user)? $user->name : "")  ,
+            'title' => isset($user)? $user->name : ""  ,
             'rootTitle' => "User list",
             'root' => route("user.index"),
             'currentTitle' => isset($user)? $user->name : "User profile", 
-            'actionData'=>$actionData 
+            'actionData'=>isset($actionData) ? $actionData : null 
         ])  
 
 @stop 

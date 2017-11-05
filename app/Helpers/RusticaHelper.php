@@ -6,10 +6,20 @@ use App\Product;
 use App\ProductImage;
 use App\User;
 use App\Language;
+use App\Task;
 use Carbon;
 
 class RusticaHelper{
   
+    public static function getTaskCss(Task $task){
+        switch($task->currentStatus){
+            case "expired": return "bg-danger"; break;
+            case "done": return "bg-success"; break;
+            case "now": return "bg-warning"; break;
+            case "active": return "bg-primary"; break;
+            default: return "gray-bg"; break;
+        }
+    }
 
     public static function getSaleType(){ 
         $result = [

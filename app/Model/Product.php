@@ -245,7 +245,7 @@ class Product extends Model
     }
     
     public function tasks(){
-        return $this->hasMany('App\Task')->orderBy('start_date');
+        return $this->hasMany('App\Task')->orderBy('start_date', 'DESC');
     }
 
     public function scopeCities($query){

@@ -16,9 +16,11 @@ Route::get('/contactus', 'Front\ContactUsController@index')->name("front.contact
 Route::get('/aboutus', 'Front\AboutUsController@index')->name("front.aboutus");
 Route::get('/search', 'Front\SearchController@index')->name("front.search");
 Route::get('/privacy', 'Front\PrivacyController@index')->name("front.privacy");
-Route::post('/search/cities', 'Front\SearchController@cities')->name("front.api.cities");
 Route::get('/conditions', 'Front\TermsAndContitionsController@index')->name("front.termsconditions");
 Route::resource('/property', 'Front\PropertyController'); 
+
+Route::post('/api/search/cities', 'Front\SearchController@cities')->name("front.api.cities");
+Route::post('/api/set_language', 'Front\HomeController@setLanguage')->name("front.api.setLanguage");
 
 //--------------------------------------------------------
 //BACKOFFICE
@@ -31,8 +33,7 @@ Route::get('back/product/filter/fields',['uses'=> 'ProductsController@getFields'
 
 
 Route::resource('back/contact','ContactsController');
-Route::resource('back/language','LanguagesController'); 
-Route::resource('back/language','LanguagesController'); 
+Route::resource('back/language','LanguagesController');  
 Route::resource('back/user','UserController'); 
 
 //USER CONTROLLER;
@@ -42,6 +43,10 @@ Route::resource('back/user','UserController');
 Route::resource('back/task','TaskController'); 
 Route::post('back/task/calendar/update', ['uses' =>'TaskController@updateCalendar'])->name('task.calendar.update');
 Route::get('back/task/calendar/search', ['uses' =>'TaskController@search'])->name('task.search');
+
+Route::get('back/task/contact/{id}', ['uses' =>'TaskController@contactTasks'])->name('contact.task');
+Route::get('back/task/user/{id}',['uses' =>'TaskController@userTasks'])->name('user.task');
+Route::get('back/task/product/{id}',['uses' =>'TaskController@productTasks'])->name('product.task');
 
 Route::post('back/task/done', ['uses' =>'TaskController@done'])->name('task.done'); 
 

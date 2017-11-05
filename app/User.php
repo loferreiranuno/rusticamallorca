@@ -40,11 +40,11 @@ class User extends Authenticatable
     }
 
     public function tasks(){
-        return $this->hasMany("App\Task", 'user_id', 'id');
+        return $this->hasMany("App\Task", 'user_id', 'id')->orderBy('start_date', 'DESC');
     }
 
     public function productsCreated(){
-        return $this->hasMany("App\Product", 'creator_id', 'id');
+        return $this->hasMany("App\Product", 'creator_id', 'id')->orderBy('created_at', 'DESC');
     } 
 
     public function productsRecruited(){

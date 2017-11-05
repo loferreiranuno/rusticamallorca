@@ -14,7 +14,11 @@ interface ITaskRepository{
 
     public function search($id, $start_date, $end_date, $otherOnly);
 
-    public function searchByUser($id, $start_date, $end_date, $otherOnly);
+    public function searchByUser($id, $start_date, $end_date);
+
+    public function searchByContact($id, $start_date, $end_date);
+
+    public function searchByProduct($id, $start_date, $end_date);
 
     public function groupByDay($tasks); 
 }

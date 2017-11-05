@@ -8,7 +8,7 @@
         </div>
         @foreach($taskItems as $task)
         <div class="vertical-timeline-block">
-            <div class="vertical-timeline-icon gray-bg">
+            <div class="vertical-timeline-icon {{ App\Helpers\RusticaHelper::getTaskCss($task) }}">
                 <i class="{{ $task->kind->css_icon }}"></i>
             </div>
             <div class="vertical-timeline-content">

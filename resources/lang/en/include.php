@@ -25,5 +25,9 @@ return[
     'map' => 'Mapa',
     'list' => 'Lista',
     
-    'priceRange' => 'Precio'
+    'priceRange' => 'Precio',
+
+    'property' => 'Propriedad',
+    'contact' => 'Contacto',
+    'creator' => 'Autor'
 ];

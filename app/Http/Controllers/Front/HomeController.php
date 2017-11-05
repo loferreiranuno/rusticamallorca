@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App;
 use App\Product;
+use App\ProductKindType;
+
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -20,7 +25,7 @@ class HomeController extends Controller
         ];
 
         $products = Product::orderBy('created_at')->get()->take(4);
-
+ 
         $categories = [
             'apartments' => [
                 'total' => 0,
@@ -47,8 +52,13 @@ class HomeController extends Controller
         return view('pages.front.home', compact('categories', 'location', 'products'));
     }
 
-    public function language (Request $request){
-        $languageCode = $request->get('lang');
- 
+    public function setLanguage (Request $request){
+        if($request->has('language')){
+            $languageCode = $request->get('language');
+            Session::put('language', $languageCode);
+            return ["success"=> true, "language"=> $languageCode, "session"=> Session::get('language')];                
+        }else{
+            return ["success"=> false];
+        }
     }
 }

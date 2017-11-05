@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\ProductKindType;
 
 class ProductRequest extends FormRequest
 {
@@ -36,10 +37,9 @@ class ProductRequest extends FormRequest
             'product_status_id' => 'required',
 
             'product_kind_id' => 'required',
-            'area' => 'required',
-            'area_util' => 'required',
             'identifier' => 'required'
         ];
+ 
 
         if ($this->attributes->has('selling_enabled')) { 
             if($this->attributes->get('selling_enabled') == 1){

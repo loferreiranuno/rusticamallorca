@@ -41,9 +41,9 @@
 				<ul class="nav navbar-nav pull-right">
 					<li><a href="{{route('front.search')}}">@lang('front/home.properties')</a></li> 
 					<li>
-						<select class="selection" id="menu-language" menu-language>
+						<select class="selection" id="menu-language" menu-language data-url="{{ route('front.api.setLanguage') }}">
 							@foreach(App\Language::all() as $language)
-								<option value="{{$language->code}}">{{$language->code}}</option> 
+								<option value="{{$language->code}}" {{ $language->code == App::getLocale() ? "selected" : "" }}>{{$language->code}}</option> 
 							@endforeach
 						</select>
 					</li>							

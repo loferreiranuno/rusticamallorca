@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+
+    protected $table = 'tasks';
+
     protected $fillable = [
         "task_kind_id",
         "user_id",
@@ -69,5 +72,24 @@ class Task extends Model
             ->sort('start_date')
             ->get();
     }
+
+    public function getCurrentStatusAttribute(){
+        if($this->done == 0){
+            if(Carbon::now() < $this->start_date)
+            {
+               return "active";              
+            }
+            elseif((Carbon::now() < $this->end_date))
+            {
+                 return "now";
+            }
+            else{
+                return "expired";
+            }
+        }else{
+            return "done";
+        }
+    }
+ 
 
 } 

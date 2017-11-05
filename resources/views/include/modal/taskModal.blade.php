@@ -12,6 +12,8 @@
                     @include("include.form.taskForm", ["contact"=>$contact])
                 @elseif(isset($user))
                     @include("include.form.taskForm", ["user"=>$user])
+                @elseif(isset($task)) 
+                    @include("include.form.taskForm", ["task"=>$task, "user"=>$task->user])
                 @else
                     @include("include.form.taskForm")
                 @endif

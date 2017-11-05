@@ -70,7 +70,7 @@ class Contact extends Model
     public function tasks(){
         return $this
             ->hasMany('App\Task', 'contact_id', 'id')
-            ->orderBy('start_date');
+            ->orderBy('start_date', 'DESC');
     }
 
     public function interest(){

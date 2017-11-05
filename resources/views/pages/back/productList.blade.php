@@ -142,7 +142,7 @@
                                 @if(isset($products))                                
                                 @foreach($products as $product)
 
-                                    <tr product-row product-url="{{ route('product.show', ['id'=> $product->id]) }}" style="" class="{!! $product->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
+                                    <tr title="{{ $product->title }}" product-row product-url="{{ route('product.show', ['id'=> $product->id]) }}" style="" class="{!! $product->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
                                         
                                         <td class="footable-visible">
                                             {!! Form::checkbox('selected-products[]', $product->id, false, ['class'=>'form-control', 'id'=>'product-'.$product->id]) !!}

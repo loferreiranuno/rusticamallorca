@@ -88,7 +88,7 @@ class ProductRepository implements IProductRepository{
     
 
     public function getAll($pages){
-        return $this->model->paginate($pages);
+        return $this->model->orderBy('created_at','DESC')->paginate($pages);
     }
 
     public function search(Request $request, $pages){

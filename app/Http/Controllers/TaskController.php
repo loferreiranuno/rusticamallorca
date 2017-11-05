@@ -6,7 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
 use Illuminate\Support\Facades\Response;
 use App\Task; 
+
+use App\User;
+use App\Product;
+use App\Contact;
+
 use Auth;
+use RMHelper;
 
 use App\Repositories\Task\ITaskRepository;
 
@@ -28,6 +34,7 @@ class TaskController extends Controller
     {
         $agent = Auth::user();   
         $events = json_encode($this->toFullCalendar($agent->tasks));
+
         return view('pages.back.taskEdit', compact('events'));
     }
 
@@ -67,26 +74,40 @@ class TaskController extends Controller
         //
     }
 
+    public function userTasks($id){
+        $user = User::find($id);        
+        $events = json_encode($this->toFullCalendar($user->tasks));
+        return view('pages.back.taskEdit', compact('events', "user"));
+    }
+
+    public function contactTasks($id){        
+        $contact = Contact::find($id);        
+        $events = json_encode($this->toFullCalendar($contact->tasks));
+        return view('pages.back.taskEdit', compact('events', 'contact'));
+    }
+
+    public function productTasks($id){
+        $product = Product::find($id);        
+        $events = json_encode($this->toFullCalendar($product->tasks));
+        return view('pages.back.taskEdit', compact('events', 'product'));        
+    }
+
     public function search(Request $request){
-         
-        $data = $request->all();
-        
-        $task_id = isset($data["task"])? $data["task"] : null;
-
-        $start_date = $data["start"];
-        $end_date = $data["end"];
-
-        $otherOnly = isset($data["otherOnly"]) ? $data["otherOnly"] == "true" : false;
-
+           
         $results = [];
-        if($task_id == null){
-            if(!$otherOnly){
-                $results =  $this->taskRepository->searchByUser(Auth::id(), $start_date, $end_date, $otherOnly);
-            }
+        $start_date = $request->get('start');
+        $end_date = $request->get('end');
+        
+        if($request->has('user')){
+            $results = $this->taskRepository->searchByUser($request->get('user'), $start_date, $end_date);
+        }else if($request->has('contact')){
+            $results = $this->taskRepository->searchByContact($request->get('contact'), $start_date, $end_date);
+        }else if($request->has('product')){
+            $results = $this->taskRepository->searchByProduct($request->get('product'), $start_date, $end_date);
         }else{
-            $results =  $this->taskRepository->search($task_id, $start_date, $end_date, $otherOnly);
+            $results = $this->taskRepository->searchByUser(Auth::id(), $start_date, $end_date);
         }
-                 
+
         return Response::json($this->toFullCalendar($results), 200); 
     }
 
@@ -98,21 +119,49 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $task = $this->taskRepository->get($id);  
-        $events = json_encode($this->toFullCalendar($task->user->tasks));
-        return view('pages.back.taskEdit', compact('task', 'events'));
+        $task = $this->taskRepository->get($id);
+          
+        return view('pages.back.task', compact('task'));
     }
 
     private function toFullCalendar($tasks){
         $events = array();
         if(isset($tasks)){
             foreach($tasks as $event){
-                $events[] = array(
+                $parsedEvent = array(
                     "id"=>$event->id, 
                     "start"=> $event->start_date, 
-                    "title"=> $event->kind->name . " - " . $event->description,
+                    "title"=> $event->description,
+                    "class"=> RMHelper::getTaskCss($event),
                     "icon"=> $event->kind->css_icon,
+                    "url"=> route('task.edit',['id'=>$event->id]),
                     "end"=>$event->end_date);
+
+                if(isset($event->contact)){
+                   $parsedEvent["contact"] = [
+                       "name" => $event->contact->name,
+                       "label" => __("include.contact"),
+                       "url" => route("contact.show", ['id'=> $event->contact->id])
+                   ];
+                }
+
+                if(isset($event->product)){
+                   $parsedEvent["product"] = [
+                       "name" => $event->product->title . ", ". $event->product->fullAddress,
+                       "label" => __("include.property"),
+                       "url" => route("product.show", ['id'=> $event->product->id])
+                   ];
+                }
+
+                if(isset($event->creator)){
+                   $parsedEvent["creator"] = [
+                       "name" => $event->creator->name,
+                       "label" => __("include.creator"),
+                       "url" => route("contact.show", ['id'=> $event->creator->id])
+                   ];
+                }
+
+                $events[] = $parsedEvent;
             }
         }
         return $events;
@@ -128,6 +177,7 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $this->taskRepository->update($id, $request->all());
+        
         return Response::json([
             'error' => false,
             'code'  => 200

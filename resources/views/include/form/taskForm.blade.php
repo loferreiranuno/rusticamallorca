@@ -1,10 +1,10 @@
 @if(isset($task))    
-    {!! Form::model($task, ['id'=>'task-form', 'method'=>'post', 'name'=>'task-form','url'=> route("task.update")]) !!}
+    {!! Form::model($task, ['id'=>'task-form', 'method'=>'patch', 'name'=>'task-form','url'=> route("task.update", ['id'=>$task->id])]) !!}
+     
+    
 @else
     {{ Form::open(array('method'=>'post', 'id'=>'task-form', 'name' => 'task-form', 'url' => route("task.store"))) }}
 @endif
-
-
         @if(!isset($task))
                 <h1>Task form</h1>
             @endif
@@ -89,6 +89,19 @@
         }
 
         $(document).ready(function(){
+
+
+            $("[delete-task]").on("click", function(){
+                $.ajax({
+                    type: 'DELETE',
+                    data: $("#task-form").serialize(),
+                    url: $("#task-form").attr("action"),
+                    success:function(data){
+                        window.history.back();
+                    }
+                })
+            });
+
             $("[submit-task]").on("click", function(){                
 
                 var start_date = $("#day").val() + " " + pad(parseInt($("#hours").val()), 2) + ":" + pad(parseInt($("#minutes").val()), 2);
@@ -99,7 +112,7 @@
                 $("#end_date").val(moment(end_date).format("YYYY-MM-DD HH:mm:ss"));
 
                 $.ajax({
-                    type: 'POST',
+                    type: $("#task-form").attr("method"),
                     data: $("#task-form").serialize(),
                     url: $("#task-form").attr("action"),
                     success: function(data){ 

@@ -81,7 +81,8 @@ class UserController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);
-        return view('pages.back.user', compact('user'));
+        return $this->show($user->id);
+        //return view('pages.back.user', compact('user'));
     }
 
     /**
@@ -111,7 +112,7 @@ class UserController extends Controller
         if($user->tasks != null){
              $taskByDay = $this->taskRepository->groupByDay($user->tasks);
         }
-         return view('pages.back.user', compact('user','actionData','taskByDay'));
+        return view('pages.back.user', compact('user','actionData','taskByDay'));
     }
 
     /**

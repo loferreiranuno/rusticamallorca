@@ -66,10 +66,28 @@ class TaskRepository implements ITaskRepository{
         return $result->where($filter)->get();
     }
     
-    public function searchByUser($id, $start_date, $end_date, $otherOnly){
+    public function searchByUser($id, $start_date, $end_date){
         
         $filter = array(
             array('user_id', '=', $id),
+            array('start_date', '>=', $start_date),
+            array('end_date', '<=', $end_date)); 
+            
+        return $this->model->where($filter)->get();
+    }
+
+    public function searchByContact($id, $start_date, $end_date){
+         $filter = array(
+            array('contact_id', '=', $id),
+            array('start_date', '>=', $start_date),
+            array('end_date', '<=', $end_date)); 
+            
+        return $this->model->where($filter)->get();
+    }
+
+    public function searchByProduct($id, $start_date, $end_date){
+         $filter = array(
+            array('product_id', '=', $id),
             array('start_date', '>=', $start_date),
             array('end_date', '<=', $end_date)); 
             

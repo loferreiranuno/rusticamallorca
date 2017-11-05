@@ -19,7 +19,13 @@
                 @endif               
             @endforeach
         @elseif(isset($actionHtml))
-            {!! $actionHtml !!}
+            @if(is_array($actionHtml))
+                @foreach($actionHtml as $html)
+                    {!! $html !!}
+                @endforeach
+            @else
+                {!! $actionHtml !!}
+            @endif
         @endif 
     </div>
 </div>

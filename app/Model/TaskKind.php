@@ -11,4 +11,8 @@ class TaskKind extends Model
     public function products(){
         return $this->belongsToMany('App\Tasks');
     }
+
+    public function tasks(){
+        return $this->belongsToMany('App\Tasks');
+    }
 }

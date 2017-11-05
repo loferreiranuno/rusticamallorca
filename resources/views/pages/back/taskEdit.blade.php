@@ -4,9 +4,9 @@
    @include("include.back.breadcrumb", 
                 [
                     'title' => "Task edit"  ,
-                    'rootTitle' => isset($task) ?  $task->user->name :  "My tasks",
+                    'rootTitle' => "",
                     'root' => '',
-                    'currentTitle' => isset($task) ?  $task->description : null , 
+                    'currentTitle' => "" , 
                     'actionHtml' => '<button id="save-calendar" class="btn btn-primary">Save Calendar</button>'
                 ])  
 @stop 
@@ -22,12 +22,25 @@
         </div>
     </div>
 
-    {!! Form::hidden("task_id", isset($task)?$task->id:null) !!}
+    {!! Form::hidden("task_id", isset($task)?$task->id:null) !!}    
+    {!! Form::hidden("contact_id", isset($contact) ? $contact->id : null) !!}
+    {!! Form::hidden("user_id", isset($user) ? $user->id : null) !!}
+    {!! Form::hidden("product_id", isset($product) ? $product->id : null) !!}   
 
     
     @include("include.modal.taskModal", ['modalId'=> 'taskModal']) 
                         
+    {!! Form::hidden("server-url", route("task.search", [
+        "task" => isset($task) ? $task->id : null,
+        "contact" => isset($contact) ? $contact->id : null,
+        "user" => isset($user) ? $user->id : null,
+        "product" => isset($product) ? $product->id : null])) !!}
 
+    {{ csrf_field() }}
+    
+    {!! Form::hidden("server-update", route('task.calendar.update')) !!}    
+    {!! Form::hidden('current-date', isset($task) ? $task->start_date : Carbon\Carbon::now()) !!}
+    
 @stop
 
 
@@ -43,69 +56,59 @@
     <!-- Full Calendar -->
     <script src="{{asset('js/plugins/fullcalendar/fullcalendar.min.js')}}"></script>
  
-    <script>         
+    <script>      
 
-        $(document).ready(function(){
+        function parseEvent(event){
+            var start_date =  event.start.format("YYYY-MM-DD HH:mm:ss");
+            var end_date;
+            if(!event.end){
+                if(event.allDay){
+                    end_date = event.start.format("YYYY-MM-DD") + " 23:59:59";
+                }else{
+                    end_date = start_date;
+                }
+            }else{
+                end_date = event.end.format("YYYY-MM-DD HH:mm:ss");
+            }
 
+            return {  
+                "task": event.id,
+                "start_date": start_date,
+                "end_date":  end_date
+            }
+        }
 
-            $("#save-calendar").on('click', function(){
-                var events = $('#calendar').fullCalendar('clientEvents').map(function(event){
-                    var start_date =  event.start.format("YYYY-MM-DD HH:mm:ss");
-                    var end_date;
-                    if(!event.end){
-                        if(event.allDay){
-                            end_date = event.start.format("YYYY-MM-DD") + " 23:59:59";
-                        }
-                    }else{
-                        end_date = event.end.format("YYYY-MM-DD HH:mm:ss");
-                    }
-
-                    return {  
-                        "task": event.id,
-                        "start_date": start_date,
-                        "end_date":  end_date
-                    }
-                });
-
-                $.ajax({
-                    url: "{{route('task.calendar.update')}}",
+        function saveEvent(events, onSuccess, onError){
+            $.ajax({
+                    url: $("[name='server-update']").val(),
                     type: "POST",
                     data:{
                         events: events,
-                        _token: "{{csrf_token()}}"
+                        _token: $("[name='_token']:first").val()
                     }, 
-                    success: function(){
-                        window.location.reload();
+                    success: function(data){
+                        onSuccess(data);
                     },
-                    error: function(){
-                        alert("")
+                    error: function(data){
+                        onError(data)
                     }
+                });
+        }
+        $(document).ready(function(){
+
+            $("#save-calendar").on('click', function(){
+
+                var events = $('#calendar').fullCalendar('clientEvents').map(function(event){
+                    return parseEvent(event);
+                });
+                
+                saveEvent(events, 
+                function(data){
+                    window.location.reload();
+                }, function(data){
+                    alert("server error");
                 })
                 
-            });
-
-            var slotMoment;
-
-            function dayClickCallback(date){
-                slotMoment = date;
-                $("#start_date").val(slotMoment.format("YYYY-MM-DD"));
-                $("#day").val(slotMoment.format("YYYY-MM-DD")); 
-
-                $("#hours").val(parseInt(slotMoment.format("hh")));
-                $("#minutes").val(parseInt(slotMoment.format("mm")));
-
-                $("#calendar").on("mousemove", forgetSlot);
-            }
-
-            function forgetSlot(){
-                slotMoment = null;
-                $("#calendar").off("mousemove", forgetSlot);
-            }
-
-            $("#calendar").dblclick(function() {
-                if(slotMoment){ 
-                    $("#taskModal").modal();
-                }
             });
 
             $('#calendar').fullCalendar({
@@ -115,49 +118,74 @@
                 right: 'month,agendaWeek,agendaDay'
             },  
             defaultView: 'agendaWeek',
-            defaultDate: $("#start_date").val()||new Date(), 
-            editable: true,
-            drop: function() {
-                // is the "remove after drop" checkbox checked?
-                if ($('#drop-remove').is(':checked')) {
-                    // if so, remove the element from the "Draggable Events" list
-                    $(this).remove();
+            eventAfterRender: function(event, element, view) {
+                 
+                if(view.name == "agendaDay" || view.name == "agendaWeek"){
+
+                    var description = $("<p>");
+                    description.text(event.description);
+                    element.append(description);
+
+                    if(event.product){
+                       
+                        var product = "<div class=''>";
+                        product += "<label>" + event.product.label + "</label>: ";
+                        product += "<span href='" + event.product.url + "' target='_blank'>" + event.product.name + "</span>";
+                        product += "</div>";
+                        
+                        element.append(product);
+                        element.append("<br>");
+                    }
+
+
+                    if(event.contact){
+                        var contact = "<div class=''>";
+                        contact += "<label>" + event.contact.label + "</label>: ";
+                        contact += "<span href='" + event.contact.url + "' target='_blank'>" + event.contact.name + "</span>";
+                        contact += "</div>";
+
+                        element.append(contact);
+                        element.append("<br>");
+                    }
+                    
+                    if(event.creator){
+                       
+                        var creator = "<div class=''>";
+                        creator += "<label>" + event.creator.label + "</label>: ";
+                        creator += "<span href='" + event.creator.url + "' target='_blank'>" + event.creator.name + "</span>";
+                        creator += "</div>";
+                        
+                        element.append(creator);
+                        element.append("<br>");
+                    }
+
                 }
             },
-            eventRender: function(event, element, view) {
-                element.bind('dblclick', function() {
+            editable: true,
+            eventDrop: function(event, delta, revertFunc){
+                var events = [parseEvent(event)];
+                saveEvent(events, function(data){
                     
-                });
-                return $('<div class="well">' + event.title + '</div>');
-              
-            }, 
-            dayClick: dayClickCallback,
+                }, function(data){
+                    alert("server error");
+                })
+            },
+            eventClick: function(event, jsEvent, view){
+                //TODO: nothing...  
+            },
+            defaultDate: moment($("#current-date").val()) ,
             eventSources:[
                 {
-                    url: '{{route("task.search", ["task"=> isset($task) ? $task->id : null ])}}',
+                    url: $("[name='server-url']").val(),
                     type: 'GET',
                     data: {
-                        task:  $("#task_id").val(),
-                        otherOnly: false,
-                        _token: ''
+                        task:  $("#task_id").val(), 
+                        _token: $("[name='_token']:first").val()
                     },
                     error: function() {
                         alert('There was an error while fetching events!');
                     } 
-                },
-                {
-                    url: '{{route("task.search", ["task"=>isset($task) ? $task->id : null ])}}',
-                    type: 'GET',
-                    data: {
-                        task: $("#task_id").val(),
-                        otherOnly: true,
-                        _token: ''
-                    },
-                    error: function() {
-                        alert('there was an error while fetching events!');
-                    },
-                    eventColor: '#378006'
-                }                
+                }              
             ] 
             })
         });
