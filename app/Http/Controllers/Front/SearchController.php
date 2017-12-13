@@ -41,7 +41,7 @@ class SearchController extends Controller
         }
 
         $results = Product::Search($request);
-
+        
         $minPrice = 0; $maxPrice = 0;
         $rentRange = [
             'min'=> $results->min('renting_cost'),
@@ -106,11 +106,12 @@ class SearchController extends Controller
                 route('property.show',['id'=> $product->id]),
                 RMHelper::getProductImage($product, false)
             ];
-
         } 
 
-        $minPrice = Product::MinRentPrice() ?? 0;
-        $maxPrice = Product::MaxSalePrice() ?? 9999999;
+        $minPrice = is_numeric(Product::MinRentPrice()) ? Product::MinRentPrice()  : 0;
+        
+        $maxPrice = is_numeric(Product::MaxSalePrice()) ? Product::MaxSalePrice() : 9999999;
+ 
         return view('pages.front.search',compact('products','locations','price', 'minPrice', 'maxPrice'));
     }
 }

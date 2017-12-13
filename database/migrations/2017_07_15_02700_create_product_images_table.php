@@ -19,7 +19,7 @@ class CreateProductImagesTable extends Migration
             $table->unsignedInteger('image_type_id')->nullable();
             $table->string('file_name');
             $table->string('original_name');
-
+            $table->integer('order');
             $table->timestamps();
         });
 

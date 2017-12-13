@@ -17,7 +17,7 @@ class CreateFeaturesTable extends Migration
             $table->increments('id');
             $table->string('name'); 
         });
- 
+        
         DB::table('features')->insert(
             array(
              array('name' => 'disabled access')

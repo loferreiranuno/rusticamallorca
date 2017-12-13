@@ -86,7 +86,7 @@
                                     <tr contact-row contact-url="{{ route('contact.show',['id'=>$contact->id]) }}" style="" class="{!! $contact->id % 2 == 0 ? 'footable-even' : 'footable-odd' !!}}">
                                         
                                         <td class="footable-visible"><!-- checkbox --></td>
-                                        <td class="footable-visible"><!-- image --></td>
+                                        <td class="footable-visible"><span class="b-r-xl"><h2>{{$contact->sigla}}</h2></span></td>
                                         {{-- <td class="footable-visible">{!! $contact->kind->name !!}</td> --}}
                                         <td class="footable-visible">{!! $contact->name !!}</td> 
                                         <td class="footable-visible">{!! $contact->email !!}</td> 

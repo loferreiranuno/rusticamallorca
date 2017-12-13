@@ -34,11 +34,7 @@ class Contact extends Model
     public function responsable(){
         return $this->hasOne('App\User', 'id', 'responsable_id');
     }
-
-    // public function partner(){
-    //     return $this->hasOne('App\Contact', 'partner_id', 'responsable_id');
-    // }
-
+ 
     public function kind(){
         return $this->hasOne('App\ContactKind', 'id', 'kind_id');
     }
@@ -114,6 +110,11 @@ class Contact extends Model
         return $this->hasMany('App\ContactWishList');
     }
 
+    public function getSiglaAttribute(){
+        $sigla = $this->name[0] . $this->name[strlen($this->name) - 1];
+        return strtoupper($sigla);
+    }
+ 
     public function scopeSearch($query, array $request){
         
         if(isset($request["searchQuery"])){

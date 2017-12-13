@@ -64,6 +64,11 @@ class User extends Authenticatable
             ->get();
     }
 
+    public function getSiglaAttribute(){
+        $sigla = $this->name[0] . $this->name[strlen($this->name) - 1];
+        return strtoupper($sigla);
+    }
+
     public function scopeSearch($query, array $request){
         
         if(isset($request["searchQuery"])){

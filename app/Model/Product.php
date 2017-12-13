@@ -96,15 +96,17 @@ class Product extends Model
     public function address_access(){
         return $this->hasOne('App\PublicAccess', 'id', 'public_access_id');
     }
-
- 
-
+    
     public function features(){ 
         return $this->belongsToMany('App\Feature', 'product_features');
     }
      
     public function images(){
         return $this->hasMany('App\ProductImage');
+    }
+
+    public function contracts(){
+        return $this->hasMany('App\Contract');
     }
 
     public function kind(){

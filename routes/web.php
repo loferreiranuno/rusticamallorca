@@ -80,4 +80,5 @@ Route::resource('back/feature', 'FeatureController');
 Route::put('back/contact/{id}/step/update', ['uses' =>'ContactsController@stepUpdate'])->name('contact.step');
 Auth::routes('back');
 
-//FRONT
+//TEMPLATE CONTROL
+Route::resource('back/contracttemplate', 'ContractTemplateController');

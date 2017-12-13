@@ -62,5 +62,14 @@ return[
     'day' => 'Dia',
     'week' => 'Semana',
     'month' => 'Mes',
-    'bimonthly' => 'Bimensual'
+    'bimonthly' => 'Bimensual',
+
+    'lease' => 'Lease',
+    'down_payment' => 'Down payment',
+    'down_payment_receive' => 'Down payment receive agreement',
+    'buyer_commission' => 'Buyer commission statement',
+    'seller_commission' => 'Seller commission statement',
+    'key_return' => 'Key return agreement',
+    'key_receive' => 'Key receive agreement',
+    'visit_report' => 'Visit report agreement' 
 ];

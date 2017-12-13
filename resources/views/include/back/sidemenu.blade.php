@@ -59,14 +59,14 @@
                     </li>
                     
 
-                    {{-- <li  class="{{Ekko::areActiveRoutes(['feature.index'])}}">
+                     <li  class="{{Ekko::areActiveRoutes(['contracttemplate.index', 'contracttemplate.edit'])}}">
                         <a href=""><i class="fa fa-list-alt"></i> <span class="nav-label">Web</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="{{Ekko::isActiveRoute('feature.index')}}">
-                                <a href="{{route('feature.index')}}">Manage Features</a>
+                            <li class="{{Ekko::isActiveRoute('contracttemplate.index')}}">
+                                <a href="{{route('contracttemplate.index')}}">Contract Template</a>
                             </li>
                          </ul>
-                    </li> --}}
+                    </li>  
                     
                 </ul>
 

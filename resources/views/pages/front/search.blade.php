@@ -121,6 +121,10 @@
 
 </div> 
 
+{!! Form::hidden("map-locations", json_encode($locations), ['id'=>'map-locations']) !!}
+{!! Form::hidden("price-min", $minPrice, ['id'=>'price-min']) !!}
+{!! Form::hidden("price-max", $maxPrice, ['id'=>'price-max']) !!}
+
 @stop
 		  
 @section('scripts')
@@ -141,15 +145,14 @@
 	<script type="text/javascript" src="{{asset('assets/js/jquery.slider.js')}}"></script>
 	<script type="text/javascript" src="{{asset('assets/js/jshashtable-2.1_src.js')}}"></script>
 	<script type="text/javascript" src="{{asset('assets/js/jquery.numberformatter-1.2.3.js')}}"></script>
+ 	<script type="text/javascript" src="{{asset('assets/js/custom-map.js')}}"></script> 
 
 
-	<script type="text/javascript" src="{{asset('assets/js/custom-map.js')}}"></script> 
-
-	<script>
+	<script type="text/javascript">
 		// coordinates for current location
 		var _latitude = 40.717857;
 		var _longitude = -73.995042;
-		var locations = {!!json_encode($locations)!!};
+		var locations = $("#map-locations").val();
 		createHomepageGoogleMap(_latitude,_longitude, locations);
 
 		$(document).ready(function(){
@@ -164,8 +167,8 @@
 			if( $(".price-input").length > 0) {
 				$(".price-input").each(function() { 
 					var vSLider = $(this).slider({
-						from: {{ $minPrice }},
-						to: {{ $maxPrice }}, 
+						from: $("#price-min").val(),
+						to: $("#price-max").val(), 
 						smooth: true, 
 						round: 0,       
 						dimension: ',00&nbsp;&euro;' 
