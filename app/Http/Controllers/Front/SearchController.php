@@ -44,13 +44,13 @@ class SearchController extends Controller
         
         $minPrice = 0; $maxPrice = 0;
         $rentRange = [
-            'min'=> $results->min('renting_cost'),
-            'max'=> $results->max('renting_cost')
+            'min'=> is_numeric($results->min('renting_cost')) ? $results->min('renting_cost') : 0,
+            'max'=> is_numeric($results->max('renting_cost')) ? $results->max('renting_cost') : 0
         ];
 
         $saleRange = [
-            'min'=> $results->min('selling_cost'),
-            'max'=> $results->max('selling_cost')
+            'min'=> is_numeric($results->min('selling_cost')) ? $results->min('selling_cost') : 0,
+            'max'=> is_numeric($results->max('selling_cost')) ? $results->max('selling_cost') : 0
         ];
         
         if($request->has('sell_type')){
@@ -69,7 +69,7 @@ class SearchController extends Controller
                 break;
             }
         }
-
+        
         $price = "$minPrice;$maxPrice";
         if($request->has('price')){
             $price = $request->get('price');
@@ -108,10 +108,14 @@ class SearchController extends Controller
             ];
         } 
 
-        $minPrice = is_numeric(Product::MinRentPrice()) ? Product::MinRentPrice()  : 0;
-        
-        $maxPrice = is_numeric(Product::MaxSalePrice()) ? Product::MaxSalePrice() : 9999999;
+        $minPrice = is_numeric(Product::MinRentPrice()) ? Product::MinRentPrice()  : 0;        
+        $maxPrice = is_numeric(Product::MaxSalePrice()) ? Product::MaxSalePrice() : 0;
  
+        if($maxPrice < $minPrice){
+            $maxPrice = $minPrice;
+            $minPrice = 0;
+        }
+            
         return view('pages.front.search',compact('products','locations','price', 'minPrice', 'maxPrice'));
     }
 }

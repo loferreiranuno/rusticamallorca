@@ -100,9 +100,7 @@
 			</div><!-- tab-content -->
 		</div><!-- tabs -->
 	</div>
-
-
-
+ 
 		<div class="custom-galery">
 			<input class="no-icheck gal" type="checkbox" id="op">
 			<div class="lower"></div>
@@ -120,10 +118,9 @@
 		</div>
 
 </div> 
-
-{!! Form::hidden("map-locations", json_encode($locations), ['id'=>'map-locations']) !!}
-{!! Form::hidden("price-min", $minPrice, ['id'=>'price-min']) !!}
-{!! Form::hidden("price-max", $maxPrice, ['id'=>'price-max']) !!}
+ 
+{!! Form::hidden("price-min-initial", $minPrice, ['id'=>'price-min-initial']) !!}
+{!! Form::hidden("price-max-initial", $maxPrice, ['id'=>'price-max-initial']) !!}
 
 @stop
 		  
@@ -149,13 +146,14 @@
 
 
 	<script type="text/javascript">
-		// coordinates for current location
-		var _latitude = 40.717857;
-		var _longitude = -73.995042;
-		var locations = $("#map-locations").val();
-		createHomepageGoogleMap(_latitude,_longitude, locations);
 
 		$(document).ready(function(){
+			
+			// coordinates for current location
+			var _latitude = 40.717857;
+			var _longitude = -73.995042;
+			var locations = {!!json_encode($locations)!!}; //$("#map-locations").val();
+			createHomepageGoogleMap(_latitude,_longitude, locations);
 			
 			$("#search-btn").on('click', function(e){
 				e.preventDefault();
@@ -167,8 +165,8 @@
 			if( $(".price-input").length > 0) {
 				$(".price-input").each(function() { 
 					var vSLider = $(this).slider({
-						from: $("#price-min").val(),
-						to: $("#price-max").val(), 
+						from: $("#price-min-initial").val(), // $("#price-min").val(),
+						to: $("#price-max-initial").val(), // , 
 						smooth: true, 
 						round: 0,       
 						dimension: ',00&nbsp;&euro;' 
