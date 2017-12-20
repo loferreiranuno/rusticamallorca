@@ -158,6 +158,7 @@ class PhotoController extends Controller
         $sessionImage->product_id    = $form_data['product_id'];
         $sessionImage->image_type_id = ProductImageType::first()->id;
         $sessionImage->original_name = $originalName;
+        $sessionImage->order = count($product->images);
         $sessionImage->save();
 
         return Response::json([

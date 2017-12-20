@@ -103,7 +103,14 @@ class ContractTemplateController extends Controller
     public function destroy($id)
     {
         $template = ModelTemplate::findOrFail($id);
-        $template->delete();
-        return redirect()->route('contracttemplate.index'); 
+        if($template->delete()){
+            return [
+                "success"=> false
+            ] ;
+        }
+        
+        return [
+            "success"=> false
+        ]; 
     }
 }

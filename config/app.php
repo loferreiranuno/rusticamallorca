@@ -23,6 +23,8 @@ return [
     'companyPhone' => env('BRAND_PHONE', '(+34) 971 590 066'),
     'companyMobile' => env('BRAND_MOBILE', '(+34) 697 524 838'),
     'companyFax' => env('BRAND_FAX', '(+34) 971 000 000'),
+
+    'bookmarkEnabled' => env("BOOKMARK_FEATURE_ENABLED", true), // pending funtionality
     /*
     |--------------------------------------------------------------------------
     | Application Environment

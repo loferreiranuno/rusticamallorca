@@ -19,15 +19,13 @@ Route::get('/privacy', 'Front\PrivacyController@index')->name("front.privacy");
 Route::get('/conditions', 'Front\TermsAndContitionsController@index')->name("front.termsconditions");
 Route::resource('/property', 'Front\PropertyController'); 
 
-Route::post('/api/search/cities', 'Front\SearchController@cities')->name("front.api.cities");
-Route::post('/api/set_language', 'Front\HomeController@setLanguage')->name("front.api.setLanguage");
-
 //--------------------------------------------------------
 //BACKOFFICE
 //--------------------------------------------------------
 Route::get('back/', 'HomeController@index')->name('home'); 
 
 Route::resource('back/product','ProductsController');
+Route::resource('back/product_contract', 'ProductContractController');
 Route::get('back/product/{product}/features', ['uses' =>'ProductsController@updateFeatures'])->name('product.update.features');
 Route::get('back/product/filter/fields',['uses'=> 'ProductsController@getFields'])->name('product.filter.fields');
 

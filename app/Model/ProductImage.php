@@ -8,6 +8,8 @@ class ProductImage extends Model
 { 
 
     protected $table = 'product_images';
+    
+    protected $guarded = array();
 
     public function product(){
         return $this->hasOne('App\Product', 'id', 'product_id');

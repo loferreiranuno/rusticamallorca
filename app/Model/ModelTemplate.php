@@ -11,7 +11,7 @@ class ModelTemplate extends Model
     protected $guarded = array();
 
     public function templateType(){
-         return $this->hasOne('App\ModelTemplateType', 'id', 'model_type_id');
+         return $this->belongsTo('App\ModelTemplateType', 'model_type_id', 'id');
     }
     
     private $availableKeys = [

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Model;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Contract extends Model
 {
+    protected $table = 'contracts';
+    protected $guarded = array();
+    
     public function product(){        
         return $this->hasOne('App\Product', 'id', 'product_id');
     }
@@ -46,10 +49,9 @@ class Contract extends Model
         return $this->hasOne('App\Contact', 'id', 'first_lessee');
     }
     public function lessee2(){        
-        return $this->hasOne('App\Product', 'id', 'second_lessee');
+        return $this->hasOne('App\Contact', 'id', 'second_lessee');
     }
     public function lessee3(){        
-        return $this->hasOne('App\Product', 'id', 'third_lessee');
-    } 
-    
+        return $this->hasOne('App\Contact', 'id', 'third_lessee');
+    }     
 }

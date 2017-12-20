@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="item-title">
-        <h4><a href="property_page.html">{{$product->title}}</a></h4>
+        <h4><a href="{{route('property.show',['id'=>$product->id])}}">{{$product->title}}</a></h4>
         <p class="team-color">{{RMHelper::getProductAddress($product)}}</p>
         <div class="col-md-7 col-sm-7 col-xs-7">
             <p>{{$product->kind->name}}</p>
@@ -33,14 +33,16 @@
                     <p class="team-color">FOR RENT</p>
                 @endif
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-4 favorite">
-                <div class="bookmark" data-bookmark-state="empty">
-                    <span class="title-add">Add to bookmark</span>
+            @if(Config::get('app.bookmarkEnabled'))
+                <div class="col-md-4 col-sm-4 col-xs-4 favorite">
+                    <div class="bookmark" data-bookmark-state="empty">
+                        <span class="title-add">Add to bookmark</span>
+                    </div>
+                    <div class="compare" data-compare-state="empty">
+                        <span class="plus-add">Add to compare</span>
+                    </div>
                 </div>
-                <div class="compare" data-compare-state="empty">
-                    <span class="plus-add">Add to compare</span>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>

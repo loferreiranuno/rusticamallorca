@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Product;
+use App\ContactKind;
 
 class Contact extends Model
 {
@@ -114,6 +115,24 @@ class Contact extends Model
         $sigla = $this->name[0] . $this->name[strlen($this->name) - 1];
         return strtoupper($sigla);
     }
+
+    public function scopeOwners($query){
+        $kind = ContactKind::where('name','owner')->first();
+        $query->where(function($query) use ($kind){
+            $query->where('kind_id','=', $kind->id);
+        });
+
+        return $query->get();
+    }
+
+    public function scopeOthers($query){
+        $kind = ContactKind::where('name','owner')->first();
+        $query->where(function($query) use ($kind){
+            $query->where('kind_id','<>', $kind->id);
+        });
+
+        return $query->get();
+    }
  
     public function scopeSearch($query, array $request){
         
@@ -148,7 +167,7 @@ class Contact extends Model
 
         if(isset($request['kind_id'])){
             $kindId = $request['kind_id'];
-            $query->where('kind_id','=',3);
+            $query->where('kind_id','=',$kindId);
         }
         return $query;
 

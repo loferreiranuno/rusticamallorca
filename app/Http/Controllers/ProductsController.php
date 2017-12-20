@@ -43,12 +43,11 @@ class ProductsController extends Controller
          
         if($request->has('search')){
             $products = $this->productRepository->search($request, $this->TOTAL_PAGES)->appends(Input::except('page'));
-            return view('pages.back.productList', compact('products'));
         }else{
             $products = $this->productRepository->getAll($this->TOTAL_PAGES);
-            return view('pages.back.productList', compact('products'));
         }
 
+        return view('pages.back.productList', compact('products'));
         
     }
  

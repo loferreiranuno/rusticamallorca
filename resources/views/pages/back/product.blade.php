@@ -10,10 +10,9 @@
             'root' => route("product.index"),
             'currentTitle' => "<span class='label label-default'>Ref.".$product->identifier. " " . $product->kind->name . "</span>", 
             'actionHtml' => '
-                <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.create') . '">Add</button>
-                <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.edit', ['product'=> $product->id]) . '">Edit</button>
-                <button class="btn btn-info pull-right margin-left" action-url="'. route('photo.show', ['product'=> $product->id]) .'">Add images</button>
-                <button class="btn btn-primary pull-right margin-left" action-url="'. route('photo.properties', ['product'=> $product->id]).'">Edit Images</button>'
+                <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.create') . '">Add Property</button>
+                <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.edit', ['product'=> $product->id]) . '">Edit Property</button>
+                <button class="btn btn-warning pull-right margin-left" action-url="' . route('product_contract.index',['product'=>$product->id]). '">Contracts</button>'
         ])    
 @stop  
 
@@ -80,16 +79,22 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                <div class="col-md-12">  
-                                        <div class="product-images" style="visibility:hidden">
-                                            @foreach($product->images as $image)
-                                            <div>
-                                                <div class="image-imitation" style="background:url('{{asset('img/product/' . $product->id . '/full_'. $image->file_name)}}') no-repeat center"> 
+                                    <div class="col-md-12">  
+                                            <div class="product-images" style="visibility:hidden">
+                                                @foreach($product->images as $image)
+                                                <div>
+                                                    <div class="image-imitation" style="background:url('{{asset('img/product/' . $product->id . '/full_'. $image->file_name)}}') no-repeat center"> 
+                                                    </div>
                                                 </div>
+                                                @endforeach
                                             </div>
-                                            @endforeach
-                                        </div>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-info pull-right margin-left" action-url="{{ route('photo.show', ['product'=> $product->id]) }}">Add images</button>
+                                        @if(isset($product->images) && count($product->images) > 0)
+                                            <button class="btn btn-primary pull-right margin-left" action-url="{{ route('photo.properties', ['product'=> $product->id]) }}">Edit Images</button>
+                                        @endif
+                                    </div>
                                 </div>
                             
                                 <div class="row" style="margin-top:30px">
@@ -264,12 +269,7 @@
         $('.product-images').slick({
             dots: true
         });  
-
-        $("[action-url]").on("click", function(){
-            window.location = $(this).attr("action-url");
-        });
-
-
+        
         $("[upload-listener]").addClass("hidden");
 
     });

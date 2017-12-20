@@ -6,6 +6,7 @@ var $ = jQuery.noConflict();
 
 $(document).ready(function($) {
 
+   
     // header-footer
     // $.get("header_page.html", function(data){
     //   $('#header').append(data);

@@ -53,15 +53,17 @@
             @endif
         </div>
         <span class="ffs-bs col-xs-12 btn-half-wth"><a href="{{route('property.show',['id'=>$product->id])}}" class="btn btn-default btn-small">learn more <i class="fa fa-caret-right"></i></a></span>
-        <div class="sum favorite col-sm-12 col-xs-6">
-            <div class="bookmark col-xs-3" data-bookmark-state="empty">
-                <span class="title-add">Add to bookmark</span>
+        @if(Config::get('app.bookmarkEnabled'))
+            <div class="sum favorite col-sm-12 col-xs-6">
+                <div class="bookmark col-xs-3" data-bookmark-state="empty">
+                    <span class="title-add">Add to bookmark</span>
+                </div>
+                <p class="col-xs-3">Fav</p>
+                <div class="compare col-xs-3" data-compare-state="empty">
+                    <span class="plus-add">Add to compare</span>
+                </div>
+                <p class="col-xs-3">Comp</p>
             </div>
-            <p class="col-xs-3">Fav</p>
-            <div class="compare col-xs-3" data-compare-state="empty">
-                <span class="plus-add">Add to compare</span>
-            </div>
-            <p class="col-xs-3">Comp</p>
-        </div>
+        @endif
     </div>
 </div>

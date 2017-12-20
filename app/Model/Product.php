@@ -260,7 +260,7 @@ class Product extends Model
         ->where('selling_cost','>', 0)
         ->orderBy('id','DESC');
         return $query;
-    }
+    } 
 
     public function scopeLastRent($query){
         $query
@@ -420,7 +420,7 @@ class Product extends Model
                 $q->whereIn('id', $request->get('features'));
             }, '=', count($request->get('features')) );
         }
-
+ 
         return $query;
     } 
     

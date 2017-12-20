@@ -46,11 +46,10 @@
                             <td>{{$template->templateType->Text}}</td>
                             <td>
                                 <a class="btn btn-info pull-right" href="{{route('contracttemplate.edit',['id'=> $template->id])}}">Edit</a> 
-                                <!--
-                                {!! Form::model($template, ['route' => ['contracttemplate.destroy', $template->id], 'method' => 'DELETE']) !!}
-                                {!! Form::submit("delete", ['class'=>'btn btn-danger']) !!} 
-                                {!! Form::close() !!}
-                                -->
+                   
+                                {!! Form::button("delete", ['data-token'=> csrf_token(), 'data-action'=> 'delete', 'data-href'=> route('contracttemplate.destroy',['id'=> $template->id]), 'class'=>'btn btn-danger']) !!} 
+                               
+                                 
                                 </td>
                         </tr>
                     @endforeach
@@ -61,4 +60,9 @@
     </div>
 </div>
 </div>
+@stop
+
+@section("scripts")
+@parent
+
 @stop

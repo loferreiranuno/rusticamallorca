@@ -60,6 +60,37 @@ $(document).ready(function(){
         .on("mouseout", function(){
             $(this).removeClass("active");
         });
+        
+        $("[action-url]").on("click", function(){
+            window.location = $(this).attr("action-url");
+        });
+
+        $("[data-action='delete']").on("click", function(e){
+            
+            var token = $(this).data("token");
+            var url = $(this).data("href");
+        
+            if(!url){
+                return false;
+            } 
+    
+            if(confirm("Are you sure you want to delete this item?")){
+     
+                $.ajax({
+                    data:{
+                        _token: token,
+                    },
+                    url: url,
+                    type: "DELETE",
+                    success: function(){
+                        window.location.reload();
+                    },
+                    error: function(){
+                        alert("ERROR");
+                    }
+                })
+            }
+        });
         $("[wishlist-btn]").on("click", function(){
             var contact_id = $(this).data("contact");
             var product_id = $(this).data("product");
