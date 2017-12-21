@@ -1,6 +1,5 @@
  
 <div class="col-md-6">
-
     <div class="form-group col-sm-8{{ $errors->has('city_name') ? ' has-error' : '' }}">
         <div class="input-group m-b">
             <span class="input-group-addon">Town</span>
@@ -23,6 +22,20 @@
         <div class="input-group m-b">
             <span class="input-group-addon">Nº</span>
             {{Form::text('street_number', old('street_number'), ['id'=>'street_number', 'class'=> 'form-control google-address'])}}
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6{{ $errors->has('country_name') ? ' has-error' : '' }}">
+        <div class="input-group m-b">
+            <span class="input-group-addon">Country</span>
+            {{Form::text('country_name', old('country_name'), ['id'=>'country_name', 'class'=> 'form-control google-address'])}}
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6{{ $errors->has('province_name') ? ' has-error' : '' }}">
+        <div class="input-group m-b">
+            <span class="input-group-addon">Province</span>
+            {{Form::text('province_name', old('province_name'), ['id'=>'province_name', 'class'=> 'form-control google-address'])}}
         </div>
     </div>
 

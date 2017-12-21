@@ -32,6 +32,8 @@ class Product extends Model
         'city_name',
         'zip_code',
         'street_name',
+        'province_name',
+        'country_name',
         'street_number',
         'latitude',
         'longitude',

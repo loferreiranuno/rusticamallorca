@@ -94,10 +94,8 @@ class ProductContractController extends Controller
      */
     public function show($id)
     {
-        $contract = Contract::findOrFail($id);
-        
-        $html = $contract->template->text;
-
+        $contract = Contract::findOrFail($id);        
+        $html = $contract->ContractHtml;
         return view('pages.back.productContract', compact('html'));
     }
 

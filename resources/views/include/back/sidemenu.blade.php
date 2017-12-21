@@ -15,7 +15,7 @@
                         </ul>
                     </li>
                     
-                    <li class="{{Ekko::areActiveRoutes(['product.index', 'product.show', 'product.create', 'product.edit'])}}">
+                    <li class="{{Ekko::areActiveRoutes(['product_contract.index', 'product_contract.edit', 'product_contract.create',  'product.index', 'product.show', 'product.create', 'product.edit'])}}">
                         <a href="{{route('product.index')}}"><i class="fa fa-home"></i> <span class="nav-label">Office properties</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             {{-- <li><a class="{{Ekko::isActiveRoute('product.create')}}" href="{{route('product.create')}}">New property</a></li>      --}}

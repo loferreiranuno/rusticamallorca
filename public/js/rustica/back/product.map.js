@@ -120,8 +120,9 @@
             if(marker.addressData == null)
                 return;
 
-            var data = marker.addressData;
- 
+            var data = marker.addressData; 
+            setInputValue('province_name', data.administrative_area_level_1);
+            setInputValue('country_name', data.country);
             setInputValue('street_number', data.street_number);
             setInputValue('city_name', data.locality);
             setInputValue('zip_code', data.postal_code);

@@ -45,12 +45,14 @@
                             <td>{{$template->name}}</td>
                             <td>{{$template->templateType->Text}}</td>
                             <td>
-                                <a class="btn btn-info pull-right" href="{{route('contracttemplate.edit',['id'=> $template->id])}}">Edit</a> 
-                   
-                                {!! Form::button("delete", ['data-token'=> csrf_token(), 'data-action'=> 'delete', 'data-href'=> route('contracttemplate.destroy',['id'=> $template->id]), 'class'=>'btn btn-danger']) !!} 
-                               
-                                 
+                            <div class="form-group">
+                                <a class="btn btn-info pull-right" href="{{route('contracttemplate.edit',['id'=> $template->id])}}">
+                                <i class="fa fa-edit" title="Edit"></i></a> 
+<!--                                 
+                                <a class="btn btn-danger pull-right" data-token="{{csrf_token()}}" data-action='delete' data-href='{{route('contracttemplate.destroy',['id'=>$template->id])}}'>
+                                <i class="fa fa-trash" title="Edit"></i></a>-->
                                 </td>
+                            </div>
                         </tr>
                     @endforeach
                     </tbody>
