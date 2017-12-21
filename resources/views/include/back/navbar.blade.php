@@ -16,10 +16,10 @@
                     <span class="m-r-sm text-muted welcome-message">{{ Config::get('app.companyName') }}</span>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                    <!--<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope"></i>  
                             <span class="label label-warning"></span>
-                    </a>
+                    </a>-->
                     {{-- <ul class="dropdown-menu dropdown-messages">
                         <li>
                             <div class="dropdown-messages-box">
@@ -45,9 +45,11 @@
                 </li>
                 
                 <li class="dropdown">
+<!--
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell"></i>  <span class="label label-primary"></span>
-                    </a>{{--
+                    </a>-->
+                    {{--
                     <ul class="dropdown-menu dropdown-alerts">
                          <li>
                             <a href="mailbox.html">

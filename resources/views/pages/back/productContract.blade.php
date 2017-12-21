@@ -1,5 +1,9 @@
 @extends('layouts.back.print')
  
-@section("content")
-{!! $html !!}
+@section("content") 
+<div class="hidden">  
+{!! Form::textarea("text", $html, ['id'=>'summary-ckeditor', 'class'=>'form-control']) !!}
+</div>
 @stop
+
+ 
