@@ -11,7 +11,7 @@
     <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
     <script>
          
-        $(document).ready(function(){
+        $(document).ready(function(){ 
             CKEDITOR.replace( 'summary-ckeditor' );
             CKEDITOR.on('instanceReady',
             function( evt )
