@@ -29,7 +29,7 @@
 						</ul> 
 					</li>           
 					<li><a href="{{route('front.aboutus')}}">@lang('front/home.aboutUs')</a></li>
-					<li><a href="{{route('front.contactus')}}">@lang('front/home.contactUs')</a></li>
+					<li><a href="{{route('contactus.index')}}">@lang('front/home.contactUs')</a></li>
 					<li>
 						<a href="#" data-toggle="dropdown" class="pull-right drop-close">@lang('front/home.close')
 							<span class="cross"></span>
@@ -84,7 +84,7 @@
 						<li class="has-child"><a href="{{route('front.search')}}">@lang('front/home.allProperties')</a> 
 						</li>                       
 						<li><a href="{{route('front.aboutus')}}">@lang('front/home.aboutUs')</a></li>
-						<li><a href="{{route('front.contactus')}}">@lang('front/home.contactUs')</a></li>
+						<li><a href="{{route('contactus.index')}}">@lang('front/home.contactUs')</a></li>
 						<li>								
 							<select class="selection" id="menu-language" menu-language>
 								@foreach(App\Language::all() as $language)

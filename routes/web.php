@@ -12,7 +12,8 @@
 */
 
 Route::get('/', 'Front\HomeController@index')->name("front.home");
-Route::get('/contactus', 'Front\ContactUsController@index')->name("front.contactus");
+Route::resource('/contactus', 'Front\ContactUsController');
+
 Route::get('/aboutus', 'Front\AboutUsController@index')->name("front.aboutus");
 Route::get('/search', 'Front\SearchController@index')->name("front.search");
 Route::get('/privacy', 'Front\PrivacyController@index')->name("front.privacy");

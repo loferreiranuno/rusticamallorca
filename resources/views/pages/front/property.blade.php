@@ -48,18 +48,18 @@
 				<div class="container">
 					<div class="row">
 						<aside class="pr-summary col-md-4 col-xs-12">
-							<form action="agent_profile.html">
-								@if($product->rentPrice != 0)
-								<div class="col-lg-5 col-md-6 col-sm-3 col-xs-6 hl-bl">
-									<h2>{{$product->rentPrice}}&euro;</h2>
-									<h5 class="team-color">FOR RENT</h5>
-								</div>
+							 
+							 @if($product->rentPrice != 0)
+									<div class="col-lg-5 col-md-6 col-sm-3 col-xs-6 hl-bl">
+										<h2>{{$product->rentPrice}}&euro;</h2>
+										<h5 class="team-color">FOR RENT</h5>
+									</div>
 								@endif
 								@if($product->salePrice != 0)
-								<div class="col-lg-5 col-md-6 col-sm-3 col-xs-6 hl-bl">
-									<h2>{{$product->salePrice}}&euro;</h2>
-									<h5 class="team-color">FOR SALE</h5>
-								</div>
+									<div class="col-lg-5 col-md-6 col-sm-3 col-xs-6 hl-bl">
+										<h2>{{$product->salePrice}}&euro;</h2>
+										<h5 class="team-color">FOR SALE</h5>
+									</div>
 								@endif
 								<div class="row">
 									<div class="col-md-12 col-sm-6 col-xs-12">
@@ -117,29 +117,33 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12 col-sm-6 col-xs-12">
+										
 										<span class="ffs-bs">
-											<button type="submit" class="btn btn-large btn-primary">contact agent</button>
+											<a href="{{route('contactus.index',['product'=>$product])}}" class="btn btn-large btn-primary">contact agent</a>
 										</span>
+
 										@if(config("app.bookmarkEnabled"))
-										<div class="col-xs-12 fav-block">
-											<div class="bookmark col-xs-6" data-bookmark-state="empty">
-												<span class="title-add">Add to bookmark</span>
-												<p class="col-xs-9 fav-text">Add to Favorit</p>
+											<div class="col-xs-12 fav-block">
+												<div class="bookmark col-xs-6" data-bookmark-state="empty">
+													<span class="title-add">Add to bookmark</span>
+													<p class="col-xs-9 fav-text">Add to Favorit</p>
+												</div>
+												<div class="compare col-xs-6" data-compare-state="empty">
+													<span class="plus-add">Add to compare</span>
+													<p class="fav-text">Compare</p>
+												</div>
 											</div>
-											<div class="compare col-xs-6" data-compare-state="empty">
-												<span class="plus-add">Add to compare</span>
-												<p class="fav-text">Compare</p>
-											</div>
-										</div>
 										@endif
 									</div>
 								</div>
-							</form>
+							 
+							
 						</aside>
 						<div class="pr-info col-md-8 col-xs-12">
 							<h2>{{$product->title}}</h2>
 							<div class="map-marker"></div>
-							<h5 class="team-color">{{RMHelper::getProductAddress($product)}}<i class="fa fa-eye"></i>1092</h5>
+							<h5 class="team-color">{{RMHelper::getProductAddress($product)}}
+								<i class="fa fa-eye"></i></h5>
 							<p>{{RMHelper::getProductDescription($product, App::getLocale())}}</p> 
 						</div>
 						<div class="pr-info col-md-8 col-xs-12">
@@ -194,7 +198,9 @@
 												<li><a class="pinterest" href="https://www.pinterest.com" target="blank"><i class="fa fa-pinterest"></i></a></li>
 											</ul>
 										</section>
-										<p class="error-block col-sm-6 col-xs-12 pull-right"><a href="#" data-toggle="modal" data-target="#modal-error"><i class="fa fa-exclamation-triangle"></i>Report About Error</a></p>
+										<!--<p class="error-block col-sm-6 col-xs-12 pull-right"><a href="#" data-toggle="modal" data-target="#modal-error">
+											<i class="fa fa-exclamation-triangle"></i>Report About Error</a>
+										</p>-->
 									</div>
 								</div>
 							</div>
@@ -315,7 +321,7 @@
 				<!-- End Owl carousel -->
 			</nav>
 		</div>
-		</div>
+		</div> 
 @stop
 
 
