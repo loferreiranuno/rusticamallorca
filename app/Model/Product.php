@@ -282,6 +282,13 @@ class Product extends Model
         return $query;
     }
 
+    public function ContractsByType(ModelTemplateType $type){
+
+        return $this->contracts->filter(function($contract) use($type){
+            return $contract->template->templateType->id == $type->id;
+        });    
+    }
+ 
     public function scopeFilterByInterest($query, ContactInterest $interest){
 
         if($interest->rent_enabled){

@@ -1,87 +1,25 @@
-
-@extends('include.form.contract.base')
-
-@section("contract-form")
-
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('template_id') ? ' has-error' : '' }}">
-            {!!Form::label('template_id','Agreement Model')!!}
-            {!!Form::select('template_id', $templates->pluck('name','id')->prepend('select',''), old('template_id'), ['class'=>'form-control'])!!}
-        </div>
-    </div> 
-</div> 
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('agreement_date') ? ' has-error' : '' }}">
-            {!!Form::label('agreement_date','Agreement Date')!!}
-            {!!Form::date('agreement_date', old('agreement_date'), ['class'=>'form-control'])!!}
-        </div>
-    </div> 
-</div>
-
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('lessor_id') ? ' has-error' : '' }}">
-            {!!Form::label('lessor_id','Lessor')!!}            
-            {!!Form::select('lessor_id', $owners->pluck('name','id')->prepend('select', ''), old('lessor_id'), ['class'=>'form-control']) !!}
-        </div>
-    </div> 
-</div> 
-
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('first_lessee') ? ' has-error' : '' }}">
-            {!!Form::label('first_lessee','First lessee')!!}            
-            {!!Form::select('first_lessee', $contacts->pluck('name','id')->prepend('select', ''), old('first_lessee'), ['class'=>'form-control']) !!}
-        </div>
-    </div> 
-</div> 
-
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('second_lessee') ? ' has-error' : '' }}">
-            {!!Form::label('second_lessee','Second lessee')!!}            
-            {!!Form::select('second_lessee', $contacts->pluck('name','id')->prepend('select', ''), old('second_lessee'), ['class'=>'form-control']) !!}
-        </div>
-    </div> 
-</div> 
-
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('third_lessee') ? ' has-error' : '' }}">
-            {!!Form::label('third_lessee','Third lessee')!!}            
-            {!!Form::select('third_lessee', $contacts->pluck('name','id')->prepend('select', ''), old('third_lessee'), ['class'=>'form-control']) !!}
-        </div>
-    </div> 
-</div> 
-
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('initial_renting_date') ? ' has-error' : '' }}">
-            {!!Form::label('initial_renting_date','Initial renting date')!!}            
-            {!! Form::date('initial_renting_date', old('initial_renting_date'), ['class'=>'form-control']) !!}
-        </div>
-    </div> 
-</div>     
-
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('max_years_extend_time') ? ' has-error' : '' }}">
-            {!!Form::label('max_years_extend_time','Years the contract can be extended for')!!}            
-            {!!Form::number('max_years_extend_time', old('max_years_extend_time'), ['class'=>'form-control']) !!}
-        </div>
-    </div> 
-</div>     
-
-<div class="row"> 
-    <div class="col-lg-12">
-        <div class="form-group {{ $errors->has('max_days_warn_revoke') ? ' has-error' : '' }}">
-            {!!Form::label('max_days_warn_revoke','Maximum number of days to notify the revocation of the contract')!!}            
-            {!!Form::number('max_days_warn_revoke', old('max_days_warn_revoke'), ['class'=>'form-control']) !!}
-        </div>
-    </div> 
-</div>     
- 
-
-@stop
+@include("include.form.input.select",['required'=> true, 'id'=>'template_id','name'=>'Agreement Model', 'values'=> $templates->pluck('name','id')->prepend('select', '') ])
+@include("include.form.input.date",['required'=> true, 'id'=>'agreement_date', 'name'=>'Agreement Date'])
+@include("include.form.input.select",['id'=>'lessor_id','name'=>'Lessor', 'values'=> $owners->pluck('name','id')->prepend('select', '') ])
+@include("include.form.input.select",['id'=>'first_lessee','name'=>'First lessee', 'values'=> $contacts->pluck('name','id')->prepend('select', '') ])
+@include("include.form.input.select",['id'=>'second_lessee','name'=>'Second lessee', 'values'=> $contacts->pluck('name','id')->prepend('select', '') ])
+@include("include.form.input.select",['id'=>'third_lessee','name'=>'Third lessee', 'values'=> $contacts->pluck('name','id')->prepend('select', '') ])
+@include("include.form.input.date",['required'=> true, 'id'=>'initial_renting_date', 'name'=>'Initial renting date'])
+@include("include.form.input.number",['required'=> true, 'id'=>'max_years_extend_time', 'name'=> 'Years the contract can be extended for'])   
+@include("include.form.input.number",['required'=> true, 'id'=>'max_days_warn_revoke', 'name'=> 'Maximum number of days to notify the revocation of the contract'])   
+@include("include.form.input.number",['required'=> true, 'id'=>'rent_amount_year', 'name'=> 'Annual rent',  'icon'=>'&euro;'])
+@include("include.form.input.number",['id'=>'rent_amount_year_spelled', 'name'=> 'Annual rent: word form',  'icon'=>'&euro;']) 
+@include("include.form.input.number",['required'=> true, 'id'=>'rent_amount_month', 'name'=> 'Monthly rent',  'icon'=>'&euro;']) 
+@include("include.form.input.number",['id'=>'rent_amount_month_spelled', 'name'=> 'Monthly rent: word form',  'icon'=>'&euro;']) 
+@include("include.form.input.number",['required'=> true, 'id'=>'first_payment', 'name'=> 'Initial payment',  'icon'=>'&euro;']) 
+@include("include.form.input.number",['id'=>'first_payment_spelled', 'name'=> 'Initial payment: word form',  'icon'=>'&euro;']) 
+@include("include.form.input.number",['required'=> true, 'id'=>'first_payment_month', 'name'=> 'First monthly payment',  'icon'=>'&euro;']) 
+@include("include.form.input.number",['required'=> true, 'id'=>'first_payment_year', 'name'=> 'First annual payment',  'icon'=>'&euro;'])
+@include("include.form.input.date",['required'=> true, 'id'=>'next_payment_date', 'name'=>'Next payment date'])
+@include("include.form.input.number",['required'=> true, 'id'=>'bond', 'name'=> 'Bond',  'icon'=>'&euro;'])
+@include("include.form.input.number",['id'=>'bond_spelled', 'name'=> 'Bond: word form',  'icon'=>'&euro;'])
+@include("include.form.input.number",['required'=> true, 'id'=>'deposit', 'name'=> 'Deposit',  'icon'=>'&euro;'])
+@include("include.form.input.number",['id'=>'deposit_spelled', 'name'=> 'Deposit: word form',  'icon'=>'&euro;']) 
+@include("include.form.input.number",['id'=>'current_water_meter', 'name'=> 'Current water meter',  'icon'=>'m&sup3;'])
+@include("include.form.input.number",['id'=>'current_gas_meter', 'name'=> 'Current gas meter',  'icon'=>'m&sup3;'])
+@include("include.form.input.number",['id'=>'current_electricity_meter', 'name'=> 'Current electricity meter',  'icon'=>'kWh'])

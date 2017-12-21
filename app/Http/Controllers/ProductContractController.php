@@ -30,9 +30,8 @@ class ProductContractController extends Controller
 
         $currentType = $templateTypes[0];
         if($request->has("type")){
-            $currentType = ModelTemplateType::findOrFail($request->has("type"));
-        }       
-        
+            $currentType = ModelTemplateType::findOrFail($request->get("type"));
+        }           
         return view('pages.back.productContractList', compact('product', 'templateTypes', 'currentType'));
     }
 
@@ -43,17 +42,25 @@ class ProductContractController extends Controller
      */
     public function create(Request $request)
     {
-        $templateTypeId = $request->get("type");
-        $templateType = ModelTemplateType::findOrFail($templateTypeId);
+        $contract = null;
+        if($request->has("contract")){
+            $contract = Contract::findOrFail($request->get("contract"));
+            $product = $contract->product;
+            $templateType = $contract->template->templateType;
+        }else{
 
-        $productId = $request->get("product");
-        $product = Product::findOrFail($productId); 
-
+            $templateTypeId = $request->get("type");
+            $templateType = ModelTemplateType::findOrFail($templateTypeId);
+            $productId = $request->get("product");
+            $product = Product::findOrFail($productId);
+        } 
+        
         $hours = [];
         for($hour = 0; $hour < 24; $hour++){
             for($minutes = 0; $minutes < 60; $minutes++){
                 if($minutes % 15 == 0){
-                    $hours[] = sprintf("%02d", $hour).":".sprintf("%02d", $minutes);
+                    $value =sprintf("%02d", $hour).":".sprintf("%02d", $minutes);
+                    $hours[$value] = $value;
                 }
             }
         }
@@ -63,7 +70,7 @@ class ProductContractController extends Controller
         $owners = Contact::owners();
         $templates = $templateType->templates;
 
-        return view('pages.back.productContractEdit', compact('owners', 'templates', 'contacts', 'users', 'product', 'hours', 'templateType'));
+        return view('pages.back.productContractEdit', compact('contract', 'owners', 'templates', 'contacts', 'users', 'product', 'hours', 'templateType'));
     }
 
     /**
@@ -76,7 +83,7 @@ class ProductContractController extends Controller
     {        
         $contract = Contract::create($request->all());
         $contract->save();
-        return redirect()->route('product_contract.index',[]); 
+        return redirect()->route('product_contract.index',['product'=>$contract->product]); 
     }
 
     /**
@@ -87,7 +94,11 @@ class ProductContractController extends Controller
      */
     public function show($id)
     {
-        //
+        $contract = Contract::findOrFail($id);
+        
+        $html = $contract->template->text;
+
+        return view('pages.back.productContract', compact('html'));
     }
 
     /**
@@ -98,7 +109,8 @@ class ProductContractController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contract = Contract::findOrFail($id); 
+        return redirect()->route('product_contract.create',['contract' => $contract->id]); 
     }
 
     /**
@@ -110,7 +122,12 @@ class ProductContractController extends Controller
      */
     public function update(ContractRequest $request, $id)
     {
-        //
+        $contract = Contract::findOrFail($id); 
+        $contract->update($request->all());
+        $contract->save();
+        return redirect()->route('product_contract.index',[
+            'type'=> $contract->template->templateType->id,
+            'product' => $contract->product->id]); 
     }
 
     /**
@@ -121,6 +138,16 @@ class ProductContractController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contract = Contract::findOrFail($id);
+        if($contract->delete())
+        {
+            return [
+                "success"=> false
+            ] ;
+        }
+        
+        return [
+            "success"=> false
+        ];
     }
 }

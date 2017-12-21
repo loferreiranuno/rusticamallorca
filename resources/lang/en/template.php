@@ -1,70 +1,34 @@
 <?php
 
-namespace App;
+return
+[
 
-use Illuminate\Database\Eloquent\Model;
+        "contract.commission_amount" => "Valor de comisión - Número",
+        "contract.seller1.name" => "Vendedor 1 - Nombre",
+        "contract.seller2.name" => "Vendedor 2 - Nombre",
+        "contract.seller1.nif" => "Vendedor 1 - NIF",
+        "contract.seller2.nif" => "Vendedor 2 - NIF",
+        "contract.seller1.street" => "Vendedor 1 - Calle",
+        "contract.seller2.street" => "Vendedor 2 - Calle",
+        "contract.seller1.city" => "Vendedor 1 - Población",
+        "contract.seller2.city" => "Vendedor 2 - Población",
+        "contract.seller1.name" => "Vendedor - nombre",
+        "contract.seller1.nif" => "Vendedor - NIF",
+        "contract.seller1.street" => "Vendedor - Calle",
+        "contract.seller1.city" => "Vendedor - Población",
+        "contract.down_payment_amount" => "Valor de arras",
+        "contract.buyer1.name" => "Comprador - nombre",
+        "contract.buyer1.nif" => "Comprador - NIF",
+        "contract.buyer1.street" => "Comprador - Calle",
+        "contract.buyer1.city" => "Comprador - Población",
+        "contract.visitor.name" => "Visitante - nombre",
+        "contract.visitor.phone" => "Visitante - teléfono",
+        "contract.visitor.email" => "Visitante - email",
+        "contract.visitor.nif" => "Visitante - NIF",
+        "contract.commercial" => "Comercial - nombre",
+        "contract.agreement_time" => "Fecha contrato (hora:minutos)",
 
-class ModelTemplateType extends Model
-{
-    protected $table = 'model_template_types';
-
-    public function templates(){
-         return $this->hasMany('App\ModelTemplate', 'model_type_id');
-    }
-
-    public function getHasTemplatesAttribute(){
-        return count($this->templates) > 0;
-    }
-
-    public function getTextAttribute(){
-        return __('kinds.'.$this->code);
-    } 
-
-    public function getAvailableTypesAttribute(){
-        
-    }
-
-    public function getAvailableColumnsAttribute(){
-        if($this->code == "lease")
-            return ["ID","Agreement Model", "Agreement date",	"Lessor", "First lessee", "Second lessee", "Third lessee"];
-        elseif($this->code == "down_payment")
-            return ["ID", "Agreement Model", "Agreement date", "First buyer", "Second buyer", "First owner", "Second owner"];
-        elseif($this->code == "buyer_commission")
-            return  ["ID", "Agreement Model", "Agreement date", "First buyer", "Second buyer"];
-        elseif($this->code == "seller_commission")
-            return ["ID", "Agreement Model", "Agreement date", "First seller", "Second seller"];
-        elseif($this->code == "key_return")
-           return ["ID", "Agreement Model", "Agreement date", "First seller"];
-        elseif($this->code == "key_receive")
-            return  ["ID", "Agreement Model", "Agreement date", "First seller"];
-        elseif($this->code == "down_payment_receive")
-            return ["ID", "Agreement Model", "Agreement date", "First buyer"];
-        elseif($this->code == "visit_report")
-            return ["ID", "Agreement Model", "Agreement date"];        
-    }
-
-
-    private $availableKeys = [
-        "common" => [
-            "contract.house" => "Inmueble - Título",
-            "contract.house.province" => "Inmueble - Provincia",
-            "contract.house.town" => "Inmueble - Población",
-            "contract.house.street" => "Inmueble - Calle",
-            "contract.house.street_number" => "Inmueble - Número de calle",
-            "contract.house.get_floor_display" => "Inmueble - Piso (planta)",
-            "contract.house.door" => "Inmueble - Puerta",
-            "contract.house.block" => "Inmueble - Bloque",
-            "contract.house.area" => "Inmueble - Área (m2)",
-            "contract.house.ref_number" => "Inmueble - Referencia Catastral",
-            "contract.agency.name" => "Agencia - Nombre",
-            "contract.agency.address" => "Agencia - Dirección",
-            "contract.agency.email" => "Agencia - Email",
-            "contract.agreement_date.day" => "Fecha contrato (día)",
-            "contract.agreement_date.month" => "Fecha contrato (mes)",
-            "contract.agreement_date.year" => "Fecha contrato (año)"
-        ],
-        "payment" => [
-            "contract.start_date.day" => "Fecha de inicio del alquiler (día)",
+        "contract.start_date.day" => "Fecha de inicio del alquiler (día)",
             "contract.start_date.month" => "Fecha de inicio del alquiler (mes)",
             "contract.start_date.year" => "Fecha de inicio del alquiler (año)",
             "contract.max_years_extend_time" => "Número de años que se puede extender el contrato",
@@ -127,36 +91,22 @@ class ModelTemplateType extends Model
             "contract.buyer1.street" => "Comprador 1 - Calle",
             "contract.buyer2.street" => "Comprador 2 - Calle",
             "contract.buyer1.city" => "Comprador 1 - Población",
-            "contract.buyer2.city" => "Comprador 2 - Población"
-        ]
-    ];
+            "contract.buyer2.city" => "Comprador 2 - Población",
 
-    public function getAvailableKeysAttribute(){
-        return array(       
-        
-        "contract.commission_amount" => "Valor de comisión - Número",
-        "contract.seller1.name" => "Vendedor 1 - Nombre",
-        "contract.seller2.name" => "Vendedor 2 - Nombre",
-        "contract.seller1.nif" => "Vendedor 1 - NIF",
-        "contract.seller2.nif" => "Vendedor 2 - NIF",
-        "contract.seller1.street" => "Vendedor 1 - Calle",
-        "contract.seller2.street" => "Vendedor 2 - Calle",
-        "contract.seller1.city" => "Vendedor 1 - Población",
-        "contract.seller2.city" => "Vendedor 2 - Población",
-        "contract.seller1.name" => "Vendedor - nombre",
-        "contract.seller1.nif" => "Vendedor - NIF",
-        "contract.seller1.street" => "Vendedor - Calle",
-        "contract.seller1.city" => "Vendedor - Población",
-        "contract.down_payment_amount" => "Valor de arras",
-        "contract.buyer1.name" => "Comprador - nombre",
-        "contract.buyer1.nif" => "Comprador - NIF",
-        "contract.buyer1.street" => "Comprador - Calle",
-        "contract.buyer1.city" => "Comprador - Población",
-        "contract.visitor.name" => "Visitante - nombre",
-        "contract.visitor.phone" => "Visitante - teléfono",
-        "contract.visitor.email" => "Visitante - email",
-        "contract.visitor.nif" => "Visitante - NIF",
-        "contract.commercial" => "Comercial - nombre",
-        "contract.agreement_time" => "Fecha contrato (hora:minutos)");
-    } 
-}
+            "contract.house" => "Inmueble - Título",
+            "contract.house.province" => "Inmueble - Provincia",
+            "contract.house.town" => "Inmueble - Población",
+            "contract.house.street" => "Inmueble - Calle",
+            "contract.house.street_number" => "Inmueble - Número de calle",
+            "contract.house.get_floor_display" => "Inmueble - Piso (planta)",
+            "contract.house.door" => "Inmueble - Puerta",
+            "contract.house.block" => "Inmueble - Bloque",
+            "contract.house.area" => "Inmueble - Área (m2)",
+            "contract.house.ref_number" => "Inmueble - Referencia Catastral",
+            "contract.agency.name" => "Agencia - Nombre",
+            "contract.agency.address" => "Agencia - Dirección",
+            "contract.agency.email" => "Agencia - Email",
+            "contract.agreement_date.day" => "Fecha contrato (día)",
+            "contract.agreement_date.month" => "Fecha contrato (mes)",
+            "contract.agreement_date.year" => "Fecha contrato (año)"
+];

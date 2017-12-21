@@ -1,23 +1,35 @@
 <div class="wrapper wrapper-content animated fadeInRight">
-    @include('include.form.errorMessage')
-    {{csrf_field()}}
+   
     
 @if(isset($contract))
-    {{ Form::model($contract, ['route' => ['product_contract.update', $interest->id], 'method' => 'patch']) }}
+    {{ Form::model($contract, ['route' => ['product_contract.update', $contract->id], 'method' => 'patch']) }}
 @else
     {!! Form::open(['route' => 'product_contract.store']) !!} 
 @endif 
-    @yield("contract-form")
+    
+    {!! Form::hidden('product_id', $product->id) !!} 
+    {{csrf_field()}} 
 
     <div class="row">
-        <div class="col-lg-12">
-            <div class="form-group  text-center">            
-                {!! Form::submit('Save', ['class'=> 'btn btn-primary']) !!}                 
-                {!! Form::hidden('product_id', $product->id) !!} 
-                {!! Form::hidden('template_code', $templateType->code) !!}
+        <div class="col-lg-7">
+            @include("include.form.contract." . $templateType->code)
+        </div>
+        <div class="col-lg-5">
+            <div class="row">
+                <div class="col-lg-12">
+                @if(!isset($contract))
+                    <h1>Creating new {{ $templateType->text }} contract.</h1>
+                @else
+                    <h1>Editing {{ $contract->template->name }}, {{ $templateType->text }}</h1>
+                @endif
+                 @include('include.form.errorMessage')
+                    <div class="form-group  text-center">            
+                        {!! Form::submit('Save', ['class'=> 'btn btn-primary']) !!}     
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </div> 
 
 {!! Form::close() !!}
 

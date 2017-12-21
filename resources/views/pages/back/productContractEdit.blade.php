@@ -5,7 +5,7 @@
         [
             'title' => $product->title  ,
             'rootTitle' => "Property contracts",
-            'root' => route("product.index"),
+            'root' => route('product_contract.index',['product'=>$product->id]),
             'currentTitle' => "<span class='label label-default'>Ref.".$product->identifier. " " . $product->kind->name . "</span>", 
             'actionHtml' => '
                 <button class="btn btn-warning pull-right margin-left" action-url="' . route('product_contract.index',['product'=>$product->id]). '">Back</button>'
@@ -16,7 +16,7 @@
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
         <div class="row">
             <div class="col-lg-12">
-                @include('include.form.contract.'.$templateType->code)
+                @include('include.form.contract.base')
             </div>
         </div>
     </div>

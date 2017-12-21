@@ -6,7 +6,7 @@
         [
             'title' => $product->title  ,
             'rootTitle' => "Property contracts",
-            'root' => route("product.index"),
+            'root' => route('product_contract.index',['product'=>$product->id]),
             'currentTitle' => "<span class='label label-default'>Ref.".$product->identifier. " " . $product->kind->name . "</span>", 
             'actionHtml' => '
                 <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.edit', ['product'=> $product->id]) . '">Edit Property</button>

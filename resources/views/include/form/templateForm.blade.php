@@ -23,15 +23,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="form-group  text-center">
-            
-            {!! Form::submit('Submit', ['class'=> 'btn btn-success']) !!}
-            
-            </div>
-        </div>
-    </div>
    
    
 </div>
