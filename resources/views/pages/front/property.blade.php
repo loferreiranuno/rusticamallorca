@@ -120,6 +120,7 @@
 										<span class="ffs-bs">
 											<button type="submit" class="btn btn-large btn-primary">contact agent</button>
 										</span>
+										@if(config("app.bookmarkEnabled"))
 										<div class="col-xs-12 fav-block">
 											<div class="bookmark col-xs-6" data-bookmark-state="empty">
 												<span class="title-add">Add to bookmark</span>
@@ -130,6 +131,7 @@
 												<p class="fav-text">Compare</p>
 											</div>
 										</div>
+										@endif
 									</div>
 								</div>
 							</form>

@@ -10,9 +10,11 @@
             'root' => route("product.index"),
             'currentTitle' => "<span class='label label-default'>Ref.".$product->identifier. " " . $product->kind->name . "</span>", 
             'actionHtml' => '
+                <button class="btn btn-success pull-right margin-left" action-url="' . route('product.edit', ['product'=> $product->id]) . '">Edit Property</button>
+                <button class="btn btn-warning pull-right margin-left" action-url="' . route('product_contract.index',['product'=>$product->id]). '">Contracts</button>
+                
                 <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.create') . '">Add Property</button>
-                <button class="btn btn-primary pull-right margin-left" action-url="' . route('product.edit', ['product'=> $product->id]) . '">Edit Property</button>
-                <button class="btn btn-warning pull-right margin-left" action-url="' . route('product_contract.index',['product'=>$product->id]). '">Contracts</button>'
+                '
         ])    
 @stop  
 
@@ -122,7 +124,7 @@
                                             <dt><span>Bedrooms:</span> {{$product->rooms}} </dt>
                                             <dt><span>Bathrooms:</span> {{$product->bathrooms}} </dt>
                                             <dt><span>Year built:</span> {{$product->year}} </dt>
-                                            <dt><span>Energy Cert.:</span> {{isset($product->building_expenses) ? $product->building_expenses->name : null}} </dt>
+                                            <dt><span>Energy Cert.:</span> {{isset($product->energyCertificate) ? $product->energyCertificate->name : null}} </dt>
                                             <dt><span>Building expenses:</span> {{$product->building_expenses }} &euro;</dt>
                                             </dl> 
                                             </div> 

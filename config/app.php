@@ -24,7 +24,7 @@ return [
     'companyMobile' => env('BRAND_MOBILE', '(+34) 697 524 838'),
     'companyFax' => env('BRAND_FAX', '(+34) 971 000 000'),
 
-    'bookmarkEnabled' => env("BOOKMARK_FEATURE_ENABLED", true), // pending funtionality
+    'bookmarkEnabled' => env("BOOKMARK_FEATURE_ENABLED", false), // pending funtionality
     /*
     |--------------------------------------------------------------------------
     | Application Environment
