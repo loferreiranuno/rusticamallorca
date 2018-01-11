@@ -7,9 +7,10 @@ use App\Http\Controllers\Controller;
 
 class AboutUsController extends Controller
 {
-      public function __construct()
+    
+    public function __construct()
     {
-        
+        $this->middleware('language');
     }
 
     public function index(){

@@ -10,7 +10,7 @@ class PropertyController extends Controller
 { 
     public function __construct()
     {
-        
+        $this->middleware('language');  
     }
  
     public function show($id){

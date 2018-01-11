@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class TermsAndContitionsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('language');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,7 @@ class TermsAndContitionsController extends Controller
      */
     public function index()
     {
-        //
+         return view('pages.front.termsandconditions');
     }
 
     /**

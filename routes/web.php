@@ -14,6 +14,11 @@
 Route::get('/', 'Front\HomeController@index')->name("front.home");
 Route::resource('/contactus', 'Front\ContactUsController');
 
+Route::post('/api/search/cities', 'Front\SearchController@cities')->name("front.api.cities");
+Route::post('/api/set_language', 'Front\HomeController@setLanguage')->name("front.api.setLanguage");
+Route::post('/api/add/bookmark/', 'Front\BookmarkController@bookMark')->name("front.api.addBookmark");
+Route::post('/api/add/compare/', 'Front\BookmarkController@compare')->name("front.api.addCompare");
+
 Route::get('/aboutus', 'Front\AboutUsController@index')->name("front.aboutus");
 Route::get('/search', 'Front\SearchController@index')->name("front.search");
 Route::get('/privacy', 'Front\PrivacyController@index')->name("front.privacy");

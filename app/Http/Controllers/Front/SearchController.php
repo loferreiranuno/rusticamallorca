@@ -10,9 +10,10 @@ use RMHelper;
 class SearchController extends Controller
 {
     public $RESULTS_PER_PAGE = 12;
+
     public function __construct()
     {
-        
+        $this->middleware('language');
     }
 
     public function cities(Request $request){

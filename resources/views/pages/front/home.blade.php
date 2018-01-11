@@ -24,44 +24,44 @@
 			<div class="container">
 				<div class="explore"> 
 					<h2>@lang("front/home.explorePropertiesInArea")</h2>
-					<h5>
+					<!--<h5>
 						<i class="fa fa-map-marker"></i>{{$location['name']}} 
-						<span class="team-color">@lang("front/home.changeLocation")</span></h5>
+						<span class="team-color">@lang("front/home.changeLocation")</span></h5>-->
 				</div>
 				<div class="row">
 					<div class="col-md-4 col-sm-6">
-						<a href="search_result.html" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
+						<a href="{{$categories['apartments']['url']}}" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
 							<span class="filter"></span>
 							<div class="img-info">
 								<h3>@lang('front/home.apartments')</h3>
-								<h6>@lang('front/home.nProperties', ['total'=> $categories['luxuryHouses']['total']])</h6>
+								<h6>@lang('front/home.nProperties', ['total'=> $categories['apartments']['total']])</h6>
 								<span class="ffs-bs btn btn-small btn-primary">@lang('front/home.seeMore')</span>
 							</div>
-						</a>
+						</a> 
 					</div>
 
 					<div class="col-md-4 col-sm-6">
-						<a href="search_result.html" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
+						<a href="{{$categories['rusticHouses']['url']}}" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
 							<span class="filter"></span>
 							<div class="img-info">
 								<h3>@lang('front/home.rusticHouses')</h3>
-								<h6>@lang('front/home.nProperties', ['total'=> $categories['luxuryHouses']['total']])</h6>
+								<h6>@lang('front/home.nProperties', ['total'=> $categories['rusticHouses']['total']])</h6>
 								<span class="ffs-bs btn btn-small btn-primary">@lang('front/home.seeMore')</span>
 							</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-sm-6">
-						<a href="search_result.html" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
+						<a href="{{$categories['floors']['url']}}" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
 							<span class="filter"></span>
 							<div class="img-info">
 								<h3>@lang('front/home.floors')</h3>
-								<h6>@lang('front/home.nProperties', ['total'=> $categories['luxuryHouses']['total']])</h6>
+								<h6>@lang('front/home.nProperties', ['total'=> $categories['floors']['total']])</h6>
 								<span class="ffs-bs btn btn-small btn-primary">@lang('front/home.seeMore')</span>
 							</div>
 						</a>
 					</div>
 					<div class="col-md-4 col-sm-6">
-						<a href="search_result.html" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
+						<a href="{{$categories['luxuryHouses']['url']}}" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
 							<span class="filter"></span>
 							<div class="img-info">
 								<h3>@lang('front/home.luxuryHouses')</h3>
@@ -71,11 +71,11 @@
 						</a>
 					</div>
 					<div class="col-md-8">
-						<a href="search_result.html" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
+						<a href="{{$categories['housesWithPool']['url']}}" class="exp-img" style="background:url(http://www.novamallorca.com/property-image/13.000€_BHIAA/BHIAAP4897_87313.jpg) center;background-size: cover;">
 							<span class="filter"></span>
 							<div class="img-info">
 								<h3>@lang('front/home.housesWithPool')</h3>
-								<h6>@lang('front/home.nProperties', ['total'=> $categories['luxuryHouses']['total']])</h6>
+								<h6>@lang('front/home.nProperties', ['total'=> $categories['housesWithPool']['total']])</h6>
 								<span class="ffs-bs btn btn-small btn-primary">@lang('front/home.seeMore')</span>
 							</div>
 						</a>

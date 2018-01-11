@@ -8,37 +8,38 @@
 				<div class="row">
 					<div class="contact-form">
 
+					{!! Form::open(['route'=> 'contactus.store']) !!}
+					<p>
+						@include('include.form.errorMessage')
+					</p>
 					@if(!isset($product))
 						<h2>We're here to help you.</h2>
 						<h6>Have a question? Write Us</h6>						
 					@else
 						<h2>Ask about "{{$product->title}}"</h2> 
 						<hr/>
-					@endif
-						<!--<form id="form-submit" class="form-submit" action="thank_you_page.html">-->
-						
-						{!! Form::open(['route'=> 'contactus.store']) !!}					
 						{!! Form::hidden('product',$product->id) !!}
+					@endif 
 							<div class="col-md-6">
-								<div class="input-group">									
+								<div class="input-group {{ $errors->has('name') ? ' has-error' : '' }}">									
 									{!! Form::label("name", "Your Name:") !!}									
 									{!! Form::text("name", old('name'), ['class'=>'form-control', 'placeholder'=>'Enter your name']) !!}
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="input-group">
+								<div class="input-group {{ $errors->has('email') ? ' has-error' : '' }}">
 									{!! Form::label("email", "Your Email:") !!}
 									{!! Form::email("email", old("email"), ['class'=>'form-control', 'placeholder'=>'Enter your Email']) !!}
 								</div>
 							</div>
 							<div class="col-md-12">
-								<div class="input-group">
+								<div class="input-group {{ $errors->has('subject') ? ' has-error' : '' }}">
 									{!! Form::label("subject", "Message subject:") !!}									
 									{!! Form::text("subject", old("subject"), ['class'=>'form-control', 'placeholder'=>'Enter the subject']) !!}
 								</div>
 							</div>
 							<div class="col-md-12">
-								<div class="input-group">									
+								<div class="input-group {{ $errors->has('text') ? ' has-error' : '' }}">									
 									{!! Form::label('text', 'Your message') !!}									
 									{!! Form::textarea('text', old('text'), ['rows'=> 8, 'cols'=>45, 'class'=>'form-control']) !!}
 								</div>

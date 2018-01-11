@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PrivacyController extends Controller
-{
+{ 
+    
+    public function __construct()
+    {
+        $this->middleware('language');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,7 @@ class PrivacyController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.front.privacy');
     }
 
     /**

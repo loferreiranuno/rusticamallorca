@@ -17,6 +17,7 @@ $("[menu-language]").on("change", function(){
             success:
             function(data){
                 if(data.success){
+                    console.log(data);
                     window.location.reload();        
                 }
             }

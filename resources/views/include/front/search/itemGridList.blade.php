@@ -2,9 +2,9 @@
     <div class="exp-img-2" style="background:url({{RMHelper::getProductImage($product, false)}}) center;background-size: cover;">
         <span class="filter"></span>
         <span class="ffs-bs">
-            <label data-images="{{RMHelper::getProductImages($product, true)}}" for="op" class="btn btn-small btn-primary">browse photos</label></span>
+            <label data-images="{{RMHelper::getProductImages($product, true)}}" for="op" class="btn btn-small btn-primary">{{ __('include.seePhoto') }}</label></span>
         <div class="overlay">
-            <div class="img-counter">{{$product->images->count()}} Photo</div>
+            <div class="img-counter">{{__('include.nPhotos',['total'=>$product->images->count()])}}</div>
         </div>
     </div>
     <div class="item-title">
@@ -25,21 +25,21 @@
             <div class="col-md-8 col-sm-8 col-xs-8">
                 @if($product->salePrice != 0)
                     <p>{{$product->salePrice}} &euro;</p>
-                    <p class="team-color">FOR SALE</p>
+                    <p class="team-color">{{__('include.forSale')}}</p>
                 @endif
 
                 @if($product->rentPrice != 0)
                     <p>{{$product->rentPrice}} &euro;</p>
-                    <p class="team-color">FOR RENT</p>
+                    <p class="team-color">{{__('include.forRent')}}</p>
                 @endif
             </div>
             @if(Config::get('app.bookmarkEnabled'))
                 <div class="col-md-4 col-sm-4 col-xs-4 favorite">
                     <div class="bookmark" data-bookmark-state="empty">
-                        <span class="title-add">Add to bookmark</span>
+                        <span class="title-add">{{__('include.addToBookmark')}}</span>
                     </div>
                     <div class="compare" data-compare-state="empty">
-                        <span class="plus-add">Add to compare</span>
+                        <span class="plus-add">{{__('include.addToCompare')}}</span>
                     </div>
                 </div>
             @endif

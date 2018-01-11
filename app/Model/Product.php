@@ -478,5 +478,40 @@ class Product extends Model
         ->where('renting_cost','>',0)
         ->max('renting_cost');
     }
+
+    public static function scopeGetAllPoolHouses($query)
+    {
+        return $query->whereHas('features', function($q){
+            return $q->where('name','LIKE', ['%pool%']);  
+        });
+    }
+
+    public static function scopeGetAllLuxuryHouses($query)
+    {    
+        return $query->whereHas('features', function($q){
+            return $q->where('name', 'LIKE', ['%mansion%','%luxury%']);  
+        });
+    }
+    
+    public static function scopeGetAllFloors($query)
+    {
+        return $query->whereHas('kind', function($q){
+            return $q->where('name', ['flat','room']);  
+        });
+    }
+    
+    public static function scopeGetAllRusticHouses($query)
+    {
+        return $query->whereHas('kind', function($q){
+            return $q->where('name', ['country house']);  
+        });
+    }
+    
+    public static function scopeGetAllApartments($query)
+    {        
+        return $query->whereHas('kind', function($q){
+            return $q->where('name', ['flat']);  
+        });
+    }
   
 }

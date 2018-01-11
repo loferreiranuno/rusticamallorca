@@ -18,7 +18,7 @@ return [
     'mapsKey' => env('GOOGLE_API_KEY', 'AIzaSyByQXjRsfRYWr9dD5zwDfWvrQl_wrOFGiE'),
     'mapsZoom' => env('GOOGLE_MAPS_ZOOM', 16),
     'companyGeo' => env('BRAND_GEO', ['lat'=> '39.6104749', 'lon'=>'2.6316061']),
-    'companyEmail' => env('BRAND_EMAIL', 'info@rusticamallorca.com'),
+    'companyEmail' => env('BRAND_EMAIL', 'loferreira.nuno@gmail.com'),
     'companyName' => env('BRAND_NAME', 'Rústica Mallorca'),
     'companyAddress' => env('BRAND_ADDRESS', 'Rústica Mallorca, Carrer Glosadors 7, 07010 Palma de Mallorca'),
     'companyPhone' => env('BRAND_PHONE', '(+34) 971 590 066'),

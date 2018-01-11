@@ -30,4 +30,6 @@ return[
     'property' => 'Propriedad',
     'contact' => 'Contacto',
     'creator' => 'Autor'
+
+    ,'seeMore' => 'Ver más'
 ];

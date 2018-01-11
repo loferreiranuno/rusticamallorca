@@ -13,50 +13,57 @@ use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
-    public function __construct()
+   public function __construct()
     {
-        
+        $this->middleware('language');
     }
 
     public function index(){
 
+       
         $location = [
             'name' => 'Mallorca, España'
         ];
 
-        $products = Product::orderBy('created_at')->get()->take(4);
- 
         $categories = [
             'apartments' => [
-                'total' => 0,
-                'url' => ''
+                'total' => Product::GetAllApartments()->count(),
+                'url' => route('front.search',['category'=>'apartments'])
             ],
             'rusticHouses' => [
-                'total' => 0,
-                'url' => ''
+                'total' => Product::GetAllRusticHouses()->count(),
+                'url' => route('front.search',['category'=>'rusticHouses'])
             ],
             'floors' => [
-                'total' => 0,
-                'url' => ''
+                'total' => Product::GetAllFloors()->count(),
+                'url' => route('front.search',['category'=>'floors'])
             ],
             'luxuryHouses' => [
-                'total' => 0,
-                'url' => ''
+                'total' => Product::GetAllLuxuryHouses()->count(),
+                'url' => route('front.search',['category'=>'luxuryHouses'])
             ],
             'housesWithPool' => [
-                'total' => 0,
-                'url' => ''
+                'total' => Product::GetAllPoolHouses()->count(),
+                'url' => route('front.search',['category'=>'housesWithPool'])
             ],            
         ];
+
+
+        $products = Product::orderBy('created_at')->get()->take(4);        
         
         return view('pages.front.home', compact('categories', 'location', 'products'));
     }
 
     public function setLanguage (Request $request){
         if($request->has('language')){
+
             $languageCode = $request->get('language');
-            Session::put('language', $languageCode);
-            return ["success"=> true, "language"=> $languageCode, "session"=> Session::get('language')];                
+            Session::put('locale', $languageCode);
+            App::setLocale($languageCode); 
+            return [
+                "success"=> true, 
+                "language"=> $languageCode, 
+                "locale" => App::getLocale()];                
         }else{
             return ["success"=> false];
         }

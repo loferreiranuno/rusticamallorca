@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 
 class BookmarkController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('language');
+    }
     /**
      * Display a listing of the resource.
      *
